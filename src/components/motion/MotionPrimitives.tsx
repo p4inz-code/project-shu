@@ -1149,3 +1149,134 @@ export const ChoreographedScene: React.FC<ChoreographedSceneProps> = ({
     </Tag>
   );
 };
+
+/* ============================================================================
+   8. SELECTIVE ATMOSPHERIC VIDEO ACCENT PRIMITIVE
+   Integrates optional short AI-generated cinematic clips strictly as subtle
+   atmospheric accents. Never replaces the interactive tree, photographs,
+   written content, or theme transition. Automatically pauses off-screen or
+   under reduced motion, and falls back cleanly to a still image or ambient layer.
+   ============================================================================ */
+export interface AtmosphericVideoAccentProps {
+  slotId: string;
+  videoSrc?: string;
+  posterSrc?: string;
+  reducedMotion?: boolean;
+  className?: string;
+  aspectRatio?: string;
+}
+
+export const AtmosphericVideoAccent: React.FC<AtmosphericVideoAccentProps> = ({
+  slotId,
+  videoSrc,
+  posterSrc,
+  reducedMotion = false,
+  className = '',
+  aspectRatio = '16 / 9',
+}) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [videoFailed, setVideoFailed] = useState(false);
+  const [posterFailed, setPosterFailed] = useState(false);
+  const [isInViewport, setIsInViewport] = useState(false);
+
+  useEffect(() => {
+    setVideoFailed(false);
+  }, [videoSrc]);
+
+  useEffect(() => {
+    setPosterFailed(false);
+  }, [posterSrc]);
+
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node || reducedMotion || !videoSrc || videoFailed) {
+      setIsInViewport(false);
+      return;
+    }
+    if (typeof IntersectionObserver === 'undefined') {
+      setIsInViewport(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry) {
+          setIsInViewport(entry.isIntersecting);
+        }
+      },
+      { rootMargin: '120px 0px', threshold: 0.05 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [reducedMotion, videoSrc, videoFailed]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (reducedMotion || !isInViewport || videoFailed) {
+      try {
+        video.pause();
+      } catch {
+        // Ignore pause errors in headless/jsdom environments
+      }
+      return;
+    }
+
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {
+        // Autoplay prevented by browser policy; still fallback remains visible
+      });
+    }
+  }, [isInViewport, reducedMotion, videoFailed]);
+
+  const showVideo = Boolean(videoSrc) && !reducedMotion && !videoFailed;
+  const showPoster = Boolean(posterSrc) && !posterFailed;
+
+  return (
+    <div
+      ref={containerRef}
+      data-atmospheric-slot={slotId}
+      data-video-active={showVideo && isInViewport ? 'true' : 'false'}
+      aria-hidden="true"
+      className={`atmospheric-video-accent ${
+        showVideo ? 'has-video' : 'has-still-fallback'
+      } ${className}`.trim()}
+      style={{ aspectRatio }}
+    >
+      {showPoster && (
+        <img
+          src={posterSrc}
+          alt=""
+          width={1280}
+          height={720}
+          loading="lazy"
+          decoding="async"
+          onError={() => setPosterFailed(true)}
+          className="atmospheric-accent-poster"
+        />
+      )}
+      {showVideo && (
+        <video
+          ref={videoRef}
+          src={videoSrc}
+          poster={!posterFailed ? posterSrc : undefined}
+          muted
+          loop
+          playsInline
+          preload="none"
+          width={1280}
+          height={720}
+          tabIndex={-1}
+          onError={() => setVideoFailed(true)}
+          className="atmospheric-accent-video"
+        />
+      )}
+    </div>
+  );
+};
+

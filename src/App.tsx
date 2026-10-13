@@ -17,6 +17,7 @@ import {
   HandDrawnOrnament,
   MaskedTextReveal,
   MediaRevealFrame,
+  ParallaxLayer,
   WorldTransitionStage,
 } from './components/motion/MotionPrimitives';
 
@@ -540,38 +541,54 @@ export const App: React.FC = () => {
                 </h1>
 
                 <p className="hero-subtitle">{content.hero.subtitle}</p>
+
+                <div className="hero-sakura-overture-bough" aria-hidden="true">
+                  <HandDrawnOrnament
+                    motif="sakura-bough"
+                    stroke={
+                      activeWorld === 'sunshine'
+                        ? 'var(--sun-rose)'
+                        : 'var(--moon-lavender)'
+                    }
+                    isDrawn={true}
+                    triggerOnScroll={false}
+                    reducedMotion={reducedMotion}
+                    className="hero-bough-svg"
+                  />
+                </div>
               </div>
 
               <div className="hero-right-column">
                 <div className="hero-note-card">{content.hero.openingNote}</div>
 
                 {content.hero.portrait && (
-                  <div
-                    data-slot-id={content.hero.portrait.id}
-                    style={{
-                      width: '100%',
-                      maxWidth: '340px',
-                      padding: '0.65rem',
-                      borderRadius: '10px',
-                      background: 'rgba(24, 16, 44, 0.65)',
-                      border: '1px solid rgba(214, 200, 247, 0.24)',
-                    }}
+                  <ParallaxLayer
+                    speed={0.04}
+                    maxOffset={16}
+                    reducedMotion={reducedMotion}
+                    className="hero-portrait-parallax-wrap"
                   >
-                    <MediaRevealFrame
-                      slotId={content.hero.portrait.id}
-                      src={`/api/media/photos/${encodeURIComponent(
-                        content.hero.portrait.fileStem,
-                      )}`}
-                      alt={content.hero.portrait.title}
-                      aspect={content.hero.portrait.aspect}
-                      revealVariant="organic-curve"
-                      decorativeAccent="photo-corners"
-                      accentColor="rgba(214, 200, 247, 0.68)"
-                      reducedMotion={reducedMotion}
-                      fallbackTitle={content.hero.portrait.title}
-                      fallbackSubtitle={content.hero.portrait.caption}
-                    />
-                  </div>
+                    <div
+                      data-slot-id={content.hero.portrait.id}
+                      className="hero-portrait-card"
+                    >
+                      <MediaRevealFrame
+                        slotId={content.hero.portrait.id}
+                        src={`/api/media/photos/${encodeURIComponent(
+                          content.hero.portrait.fileStem,
+                        )}`}
+                        alt={content.hero.portrait.title}
+                        aspect={content.hero.portrait.aspect}
+                        revealVariant="organic-curve"
+                        decorativeAccent="photo-corners"
+                        accentColor="rgba(214, 200, 247, 0.68)"
+                        reducedMotion={reducedMotion}
+                        eager={true}
+                        fallbackTitle={content.hero.portrait.title}
+                        fallbackSubtitle={content.hero.portrait.caption}
+                      />
+                    </div>
+                  </ParallaxLayer>
                 )}
 
                 <button

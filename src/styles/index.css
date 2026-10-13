@@ -90,9 +90,9 @@
   --safe-left: env(safe-area-inset-left, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
 
-  /* Layout */
-  --max-width-editorial: 1180px;
-  --max-width-reading: 840px;
+  /* Layout — Laptop-First Benchmark (1366–1440px) with Responsive Adaptation */
+  --max-width-editorial: 1280px;
+  --max-width-reading: 860px;
 }
 
 /* Sunshine Active World Token Overrides */
@@ -3244,4 +3244,275 @@ body[data-world='moonlight'] .story-section.theme-parchment .editorial-title {
 body[data-world='moonlight'] .story-section.theme-parchment .eyebrow-tag {
   color: var(--moon-lavender);
 }
+
+/* ============================================================================
+   10. LAPTOP-FIRST MASTERPIECE BENCHMARK (1366–1440px+) & MULTI-DEVICE FALLBACK
+   ============================================================================ */
+.hero-sakura-overture-bough {
+  width: min(100%, 290px);
+  margin: 0.35rem 0 0.75rem;
+  opacity: 0.85;
+}
+
+@media (max-width: 920px) {
+  .hero-sakura-overture-bough {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.hero-bough-svg {
+  width: 100%;
+  height: auto;
+}
+
+.hero-portrait-parallax-wrap {
+  width: 100%;
+  max-width: 390px;
+}
+
+.hero-portrait-card {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 12px;
+  background: rgba(24, 16, 44, 0.68);
+  border: 1px solid rgba(214, 200, 247, 0.28);
+  box-shadow: 0 24px 56px rgba(5, 3, 14, 0.45);
+  transition:
+    background var(--motion-duration-base) var(--ease-gentle),
+    border-color var(--motion-duration-base) var(--ease-gentle);
+}
+
+body[data-world='sunshine'] .hero-portrait-card {
+  background: rgba(255, 252, 249, 0.88);
+  border-color: rgba(201, 84, 114, 0.24);
+  box-shadow: 0 22px 48px rgba(74, 46, 63, 0.14);
+}
+
+/* Selective Atmospheric Video / Still Backdrop Accent */
+.atmospheric-video-accent {
+  position: relative;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.atmospheric-accent-poster,
+.atmospheric-accent-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sakura-canvas-atmosphere-accent {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.14;
+  mix-blend-mode: soft-light;
+  z-index: 1;
+}
+
+body[data-world='moonlight'] .sakura-canvas-atmosphere-accent {
+  opacity: 0.18;
+  mix-blend-mode: screen;
+}
+
+.sakura-stage-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.sakura-stroke-distant {
+  stroke: rgba(156, 91, 123, 0.24);
+  stroke-dasharray: 4 6;
+}
+
+body[data-world='moonlight'] .sakura-stroke-distant {
+  stroke: rgba(214, 200, 247, 0.22);
+}
+
+/* Active Branch Illumination on Hover / Focus / Selection */
+.sakura-stroke-branch.is-branch-highlighted,
+.sakura-stroke-twig.is-branch-highlighted {
+  stroke: var(--sun-rose);
+  filter: drop-shadow(0 0 8px rgba(201, 84, 114, 0.48));
+}
+
+body[data-world='moonlight'] .sakura-stroke-branch.is-branch-highlighted,
+body[data-world='moonlight'] .sakura-stroke-twig.is-branch-highlighted {
+  stroke: #f3a6bd;
+  filter: drop-shadow(0 0 10px rgba(243, 166, 189, 0.65));
+}
+
+/* Accessible Quick Blossom Selector Strip Below Tree Canvas */
+.sakura-blossom-quick-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+@media (max-width: 520px) {
+  .sakura-blossom-quick-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.sakura-quick-pill {
+  min-height: 44px;
+  padding: 0.4rem 0.6rem;
+  border-radius: 10px;
+  border: 1px solid rgba(201, 84, 114, 0.22);
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--sun-ink-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-align: left;
+  cursor: pointer;
+  min-width: 0;
+  transition:
+    transform var(--motion-duration-fast) var(--ease-cinematic),
+    border-color var(--motion-duration-fast) ease,
+    background var(--motion-duration-fast) ease;
+}
+
+body[data-world='moonlight'] .sakura-quick-pill {
+  background: rgba(25, 17, 46, 0.82);
+  border-color: rgba(214, 200, 247, 0.24);
+  color: var(--moon-pearl);
+}
+
+.sakura-quick-pill:hover,
+.sakura-quick-pill:focus-visible {
+  transform: translateY(-1px);
+  border-color: var(--sun-rose);
+}
+
+.sakura-quick-pill.is-selected {
+  background: rgba(201, 84, 114, 0.14);
+  border-color: var(--sun-rose);
+  box-shadow: 0 4px 12px rgba(201, 84, 114, 0.15);
+}
+
+body[data-world='moonlight'] .sakura-quick-pill.is-selected {
+  background: rgba(227, 123, 149, 0.22);
+  border-color: #f3a6bd;
+}
+
+.sakura-quick-pill-num {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+  padding: 0.12rem 0.35rem;
+  border-radius: 999px;
+  background: rgba(201, 84, 114, 0.14);
+  color: var(--sun-rose);
+  flex-shrink: 0;
+}
+
+body[data-world='moonlight'] .sakura-quick-pill-num {
+  background: rgba(214, 200, 247, 0.18);
+  color: var(--moon-lavender);
+}
+
+.sakura-quick-pill-label {
+  font-size: 0.76rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Laptop & Desktop Benchmark Composition (1280px – 1440px+ Widescreen) */
+@media (min-width: 1200px) {
+  :root {
+    --max-width-editorial: 1310px;
+  }
+
+  .top-nav-shell {
+    width: min(calc(100vw - 48px), 1310px);
+    padding: 0.42rem 0.85rem 0.42rem 1.1rem;
+  }
+
+  .hero-editorial-grid {
+    grid-template-columns: 1.24fr 0.76fr;
+    gap: clamp(2.5rem, 5vw, 4.75rem);
+  }
+
+  .hero-portrait-parallax-wrap {
+    max-width: 420px;
+  }
+
+  .memory-sakura-sanctuary {
+    padding: 2.1rem 2.35rem;
+  }
+
+  .sakura-interactive-layout {
+    grid-template-columns: 1.38fr 0.92fr;
+    gap: 2.25rem;
+  }
+
+  .sakura-tree-canvas {
+    min-height: 460px;
+  }
+
+  .sakura-tree-svg {
+    max-height: 490px;
+  }
+
+  .constellation-sky {
+    height: 470px;
+  }
+}
+
+/* Mobile Particle Simplification & Narrow Screen Adaptation (320px–640px) */
+@media (max-width: 640px) {
+  .ambient-sakura-petal:nth-child(n + 4),
+  .ambient-particle:nth-child(n + 7) {
+    display: none;
+  }
+
+  .hero-portrait-parallax-wrap {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}
+
+/* Short Viewport Height & Mobile Landscape Resilience (No Clipped Controls) */
+@media (max-height: 660px) {
+  .entrance-screen {
+    justify-content: flex-start;
+    gap: 0.65rem;
+    overflow-y: auto;
+  }
+
+  .title-seq-giant-word {
+    font-size: clamp(2.8rem, 9vw, 5.2rem);
+  }
+
+  .wax-seal-crest {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 0.45rem;
+  }
+
+  .entrance-card {
+    padding: 0.95rem 1.15rem;
+  }
+
+  .hero-section {
+    padding-top: calc(4.2rem + var(--safe-top));
+    padding-bottom: calc(1.25rem + var(--safe-bottom));
+  }
+
+  .sakura-tree-canvas {
+    min-height: 310px;
+  }
+}
+
 

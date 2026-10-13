@@ -157,6 +157,23 @@ describe('Complete Shu Experience Journey', () => {
 
     fireEvent.click(blossom02);
     expect(blossom02.getAttribute('data-blossom-state')).toBe('tapped');
+    expect(
+      document
+        .querySelector('#memory-sakura-tree')
+        ?.getAttribute('data-active-branch'),
+    ).toBe('1');
+
+    // Keyboard arrow navigation across blossoms (ArrowRight -> Blossom 03)
+    fireEvent.keyDown(blossom02, { key: 'ArrowRight' });
+    const blossom03 = screen.getByRole('button', {
+      name: /Memory blossom 03:/i,
+    });
+    expect(blossom03.getAttribute('data-blossom-state')).toBe('tapped');
+    expect(
+      document
+        .querySelector('#memory-sakura-tree')
+        ?.getAttribute('data-active-branch'),
+    ).toBe('2');
 
     // Tap a hidden branch whisper light on the Memory Sakura Tree
     const branchLight1 = screen.getByRole('button', {
