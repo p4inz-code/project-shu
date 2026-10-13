@@ -186,3 +186,40 @@ To support the upcoming Claude Design prototype without introducing external ani
   - `'ink-draw' | 'image-mask' | 'typography-reveal' | 'subtle-parallax' | 'light-transition' | 'staggered-reveal' | 'stillness'`
 - Deterministic, interruptible, reversible on upward scroll when `reversible={true}`, and immediately visible when `vocabulary="stillness"` or `reducedMotion={true}`.
 
+---
+
+## 5. Signature Art Direction — The Memory Sakura (`src/components/MemorySakuraTree.tsx`)
+
+The central visual identity of Project Shu is **The Memory Sakura**, an original hand-drawn cherry blossom tree woven through the storytelling, photography, scrolling, and interaction design:
+
+### 5.1 Tree Stages Across the Narrative
+1. **Stage I — Moonlit Bough & Drifting Petals (`AmbientBackdrop.tsx`, `StoryChapterSection.tsx`)**:
+   - Sparse, GPU-composited drifting sakura petals (`.ambient-sakura-petal`) shift between silver-lilac in Moonlight and soft blush rose in Sunshine.
+   - Each narrative chapter traces a delicate hand-drawn sakura bough (`motif="sakura-bough"`) as the chapter enters the viewport.
+2. **Stage II — Dawn Horizon Awakening (`WorldTransitionStage`)**:
+   - As the night sky transitions into dawn (`#theme-transition-scene`), constellation lines recede (`--constellation-fade`), the horizon arc traces itself, and warm botanical buds unfurl (`--sunshine-bloom`).
+3. **Stage III — Interactive Memory Sakura Canopy (`MemorySakuraTree.tsx` inside `#memories-section`)**:
+   - An organic hand-drawn SVG cherry blossom tree (`viewBox="0 0 600 500"`) with grounded roots, asymmetric trunk, primary boughs, and delicate twigs that progressively trace into existence (`pathLength={100}`).
+   - Anchors all **6 replaceable photographic memories (`memory-01`..`memory-06`)** as interactive, keyboard-accessible, mobile-tappable **Memory Blossom Nodes** (`>= 48×48px` hit targets).
+   - Includes **3 hidden branch whisper lights** (`.sakura-branch-whisper-btn`) nestled along the boughs that reveal affectionate hidden notes when tapped.
+4. **Stage IV — Constellation Lines Connecting to Branches (`ConstellationSection.tsx`)**:
+   - Inside `.constellation-sky`, dashed starlight threads connect each of the 5 constellation stars down to a hand-drawn horizon sakura bough.
+5. **Stage V — Final Blossom Opening to Reveal the Letter (`PersonalLetter.tsx`)**:
+   - A hand-drawn **Crown Sakura Blossom** (`motif="sakura-blossom"`) frames the wax seal on the correspondence envelope and blooms into an open sakura bough (`motif="sakura-bough"`) when the letter is unsealed.
+
+### 5.2 Memory Blossom States (`data-blossom-state`)
+Each blossom node on `<MemorySakuraTree>` transitions cleanly through four states without losing the visitor's place in the tree:
+- **`default`**: Hand-drawn 5-petal sakura blossom with plate badge (`01`..`06`) and luminous pistil.
+- **`hovered`** *(Desktop hover / keyboard `:focus-visible`)*: Scales gently (`1.12x`), highlights petal strokes, and reveals a floating title tooltip.
+- **`tapped`** *(Active selection on mobile & desktop)*: Highlights the blossom (`1.16x` + halo ring) and updates the adjacent **Sakura Blossom Inspector Card** (`.sakura-blossom-inspector`), displaying the photograph through an `organic-curve` mask with a direct button (`Open Blossom 0X Full Keepsake Frame`) to launch the Lightbox.
+- **`opened`** *(Visited in Lightbox)*: Fills the blossom petals with warm rose-gold ink (`state-opened`) so Shu can see which memories she has already explored.
+
+### 5.3 Before / During / After Animation States
+| Sequence | Before (`entering` / Undrawn) | During (Scroll / Interaction) | After (`in-view` / Completed / `reducedMotion`) |
+| :--- | :--- | :--- | :--- |
+| **Hand-Drawn Sakura Tree & Boughs** | `strokeDashoffset: 100` (branches hidden, layout space reserved) | Progressive stroke tracing (`820ms–960ms` staggered from roots -> trunk -> boughs -> twigs) | `strokeDashoffset: 0` (full crisp vector ink illustration) |
+| **Organic Image Mask Reveal** | `clip-path: inset(8% 6% 6% 6% round 110px 110px 24px 24px)`, `scale(1.045)` | Smooth GPU-friendly clip-path + transform interpolation (`780ms–860ms`) | `clip-path: inset(0% round 28px 28px 10px 10px)`, `scale(1)` |
+| **Moonlight → Sunshine World Shift** | `--world-transition-progress: 0`, `data-world="moonlight"` (midnight indigo/plum surfaces & silver-lilac tree) | Continuous scroll progress (`0..1`) fading constellations and illuminating horizon | `--world-transition-progress: 1`, `data-world="sunshine"` (warm ivory/blush/rose/gold surfaces & rosewood sakura tree) |
+| **Final Letter Blossom Unfurl** | Sealed envelope crowned by `sakura-blossom` around `A ♥ S` wax seal | User taps *Break the Wax Seal & Read Letter*; heart burst spawns | Unsealed cotton folio crowned by `sakura-bough` with line-by-line or immediate full-letter reveal |
+
+

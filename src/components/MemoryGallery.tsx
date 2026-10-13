@@ -13,6 +13,7 @@ import {
 import type { MemoryItem, ReplaceableFilmSlot } from '../types/content';
 import { useRevealOnScroll } from '../hooks/useRevealOnScroll';
 import { MediaRevealFrame } from './motion/MotionPrimitives';
+import { MemorySakuraTree } from './MemorySakuraTree';
 
 interface MemoryGalleryProps {
   intro: {
@@ -39,6 +40,9 @@ export const MemoryGallery: React.FC<MemoryGalleryProps> = ({
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [showBackNote, setShowBackNote] = useState(false);
   const [favoritedIds, setFavoritedIds] = useState<Record<string, boolean>>({});
+  const [openedMemoryIds, setOpenedMemoryIds] = useState<
+    Record<string, boolean>
+  >({});
   const [photoPhases, setPhotoPhases] = useState<
     Record<string, PhotoViewportPhase>
   >({});
@@ -58,6 +62,10 @@ export const MemoryGallery: React.FC<MemoryGalleryProps> = ({
     lastOpenedIndexRef.current = idx;
     setActiveIndex(idx);
     setShowBackNote(false);
+    const target = memories[idx];
+    if (target) {
+      setOpenedMemoryIds((prev) => ({ ...prev, [target.id]: true }));
+    }
   };
 
   const closeLightbox = () => {
@@ -270,6 +278,16 @@ export const MemoryGallery: React.FC<MemoryGalleryProps> = ({
             )}
           </div>
         </div>
+
+        {/* Interactive Hand-Drawn Memory Sakura Tree Integrating All 6 Memories */}
+        <MemorySakuraTree
+          memories={memories}
+          openedMemoryIds={openedMemoryIds}
+          activeLightboxIndex={activeIndex}
+          reducedMotion={reducedMotion}
+          onOpenMemoryLightbox={openLightbox}
+          onSpawnHeart={onSpawnHeart}
+        />
 
         {/* Optional Featured Motion Keepsake Slot (film-01) */}
         {intro.featuredFilm && (

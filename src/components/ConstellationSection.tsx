@@ -256,6 +256,37 @@ export const ConstellationSection: React.FC<ConstellationSectionProps> = ({
                 />
               );
             })}
+
+            {/* Constellation Starlight Threads Connecting to Lower Sakura Branches */}
+            {section.stars.map((star) => {
+              const isStarLit = Boolean(litIds[star.id]);
+              return (
+                <line
+                  key={`branch-link-${star.id}`}
+                  x1={star.xPercent}
+                  y1={star.yPercent}
+                  x2={Math.min(82, Math.max(18, star.xPercent * 0.85 + 8))}
+                  y2={88}
+                  stroke={
+                    isStarLit
+                      ? 'rgba(227, 123, 149, 0.46)'
+                      : 'rgba(214, 200, 247, 0.1)'
+                  }
+                  strokeWidth={isStarLit ? '0.32' : '0.18'}
+                  strokeDasharray="1.2 1.8"
+                  style={{ transition: 'stroke 0.5s ease' }}
+                />
+              );
+            })}
+
+            {/* Hand-Drawn Horizon Sakura Bough Receiving Starlight */}
+            <path
+              d="M 10 92 C 32 86 54 83 78 88 C 86 89 92 86 96 83 M 34 86 C 42 80 50 78 58 80 M 66 86 C 72 80 80 79 86 81"
+              fill="none"
+              stroke="rgba(227, 123, 149, 0.48)"
+              strokeWidth="0.55"
+              strokeLinecap="round"
+            />
           </svg>
 
           {section.stars.map((star) => {

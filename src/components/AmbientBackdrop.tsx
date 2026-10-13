@@ -22,6 +22,13 @@ const AMBIENT_MOTES = [
   { id: 6, left: '90%', top: '15%', size: 4 },
 ];
 
+const AMBIENT_SAKURA_PETALS = [
+  { id: 'petal-1', left: '12%', top: '26%', rotate: -18, delay: '0s' },
+  { id: 'petal-2', left: '78%', top: '34%', rotate: 24, delay: '3.2s' },
+  { id: 'petal-3', left: '22%', top: '74%', rotate: 14, delay: '6.4s' },
+  { id: 'petal-4', left: '86%', top: '70%', rotate: -26, delay: '1.8s' },
+];
+
 export const AmbientBackdrop: React.FC<AmbientBackdropProps> = ({
   reducedMotion,
   bursts,
@@ -58,6 +65,40 @@ export const AmbientBackdrop: React.FC<AmbientBackdropProps> = ({
                 transition: 'background 0.6s ease, opacity 0.6s ease',
               }}
             />
+          ))}
+
+        {/* Restrained Drifting Sakura Petals Motif */}
+        {!reducedMotion &&
+          AMBIENT_SAKURA_PETALS.map((petal) => (
+            <svg
+              key={petal.id}
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+              className="ambient-sakura-petal"
+              style={{
+                left: petal.left,
+                top: petal.top,
+                animationDelay: petal.delay,
+                transform: `rotate(${petal.rotate}deg)`,
+              }}
+            >
+              <path
+                d="M 12 2 C 7 7 6 15 12 22 C 18 15 17 7 12 2 M 12 2 L 12 7"
+                fill={
+                  isSunshine
+                    ? 'rgba(227, 123, 149, 0.22)'
+                    : 'rgba(214, 200, 247, 0.16)'
+                }
+                stroke={
+                  isSunshine
+                    ? 'rgba(201, 84, 114, 0.48)'
+                    : 'rgba(230, 222, 252, 0.42)'
+                }
+                strokeWidth="1.1"
+                strokeLinecap="round"
+              />
+            </svg>
           ))}
       </div>
 

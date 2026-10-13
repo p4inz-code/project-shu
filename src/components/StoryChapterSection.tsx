@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Sparkles } from 'lucide-react';
 import type { StoryChapter } from '../types/content';
 import { useRevealOnScroll } from '../hooks/useRevealOnScroll';
+import { HandDrawnOrnament } from './motion/MotionPrimitives';
 
 interface StoryChapterSectionProps {
   chapter: StoryChapter;
@@ -101,6 +102,19 @@ export const StoryChapterSection: React.FC<StoryChapterSectionProps> = ({
               >
                 {chapter.title}
               </h2>
+
+              <HandDrawnOrnament
+                motif="sakura-bough"
+                stroke={
+                  chapter.theme === 'parchment'
+                    ? 'var(--sun-rose)'
+                    : 'var(--moon-lavender)'
+                }
+                isDrawn={isVisible}
+                triggerOnScroll={false}
+                reducedMotion={reducedMotion}
+                className="chapter-sakura-bough"
+              />
 
               {/* Hand-sketched Crimson Editorial Quote Frame */}
               {chapter.pullQuote && (

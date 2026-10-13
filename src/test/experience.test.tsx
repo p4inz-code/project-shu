@@ -146,11 +146,38 @@ describe('Complete Shu Experience Journey', () => {
       screen.getByText(/Whenever I see your name pop up on my screen/i),
     ).toBeInTheDocument();
 
-    // 6. Open a memory in the full-screen Lightbox, test keyboard navigation, flip photo, and close with Escape
+    // 6. Interact with the Memory Sakura Tree blossoms (default -> hovered -> tapped -> opened) & hidden branch light
+    const blossom02 = screen.getByRole('button', {
+      name: /Memory blossom 02:/i,
+    });
+    expect(blossom02.getAttribute('data-blossom-state')).toBe('default');
+
+    fireEvent.mouseEnter(blossom02);
+    expect(blossom02.getAttribute('data-blossom-state')).toBe('hovered');
+
+    fireEvent.click(blossom02);
+    expect(blossom02.getAttribute('data-blossom-state')).toBe('tapped');
+
+    // Tap a hidden branch whisper light on the Memory Sakura Tree
+    const branchLight1 = screen.getByRole('button', {
+      name: /Branch light 1: Quiet roots/i,
+    });
+    fireEvent.click(branchLight1);
+    expect(
+      document.querySelector('.sakura-whisper-reveal-banner')?.textContent,
+    ).toMatch(/Every small kindness from you took root here, Shu/i);
+
+    // Open a memory in the full-screen Lightbox, test keyboard navigation, flip photo, and close with Escape
     const firstMemoryCard = screen.getByRole('button', {
       name: /Open memory 1:/i,
     });
     fireEvent.click(firstMemoryCard);
+
+    // Verify Blossom 01 transitions to 'opened' state while preserving place in the tree
+    const blossom01 = screen.getByRole('button', {
+      name: /Memory blossom 01:/i,
+    });
+    expect(blossom01.getAttribute('data-blossom-state')).toBe('opened');
 
     expect(screen.getByRole('dialog')).toBeInTheDocument();
     const flipBtn = screen.getByRole('button', {

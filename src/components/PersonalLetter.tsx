@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BookOpen, FastForward, Mail, RotateCcw } from 'lucide-react';
 import type { PersonalLetterContent } from '../types/content';
 import { useRevealOnScroll } from '../hooks/useRevealOnScroll';
+import { HandDrawnOrnament } from './motion/MotionPrimitives';
 
 interface PersonalLetterProps {
   section: {
@@ -90,7 +91,7 @@ export const PersonalLetter: React.FC<PersonalLetterProps> = ({
           <h2 id="letter-heading" className="editorial-title">
             {section.title}
           </h2>
-          <p style={{ color: 'rgba(246, 241, 234, 0.8)' }}>
+          <p className="letter-section-subtitle" style={{ opacity: 0.86 }}>
             {section.subtitle}
           </p>
         </div>
@@ -121,12 +122,22 @@ export const PersonalLetter: React.FC<PersonalLetterProps> = ({
                 />
               </svg>
 
-              <div
-                className="wax-seal-crest"
-                aria-hidden="true"
-                style={{ cursor: 'default' }}
-              >
-                <span>{letter.waxSealInitials}</span>
+              {/* Final Crown Sakura Blossom — Traces & Unfurls Upon Opening the Letter */}
+              <div className="letter-sakura-crest-wrap" aria-hidden="true">
+                <HandDrawnOrnament
+                  motif="sakura-blossom"
+                  stroke="var(--sun-rose)"
+                  isDrawn={isVisible}
+                  triggerOnScroll={false}
+                  reducedMotion={reducedMotion}
+                  className="letter-sakura-blossom-svg"
+                />
+                <div
+                  className="wax-seal-crest"
+                  style={{ cursor: 'default', margin: 0 }}
+                >
+                  <span>{letter.waxSealInitials}</span>
+                </div>
               </div>
 
               <div
@@ -168,6 +179,16 @@ export const PersonalLetter: React.FC<PersonalLetterProps> = ({
               className="opened-letter-sheet"
               aria-label="Personal letter from Atharva to Shu"
             >
+              <div className="opened-letter-sakura-bloom" aria-hidden="true">
+                <HandDrawnOrnament
+                  motif="sakura-bough"
+                  stroke="var(--sun-rose)"
+                  isDrawn={true}
+                  triggerOnScroll={false}
+                  reducedMotion={reducedMotion}
+                  className="opened-letter-bough-svg"
+                />
+              </div>
               {letter.isPlaceholderDraft && (
                 <div
                   role="note"

@@ -360,7 +360,9 @@ export type HandDrawnMotifName =
   | 'floral-flourish'
   | 'organic-border'
   | 'photo-corners'
-  | 'horizon-sunrise';
+  | 'horizon-sunrise'
+  | 'sakura-bough'
+  | 'sakura-blossom';
 
 interface MotifDefinition {
   viewBox: string;
@@ -556,6 +558,80 @@ export const HAND_DRAWN_MOTIFS: Record<HandDrawnMotifName, MotifDefinition> = {
         strokeWidth: 1.15,
         delayMs: 520,
         durationMs: 600,
+      },
+    ],
+  },
+  'sakura-bough': {
+    viewBox: '0 0 320 96',
+    strokes: [
+      {
+        d: 'M 8 76 C 72 68 134 42 214 34 C 254 30 286 20 310 14',
+        strokeWidth: 1.5,
+        durationMs: 960,
+      },
+      {
+        d: 'M 98 56 C 118 70 146 76 176 74',
+        strokeWidth: 1.15,
+        delayMs: 160,
+        durationMs: 680,
+      },
+      {
+        d: 'M 184 38 C 198 22 222 14 246 12',
+        strokeWidth: 1.1,
+        delayMs: 280,
+        durationMs: 640,
+      },
+      {
+        d: 'M 176 74 C 172 66 182 60 188 68 C 196 62 202 72 194 78 C 200 84 190 90 182 84 C 174 90 166 82 176 74 Z',
+        strokeWidth: 1.2,
+        delayMs: 420,
+        durationMs: 620,
+      },
+      {
+        d: 'M 246 12 C 242 4 252 0 258 8 C 266 2 272 12 264 18 C 270 24 260 30 252 24 C 244 30 236 20 246 12 Z',
+        strokeWidth: 1.2,
+        delayMs: 560,
+        durationMs: 620,
+      },
+    ],
+  },
+  'sakura-blossom': {
+    viewBox: '0 0 88 88',
+    strokes: [
+      {
+        d: 'M 44 44 C 34 26 38 10 44 14 C 50 10 54 26 44 44 Z',
+        strokeWidth: 1.25,
+        durationMs: 560,
+      },
+      {
+        d: 'M 44 44 C 60 32 76 34 72 42 C 76 48 60 52 44 44 Z',
+        strokeWidth: 1.25,
+        delayMs: 90,
+        durationMs: 560,
+      },
+      {
+        d: 'M 44 44 C 58 56 64 72 56 70 C 52 76 44 62 44 44 Z',
+        strokeWidth: 1.25,
+        delayMs: 180,
+        durationMs: 560,
+      },
+      {
+        d: 'M 44 44 C 44 62 36 76 32 70 C 24 72 30 56 44 44 Z',
+        strokeWidth: 1.25,
+        delayMs: 270,
+        durationMs: 560,
+      },
+      {
+        d: 'M 44 44 C 28 52 12 48 16 42 C 12 34 28 32 44 44 Z',
+        strokeWidth: 1.25,
+        delayMs: 360,
+        durationMs: 560,
+      },
+      {
+        d: 'M 44 44 L 44 33 M 44 44 L 53 40 M 44 44 L 50 51 M 44 44 L 38 51 M 44 44 L 35 40',
+        strokeWidth: 1.05,
+        delayMs: 460,
+        durationMs: 440,
       },
     ],
   },

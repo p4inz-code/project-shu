@@ -2653,3 +2653,595 @@ body.reduced-motion-mode .memory-image-frame {
     padding: 0.1rem 0.3rem;
   }
 }
+
+/* ============================================================================
+   9. SIGNATURE ART DIRECTION — THE MEMORY SAKURA & COHESIVE DUAL-WORLD SYSTEM
+   ============================================================================ */
+.ambient-sakura-petal {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  opacity: 0.72;
+  animation: petalFloatDrift 14s ease-in-out infinite alternate;
+}
+
+@keyframes petalFloatDrift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-14deg);
+  }
+  50% {
+    transform: translate3d(10px, 14px, 0) rotate(12deg);
+  }
+  100% {
+    transform: translate3d(-6px, 26px, 0) rotate(-6deg);
+  }
+}
+
+.chapter-sakura-bough {
+  width: min(100%, 240px);
+  height: auto;
+  margin: 0.55rem 0 0.75rem;
+  opacity: 0.86;
+}
+
+.letter-sakura-crest-wrap {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.letter-sakura-blossom-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.85;
+}
+
+.opened-letter-sakura-bloom {
+  width: min(100%, 230px);
+  margin: 0 auto 0.9rem;
+  opacity: 0.88;
+}
+
+.opened-letter-bough-svg {
+  width: 100%;
+  height: auto;
+}
+
+/* Interactive Memory Sakura Tree Sanctuary */
+.memory-sakura-sanctuary {
+  margin: 0 0 2.5rem;
+  padding: clamp(1.2rem, 3.2vw, 2.2rem);
+  border-radius: 16px;
+  background: linear-gradient(
+    165deg,
+    rgba(255, 252, 249, 0.95) 0%,
+    rgba(250, 232, 240, 0.9) 100%
+  );
+  border: 1px solid rgba(201, 84, 114, 0.24);
+  box-shadow: 0 24px 58px rgba(37, 19, 31, 0.1);
+  color: var(--sun-ink-dark);
+  transition:
+    background var(--motion-duration-slow) var(--ease-gentle),
+    border-color var(--motion-duration-slow) var(--ease-gentle),
+    color var(--motion-duration-slow) var(--ease-gentle);
+}
+
+/* Moonlight World Transformation for Memory Sakura Sanctuary */
+body[data-world='moonlight'] .memory-sakura-sanctuary {
+  background: linear-gradient(
+    165deg,
+    rgba(24, 16, 44, 0.94) 0%,
+    rgba(15, 10, 30, 0.97) 100%
+  );
+  border-color: rgba(214, 200, 247, 0.28);
+  box-shadow: 0 26px 64px rgba(5, 3, 14, 0.56);
+  color: var(--moon-pearl);
+}
+
+.sakura-sanctuary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.35rem;
+  padding-bottom: 0.95rem;
+  border-bottom: 1px solid rgba(201, 84, 114, 0.16);
+}
+
+body[data-world='moonlight'] .sakura-sanctuary-header {
+  border-bottom-color: rgba(214, 200, 247, 0.18);
+}
+
+.sakura-sanctuary-eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sun-rose);
+  margin-bottom: 0.3rem;
+}
+
+body[data-world='moonlight'] .sakura-sanctuary-eyebrow {
+  color: var(--moon-lavender);
+}
+
+.sakura-sanctuary-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 2.8vw, 2.15rem);
+  font-weight: 500;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.sakura-sanctuary-hint {
+  font-size: 0.88rem;
+  max-width: 46ch;
+  margin: 0;
+  opacity: 0.84;
+  line-height: 1.5;
+}
+
+.sakura-interactive-layout {
+  display: grid;
+  grid-template-columns: 1.25fr 0.95fr;
+  gap: clamp(1.25rem, 3vw, 2.25rem);
+  align-items: stretch;
+}
+
+@media (max-width: 920px) {
+  .sakura-interactive-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sakura-tree-canvas {
+  position: relative;
+  width: 100%;
+  min-height: 390px;
+  border-radius: 14px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 24%, rgba(253, 219, 195, 0.65), transparent 62%),
+    linear-gradient(180deg, #fff9f4 0%, #fcebf1 68%, #f7e4ec 100%);
+  border: 1px solid rgba(201, 84, 114, 0.22);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transition: background var(--motion-duration-slow) var(--ease-gentle);
+}
+
+body[data-world='moonlight'] .sakura-tree-canvas {
+  background:
+    radial-gradient(circle at 50% 22%, rgba(183, 148, 244, 0.22), transparent 60%),
+    linear-gradient(180deg, #0d0a1a 0%, #191230 68%, #120d24 100%);
+  border-color: rgba(214, 200, 247, 0.26);
+}
+
+@media (max-width: 640px) {
+  .sakura-tree-canvas {
+    min-height: 330px;
+  }
+}
+
+.sakura-canopy-celestial-orb {
+  position: absolute;
+  top: 12%;
+  right: 14%;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 232, 189, 0.92) 0%,
+    rgba(243, 166, 131, 0.35) 58%,
+    transparent 76%
+  );
+  pointer-events: none;
+}
+
+body[data-world='moonlight'] .sakura-canopy-celestial-orb {
+  background: radial-gradient(
+    circle,
+    rgba(230, 222, 252, 0.82) 0%,
+    rgba(183, 148, 244, 0.24) 58%,
+    transparent 76%
+  );
+}
+
+.sakura-tree-svg {
+  width: 100%;
+  height: 100%;
+  max-height: 430px;
+  display: block;
+  pointer-events: none;
+}
+
+.sakura-stroke-ground {
+  stroke: rgba(120, 85, 106, 0.38);
+}
+
+.sakura-stroke-trunk {
+  stroke: #5e374d;
+}
+
+.sakura-stroke-branch {
+  stroke: #784661;
+}
+
+.sakura-stroke-twig {
+  stroke: #9c5b7b;
+}
+
+body[data-world='moonlight'] .sakura-stroke-ground {
+  stroke: rgba(214, 200, 247, 0.3);
+}
+
+body[data-world='moonlight'] .sakura-stroke-trunk {
+  stroke: #b59ce0;
+}
+
+body[data-world='moonlight'] .sakura-stroke-branch {
+  stroke: #cbb8f0;
+}
+
+body[data-world='moonlight'] .sakura-stroke-twig {
+  stroke: #e37b95;
+}
+
+/* Interactive Memory Blossom Node Buttons (Default, Hovered, Tapped, Opened) */
+.sakura-blossom-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0.25rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  color: var(--sun-ink-dark);
+  transition: transform var(--motion-duration-fast) var(--ease-spring);
+}
+
+body[data-world='moonlight'] .sakura-blossom-node {
+  color: var(--moon-pearl);
+}
+
+.sakura-blossom-flower {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 250, 247, 0.92);
+  border: 1.5px solid rgba(201, 84, 114, 0.52);
+  box-shadow: 0 6px 16px rgba(201, 84, 114, 0.2);
+  transition:
+    transform var(--motion-duration-fast) var(--ease-spring),
+    background var(--motion-duration-fast) ease,
+    border-color var(--motion-duration-fast) ease,
+    box-shadow var(--motion-duration-fast) ease;
+}
+
+body[data-world='moonlight'] .sakura-blossom-flower {
+  background: rgba(25, 17, 46, 0.92);
+  border-color: rgba(214, 200, 247, 0.62);
+  box-shadow: 0 6px 18px rgba(159, 122, 234, 0.34);
+}
+
+.sakura-flower-svg {
+  width: 28px;
+  height: 28px;
+}
+
+.sakura-petal-path {
+  fill: rgba(243, 166, 189, 0.55);
+  stroke: var(--sun-rose);
+  stroke-width: 1.35;
+  transition: fill var(--motion-duration-fast) ease;
+}
+
+body[data-world='moonlight'] .sakura-petal-path {
+  fill: rgba(214, 200, 247, 0.35);
+  stroke: var(--moon-lavender);
+}
+
+.sakura-pistil-core {
+  fill: var(--sun-gold);
+}
+
+body[data-world='moonlight'] .sakura-pistil-core {
+  fill: #f3a6bd;
+}
+
+/* State: Hovered / Focused */
+.sakura-blossom-node.state-hovered .sakura-blossom-flower,
+.sakura-blossom-node:hover .sakura-blossom-flower,
+.sakura-blossom-node:focus-visible .sakura-blossom-flower {
+  transform: scale(1.12);
+  border-color: var(--sun-rose);
+  box-shadow: 0 10px 24px rgba(201, 84, 114, 0.35);
+}
+
+/* State: Tapped / Selected */
+.sakura-blossom-node.state-tapped .sakura-blossom-flower,
+.sakura-blossom-node.is-selected .sakura-blossom-flower {
+  transform: scale(1.16);
+  background: #fff0f5;
+  border-color: var(--sun-rose);
+  box-shadow: 0 0 0 4px rgba(201, 84, 114, 0.2);
+}
+
+body[data-world='moonlight'] .sakura-blossom-node.state-tapped .sakura-blossom-flower,
+body[data-world='moonlight'] .sakura-blossom-node.is-selected .sakura-blossom-flower {
+  background: #2b1d4d;
+  border-color: #f3a6bd;
+  box-shadow: 0 0 0 4px rgba(243, 166, 189, 0.24);
+}
+
+/* State: Opened / Visited in Lightbox */
+.sakura-blossom-node.state-opened .sakura-petal-path {
+  fill: rgba(201, 84, 114, 0.82);
+}
+
+body[data-world='moonlight'] .sakura-blossom-node.state-opened .sakura-petal-path {
+  fill: rgba(227, 123, 149, 0.78);
+}
+
+.sakura-blossom-badge {
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 0.08rem 0.36rem;
+  border-radius: 999px;
+  background: rgba(255, 251, 247, 0.94);
+  border: 1px solid rgba(201, 84, 114, 0.34);
+  color: var(--sun-ink-dark);
+}
+
+body[data-world='moonlight'] .sakura-blossom-badge {
+  background: rgba(13, 10, 26, 0.92);
+  border-color: rgba(214, 200, 247, 0.38);
+  color: var(--moon-pearl);
+}
+
+.sakura-blossom-tooltip {
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--font-serif);
+  font-size: 0.76rem;
+  padding: 0.16rem 0.52rem;
+  border-radius: 6px;
+  background: rgba(37, 19, 31, 0.92);
+  color: #fffbf7;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--motion-duration-fast) ease;
+}
+
+.sakura-blossom-node:hover .sakura-blossom-tooltip,
+.sakura-blossom-node:focus-visible .sakura-blossom-tooltip {
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .sakura-blossom-tooltip {
+    display: none;
+  }
+}
+
+/* Tiny Hidden Branch Whisper Lights */
+.sakura-branch-whisper-btn {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+}
+
+.sakura-whisper-spark {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff8eb 0%, #e37b95 70%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 12px rgba(227, 123, 149, 0.85);
+  transition: transform var(--motion-duration-fast) var(--ease-spring);
+}
+
+.sakura-branch-whisper-btn.is-lit .sakura-whisper-spark,
+.sakura-branch-whisper-btn:hover .sakura-whisper-spark {
+  transform: scale(1.45);
+  box-shadow: 0 0 18px rgba(200, 141, 62, 0.95);
+}
+
+/* Active Blossom Memory Inspector Card */
+.sakura-blossom-inspector {
+  padding: clamp(1rem, 2.5vw, 1.45rem);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(201, 84, 114, 0.22);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.55rem;
+}
+
+body[data-world='moonlight'] .sakura-blossom-inspector {
+  background: rgba(19, 14, 38, 0.9);
+  border-color: rgba(214, 200, 247, 0.26);
+}
+
+.sakura-inspector-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.82;
+}
+
+.sakura-state-pill {
+  padding: 0.14rem 0.48rem;
+  border-radius: 999px;
+  background: rgba(201, 84, 114, 0.12);
+  color: var(--sun-rose);
+  font-weight: 600;
+}
+
+body[data-world='moonlight'] .sakura-state-pill {
+  background: rgba(214, 200, 247, 0.16);
+  color: var(--moon-lavender);
+}
+
+.sakura-inspector-media-wrap {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.sakura-inspector-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.76;
+}
+
+.sakura-inspector-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.sakura-inspector-caption {
+  font-size: 0.88rem;
+  line-height: 1.52;
+  margin: 0;
+  opacity: 0.88;
+}
+
+.sakura-inspector-handwritten {
+  font-family: var(--font-handwriting);
+  font-size: 1.2rem;
+  color: var(--sun-rose);
+  padding-top: 0.4rem;
+  border-top: 1px dashed rgba(201, 84, 114, 0.22);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+body[data-world='moonlight'] .sakura-inspector-handwritten {
+  color: #f3a6bd;
+  border-top-color: rgba(214, 200, 247, 0.22);
+}
+
+.sakura-open-plate-btn {
+  margin-top: 0.35rem;
+  min-height: 46px;
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(201, 84, 114, 0.42);
+  background: linear-gradient(135deg, #c95472 0%, #9b3b5a 100%);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.sakura-whisper-reveal-banner {
+  margin-top: 0.35rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  background: rgba(201, 84, 114, 0.1);
+  border: 1px dashed rgba(201, 84, 114, 0.38);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.92rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+/* Complete Sunshine World Transformation for Midnight/Burgundy Sections When Sunshine is Active */
+body[data-world='sunshine'] .story-section.theme-midnight,
+body[data-world='sunshine'] .story-section.theme-burgundy {
+  background:
+    radial-gradient(circle at 22% 20%, rgba(253, 233, 216, 0.75), transparent 56%),
+    radial-gradient(circle at 80% 78%, rgba(250, 227, 234, 0.7), transparent 56%),
+    linear-gradient(180deg, #fffbf7 0%, #fdf3f7 54%, #faefe6 100%);
+  color: var(--sun-ink-dark);
+  border-top-color: rgba(201, 84, 114, 0.16);
+}
+
+body[data-world='sunshine'] .story-section.theme-midnight .editorial-title,
+body[data-world='sunshine'] .story-section.theme-burgundy .editorial-title {
+  color: var(--sun-ink-dark);
+}
+
+body[data-world='sunshine'] .story-section.theme-midnight .eyebrow-tag,
+body[data-world='sunshine'] .story-section.theme-burgundy .eyebrow-tag {
+  color: var(--sun-rose);
+}
+
+/* Complete Moonlight World Transformation for Parchment Sections When Moonlight is Active */
+body[data-world='moonlight'] .story-section.theme-parchment {
+  background:
+    radial-gradient(circle at 20% 24%, rgba(159, 122, 234, 0.18), transparent 54%),
+    radial-gradient(circle at 82% 76%, rgba(217, 117, 147, 0.12), transparent 50%),
+    linear-gradient(180deg, #0d0a1a 0%, #17112b 100%);
+  color: var(--moon-pearl);
+  border-top-color: rgba(214, 200, 247, 0.16);
+}
+
+body[data-world='moonlight'] .story-section.theme-parchment .editorial-title {
+  color: var(--moon-pearl);
+}
+
+body[data-world='moonlight'] .story-section.theme-parchment .eyebrow-tag {
+  color: var(--moon-lavender);
+}
+
