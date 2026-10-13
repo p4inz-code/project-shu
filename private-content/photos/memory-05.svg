@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <defs>
+    <linearGradient id="bg-4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e0b1c" />
+      <stop offset="55%" stop-color="#1f173b" />
+      <stop offset="100%" stop-color="#432757" />
+    </linearGradient>
+    <radialGradient id="glow-4" cx="50%" cy="42%" r="52%">
+      <stop offset="0%" stop-color="#b794f4" stop-opacity="0.42" />
+      <stop offset="55%" stop-color="#dcd0f5" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#0e0b1c" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-4)" />
+  <rect width="100%" height="100%" fill="url(#glow-4)" />
+
+  <!-- Delicate frame lines -->
+  <rect x="34" y="34" width="1132" height="832" rx="12" fill="none" stroke="#dcd0f5" stroke-opacity="0.32" stroke-width="1.3" />
+  <rect x="50" y="50" width="1100" height="800" rx="8" fill="none" stroke="#f7f4fc" stroke-opacity="0.12" stroke-width="1" />
+
+  <!-- Top metadata strip -->
+  <text x="68" y="82" fill="#dcd0f5" font-family="monospace" font-size="13" letter-spacing="3" opacity="0.82">
+    PLATE 05 // STARLIGHT FRAME
+  </text>
+  <text x="1132" y="82" text-anchor="end" fill="#dcd0f5" font-family="monospace" font-size="13" letter-spacing="2" opacity="0.72">
+    SHU KEEPSAKE • 05
+  </text>
+
+  <!-- Subtle orbital crosshairs -->
+  <line x1="338" y1="378" x2="862" y2="378" stroke="#dcd0f5" stroke-opacity="0.2" stroke-width="1" />
+  <line x1="600" y1="116" x2="600" y2="640" stroke="#dcd0f5" stroke-opacity="0.2" stroke-width="1" />
+
+  <!-- Lunar / Solar halo rings -->
+  <circle cx="600" cy="378" r="207" fill="none" stroke="#dcd0f5" stroke-opacity="0.38" stroke-width="1.3" stroke-dasharray="5 7" />
+  <circle cx="600" cy="378" r="149" fill="none" stroke="#f7f4fc" stroke-opacity="0.26" stroke-width="1.1" />
+  <circle cx="600" cy="378" r="91" fill="#b794f4" fill-opacity="0.22" stroke="#dcd0f5" stroke-opacity="0.52" stroke-width="1.4" />
+
+  <!-- Center focal emblem (Heart + Lunar/Solar motif) -->
+  <path d="M 600 404
+           C 594 398, 566 376, 566 358
+           C 566 344, 578 336, 590 336
+           C 598 336, 604 342, 600 349
+           C 596 342, 602 336, 610 336
+           C 622 336, 634 344, 634 358
+           C 634 376, 606 398, 600 404 Z"
+        fill="#b794f4" fill-opacity="0.28" stroke="#f7f4fc" stroke-opacity="0.78" stroke-width="1.6" />
+
+  <!-- Editorial title lockup -->
+  <text x="600" y="639" text-anchor="middle" fill="#f7f4fc" font-family="Georgia, 'Times New Roman', serif" font-size="29" letter-spacing="4" opacity="0.95">
+    UNDER THE SAME MOON
+  </text>
+  <text x="600" y="689" text-anchor="middle" fill="#dcd0f5" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="20" opacity="0.9">
+    Reserved for a shared adventure or unhurried detour together
+  </text>
+  <text x="600" y="752" text-anchor="middle" fill="#f7f4fc" font-family="monospace" font-size="14" letter-spacing="1.5" opacity="0.68">
+    Drop memory-05.jpg in private-content/photos/
+  </text>
+  <text x="600" y="797" text-anchor="middle" fill="#dcd0f5" font-family="sans-serif" font-size="12" letter-spacing="3" opacity="0.58">
+    MOONLIGHT × SUNSHINE EDITION • FOR YASHVI POKAR
+  </text>
+</svg>

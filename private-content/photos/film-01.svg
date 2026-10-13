@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <defs>
+    <linearGradient id="bg-7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16102b" />
+      <stop offset="55%" stop-color="#35204f" />
+      <stop offset="100%" stop-color="#6e3b6b" />
+    </linearGradient>
+    <radialGradient id="glow-7" cx="50%" cy="42%" r="52%">
+      <stop offset="0%" stop-color="#e38ca9" stop-opacity="0.42" />
+      <stop offset="55%" stop-color="#f0dcf7" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#16102b" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-7)" />
+  <rect width="100%" height="100%" fill="url(#glow-7)" />
+
+  <!-- Delicate frame lines -->
+  <rect x="34" y="34" width="1212" height="652" rx="12" fill="none" stroke="#f0dcf7" stroke-opacity="0.32" stroke-width="1.3" />
+  <rect x="50" y="50" width="1180" height="620" rx="8" fill="none" stroke="#fff8fc" stroke-opacity="0.12" stroke-width="1" />
+
+  <!-- Top metadata strip -->
+  <text x="68" y="82" fill="#f0dcf7" font-family="monospace" font-size="13" letter-spacing="3" opacity="0.82">
+    FILM 01 // MOTION KEEPSAKE REEL
+  </text>
+  <text x="1212" y="82" text-anchor="end" fill="#f0dcf7" font-family="monospace" font-size="13" letter-spacing="2" opacity="0.72">
+    SHU KEEPSAKE • 08
+  </text>
+
+  <!-- Subtle orbital crosshairs -->
+  <line x1="419" y1="302" x2="861" y2="302" stroke="#f0dcf7" stroke-opacity="0.2" stroke-width="1" />
+  <line x1="640" y1="81" x2="640" y2="523" stroke="#f0dcf7" stroke-opacity="0.2" stroke-width="1" />
+
+  <!-- Lunar / Solar halo rings -->
+  <circle cx="640" cy="302" r="166" fill="none" stroke="#f0dcf7" stroke-opacity="0.38" stroke-width="1.3" stroke-dasharray="5 7" />
+  <circle cx="640" cy="302" r="120" fill="none" stroke="#fff8fc" stroke-opacity="0.26" stroke-width="1.1" />
+  <circle cx="640" cy="302" r="73" fill="#e38ca9" fill-opacity="0.22" stroke="#f0dcf7" stroke-opacity="0.52" stroke-width="1.4" />
+
+  <!-- Center focal emblem (Heart + Lunar/Solar motif) -->
+  <path d="M 640 328
+           C 634 322, 606 300, 606 282
+           C 606 268, 618 260, 630 260
+           C 638 260, 644 266, 640 273
+           C 636 266, 642 260, 650 260
+           C 662 260, 674 268, 674 282
+           C 674 300, 646 322, 640 328 Z"
+        fill="#e38ca9" fill-opacity="0.28" stroke="#fff8fc" stroke-opacity="0.78" stroke-width="1.6" />
+
+  <!-- Editorial title lockup -->
+  <text x="640" y="511" text-anchor="middle" fill="#fff8fc" font-family="Georgia, 'Times New Roman', serif" font-size="29" letter-spacing="4" opacity="0.95">
+    SHORT FILM POSTER FRAME
+  </text>
+  <text x="640" y="551" text-anchor="middle" fill="#f0dcf7" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="20" opacity="0.9">
+    Reserved for Atharva’s short video clip or motion memory with Shu
+  </text>
+  <text x="640" y="601" text-anchor="middle" fill="#fff8fc" font-family="monospace" font-size="14" letter-spacing="1.5" opacity="0.68">
+    Drop film-01.mp4 in private-content/video/
+  </text>
+  <text x="640" y="637" text-anchor="middle" fill="#f0dcf7" font-family="sans-serif" font-size="12" letter-spacing="3" opacity="0.58">
+    MOONLIGHT × SUNSHINE EDITION • FOR YASHVI POKAR
+  </text>
+</svg>

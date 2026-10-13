@@ -1,0 +1,35 @@
+{
+  "name": "project-shu",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A personal, password-protected digital love experience for Yashvi Pokar (Shu) from Atharva Patil",
+  "type": "module",
+  "scripts": {
+    "predev": "node scripts/pack-private-assets.mjs",
+    "dev": "vite",
+    "build": "node scripts/pack-private-assets.mjs && tsc -b && vite build",
+    "preview": "vite preview",
+    "pretest": "node scripts/pack-private-assets.mjs",
+    "test": "vitest run",
+    "pretypecheck": "node scripts/pack-private-assets.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241127.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "^22.10.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.3",
+    "vitest": "^2.1.8"
+  }
+}

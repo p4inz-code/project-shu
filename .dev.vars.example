@@ -1,0 +1,11 @@
+# Copy this file to .dev.vars for local development with Vite or Wrangler Pages.
+# In Cloudflare Pages production, configure these in Settings -> Environment Variables (Encrypted).
+
+# The password Shu will enter at the sealed envelope entrance:
+SHU_PASSWORD=replace-with-shu-secret-password
+
+# A random 32+ character secret used to sign the HttpOnly session cookie (HMAC-SHA256):
+SHU_SESSION_SECRET=replace-with-a-long-random-32-byte-hmac-signing-secret
+
+# Optional password hint displayed if Shu requests a gentle clue on the entrance screen:
+SHU_PASSWORD_HINT=What Atharva always calls you, with all his heart

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+  <defs>
+    <linearGradient id="bg-2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161029" />
+      <stop offset="55%" stop-color="#2d1e4a" />
+      <stop offset="100%" stop-color="#593366" />
+    </linearGradient>
+    <radialGradient id="glow-2" cx="50%" cy="42%" r="52%">
+      <stop offset="0%" stop-color="#d68bad" stop-opacity="0.42" />
+      <stop offset="55%" stop-color="#e6d8fa" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#161029" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bg-2)" />
+  <rect width="100%" height="100%" fill="url(#glow-2)" />
+
+  <!-- Delicate frame lines -->
+  <rect x="34" y="34" width="932" height="932" rx="12" fill="none" stroke="#e6d8fa" stroke-opacity="0.32" stroke-width="1.3" />
+  <rect x="50" y="50" width="900" height="900" rx="8" fill="none" stroke="#faf7ff" stroke-opacity="0.12" stroke-width="1" />
+
+  <!-- Top metadata strip -->
+  <text x="68" y="82" fill="#e6d8fa" font-family="monospace" font-size="13" letter-spacing="3" opacity="0.82">
+    PLATE 03 // TWILIGHT 6×6
+  </text>
+  <text x="932" y="82" text-anchor="end" fill="#e6d8fa" font-family="monospace" font-size="13" letter-spacing="2" opacity="0.72">
+    SHU KEEPSAKE • 03
+  </text>
+
+  <!-- Subtle orbital crosshairs -->
+  <line x1="215" y1="420" x2="785" y2="420" stroke="#e6d8fa" stroke-opacity="0.2" stroke-width="1" />
+  <line x1="500" y1="135" x2="500" y2="705" stroke="#e6d8fa" stroke-opacity="0.2" stroke-width="1" />
+
+  <!-- Lunar / Solar halo rings -->
+  <circle cx="500" cy="420" r="230" fill="none" stroke="#e6d8fa" stroke-opacity="0.38" stroke-width="1.3" stroke-dasharray="5 7" />
+  <circle cx="500" cy="420" r="166" fill="none" stroke="#faf7ff" stroke-opacity="0.26" stroke-width="1.1" />
+  <circle cx="500" cy="420" r="101" fill="#d68bad" fill-opacity="0.22" stroke="#e6d8fa" stroke-opacity="0.52" stroke-width="1.4" />
+
+  <!-- Center focal emblem (Heart + Lunar/Solar motif) -->
+  <path d="M 500 446
+           C 494 440, 466 418, 466 400
+           C 466 386, 478 378, 490 378
+           C 498 378, 504 384, 500 391
+           C 496 384, 502 378, 510 378
+           C 522 378, 534 386, 534 400
+           C 534 418, 506 440, 500 446 Z"
+        fill="#d68bad" fill-opacity="0.28" stroke="#faf7ff" stroke-opacity="0.78" stroke-width="1.6" />
+
+  <!-- Editorial title lockup -->
+  <text x="500" y="710" text-anchor="middle" fill="#faf7ff" font-family="Georgia, 'Times New Roman', serif" font-size="29" letter-spacing="4" opacity="0.95">
+    LAVENDER DUSK WALK
+  </text>
+  <text x="500" y="765" text-anchor="middle" fill="#e6d8fa" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="20" opacity="0.9">
+    Between moonlight and daylight — reserved for a quiet evening frame
+  </text>
+  <text x="500" y="835" text-anchor="middle" fill="#faf7ff" font-family="monospace" font-size="14" letter-spacing="1.5" opacity="0.68">
+    Drop memory-03.jpg in private-content/photos/
+  </text>
+  <text x="500" y="885" text-anchor="middle" fill="#e6d8fa" font-family="sans-serif" font-size="12" letter-spacing="3" opacity="0.58">
+    MOONLIGHT × SUNSHINE EDITION • FOR YASHVI POKAR
+  </text>
+</svg>
