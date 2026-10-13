@@ -114,3 +114,75 @@ When applying visual updates from an approved Claude Design prototype:
    - Never autoplay audio without explicit user interaction.
 5. **Verify Before Committing**:
    - Run `npm run typecheck`, `npm test`, and `npm run build` after any visual integration.
+
+---
+
+## 4. Hand-Drawn SVG, Image Masking & Motion Choreography Engine (`src/components/motion/MotionPrimitives.tsx`)
+
+To support the upcoming Claude Design prototype without introducing external animation dependencies or expensive blur/canvas filters, `src/components/motion/MotionPrimitives.tsx` provides a lightweight, composable toolkit:
+
+### 4.1 Progressive Hand-Drawn SVG Ornaments (`<HandDrawnOrnament>` & `<SvgLineDraw>`)
+- **Built-in Motifs (`HAND_DRAWN_MOTIFS`)**:
+  - `'constellation'` — Fine-line stars and constellation threads
+  - `'crescent-moon'` — Crescent moon and delicate celestial sparkles
+  - `'botanical-stem'` — Botanical stem, leaves, and blossoming bud
+  - `'floral-flourish'` — Symmetrical editorial divider flourish with heart petal center
+  - `'organic-border'` — Hand-drawn organic border accent
+  - `'photo-corners'` — Delicate corner line drawing around photographs
+  - `'horizon-sunrise'` — Progressive horizon arc, rising sun rays, and botanical sprout
+- **Accessibility & Performance**: All decorative SVGs use normalized `pathLength={100}`, `aria-hidden="true"`, and `focusable="false"`, and settle immediately to `strokeDashoffset: 0` when `reducedMotion` is active.
+- **Example**:
+  ```tsx
+  <HandDrawnOrnament
+    motif="botanical-stem"
+    stroke="var(--sun-rose)"
+    durationMs={860}
+    staggerMs={110}
+    triggerOnScroll
+    reversible
+    reducedMotion={reducedMotion}
+  />
+  ```
+
+### 4.2 Selectable Cinematic Image Reveal Primitives (`<MediaRevealFrame>`)
+- **Selectable `revealVariant` Options** (not hardcoded uniformly across every photograph):
+  - `'inset'` — Subtle paper-edge inset reveal (default)
+  - `'organic-curve'` — Soft arched organic mask reveal
+  - `'radial'` — Circular / iris mask reveal
+  - `'paper-frame'` — Deckle-edge inset frame reveal
+  - `'gentle-scale'` — Restrained scale & opacity reveal without clip-path masking
+  - `'none'` — Static unmasked presentation (automatic under `reducedMotion`)
+- **Optional Decorative SVG Frame Accents (`decorativeAccent`)**:
+  - `'none' | 'photo-corners' | 'botanical' | 'celestial'`
+- **Optional Foreground Depth Layer (`foregroundOverlay`)**:
+  - Accepts a `React.ReactNode` overlay rendered above the media frame for subtle foreground/background separation.
+- **Example**:
+  ```tsx
+  <MediaRevealFrame
+    slotId="portrait-01"
+    src="/api/media/photos/portrait-01"
+    alt="Editorial portrait of Shu"
+    aspect="portrait"
+    revealVariant="organic-curve"
+    decorativeAccent="photo-corners"
+    accentColor="var(--moon-lavender)"
+    reducedMotion={reducedMotion}
+  />
+  ```
+
+### 4.3 Conservative Coordinated Parallax (`<ParallaxLayer>`)
+- Multiplexes all mounted `<ParallaxLayer>` instances through a **single shared passive `scroll`/`resize` + `requestAnimationFrame` coordinator** (`subscribeToScrollCoordinator`), automatically detaching listeners when zero active layers remain (`getActiveParallaxSubscriberCount() === 0`).
+- Clamps movement conservatively (`maxOffset` default `22px`, hard cap `28px`) and resets `transform: translate3d(0, 0, 0)` on unmount or `reducedMotion`.
+
+### 4.4 Moonlight-to-Sunshine Transition Stage (`<WorldTransitionStage>`)
+- Computes continuous scroll progress (`0..1`) through the Dawn Horizon transition zone and exposes CSS custom properties on the section container:
+  - `--world-transition-progress` (`0` to `1`)
+  - `--constellation-fade` (`1` to `0`)
+  - `--sunshine-bloom` (`0` to `1`)
+- Coordinates constellation fade-out, progressive horizon drawing (`motif="horizon-sunrise"`), and botanical accents appearing in Sunshine (`motif="botanical-stem"`), while leaving final color palette overrides, exact duration, and layout composition open for Claude Design.
+
+### 4.5 Varied Scene Choreography Vocabulary (`<ChoreographedScene>`)
+- Prevents every section from animating identically by offering selectable scene vocabularies:
+  - `'ink-draw' | 'image-mask' | 'typography-reveal' | 'subtle-parallax' | 'light-transition' | 'staggered-reveal' | 'stillness'`
+- Deterministic, interruptible, reversible on upward scroll when `reversible={true}`, and immediately visible when `vocabulary="stillness"` or `reducedMotion={true}`.
+

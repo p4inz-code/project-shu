@@ -1864,7 +1864,7 @@ body[data-world='sunshine'] .cinema-marquee-track {
   z-index: 3;
 }
 
-/* Controlled Photo Crop, Blur & Scale Reveal */
+/* Controlled Photo Mask, Crop & Scale Reveal Primitives (No Blur Filter Animation) */
 .memory-image-frame {
   width: 100%;
   overflow: hidden;
@@ -1872,11 +1872,52 @@ body[data-world='sunshine'] .cinema-marquee-track {
   background: #18112b;
   position: relative;
   clip-path: inset(0% 0% 0% 0% round 6px);
-  transition: clip-path 780ms var(--ease-cinematic);
+  transition:
+    clip-path 780ms var(--ease-cinematic),
+    border-radius 780ms var(--ease-cinematic);
 }
 
-.photo-state-entering .memory-image-frame {
-  clip-path: inset(4% 4% 4% 4% round 10px);
+/* Variant 1: Inset / Paper-Edge Reveal (Default) */
+.photo-state-entering .memory-image-frame.reveal-variant-inset,
+.memory-image-frame.reveal-variant-inset.frame-phase-entering {
+  clip-path: inset(5% 5% 5% 5% round 12px);
+}
+
+/* Variant 2: Organic / Curved Arch Mask Reveal */
+.memory-image-frame.reveal-variant-organic-curve {
+  clip-path: inset(0% 0% 0% 0% round 28px 28px 10px 10px);
+}
+
+.photo-state-entering .memory-image-frame.reveal-variant-organic-curve,
+.memory-image-frame.reveal-variant-organic-curve.frame-phase-entering {
+  clip-path: inset(8% 6% 6% 6% round 110px 110px 24px 24px);
+}
+
+/* Variant 3: Circular / Radial Iris Reveal */
+.memory-image-frame.reveal-variant-radial {
+  clip-path: circle(76% at 50% 50%);
+}
+
+.photo-state-entering .memory-image-frame.reveal-variant-radial,
+.memory-image-frame.reveal-variant-radial.frame-phase-entering {
+  clip-path: circle(38% at 50% 52%);
+}
+
+/* Variant 4: Paper-Frame / Inset Deckle Reveal */
+.memory-image-frame.reveal-variant-paper-frame {
+  clip-path: inset(2% 2% 2% 2% round 8px);
+  box-shadow: inset 0 0 0 1px rgba(214, 200, 247, 0.25);
+}
+
+.photo-state-entering .memory-image-frame.reveal-variant-paper-frame,
+.memory-image-frame.reveal-variant-paper-frame.frame-phase-entering {
+  clip-path: inset(9% 8% 9% 8% round 14px);
+}
+
+/* Variant 5: Gentle Scale Only (No Clip Mask) */
+.memory-image-frame.reveal-variant-gentle-scale,
+.memory-image-frame.reveal-variant-none {
+  clip-path: none;
 }
 
 .memory-image-frame.aspect-portrait {
@@ -1900,20 +1941,154 @@ body[data-world='sunshine'] .cinema-marquee-track {
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  transform: scale(1);
-  filter: blur(0px);
+  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1;
   transition:
-    transform 880ms var(--ease-cinematic),
-    filter 680ms var(--ease-gentle);
+    transform 860ms var(--ease-cinematic),
+    opacity 540ms var(--ease-gentle);
 }
 
-.photo-state-entering .memory-image-frame img {
-  transform: scale(1.06);
-  filter: blur(2.5px);
+.photo-state-entering .memory-image-frame img,
+.memory-image-frame.frame-phase-entering img {
+  transform: translate3d(0, 8px, 0) scale(1.045);
+  opacity: 0.88;
+}
+
+.memory-image-frame.reveal-variant-none img {
+  transform: none !important;
+  opacity: 1 !important;
 }
 
 .memory-card:hover .memory-image-frame img {
-  transform: scale(1.035);
+  transform: translate3d(0, 0, 0) scale(1.03);
+}
+
+/* Optional Decorative Hand-Drawn Line Accents Around Photographs */
+.media-decorative-frame-overlay {
+  position: absolute;
+  inset: 6px;
+  pointer-events: none;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-frame-ornament {
+  width: 100%;
+  height: 100%;
+  opacity: 0.78;
+}
+
+.media-frame-ornament.accent-botanical {
+  width: 46%;
+  height: auto;
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+}
+
+.media-frame-ornament.accent-celestial {
+  width: 34%;
+  height: auto;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+
+.media-foreground-separation {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Hand-Drawn Ornament & World Transition Stage Primitives */
+.hand-drawn-ornament {
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.world-transition-stage {
+  --world-transition-progress: 0;
+  --constellation-fade: 1;
+  --sunshine-bloom: 0;
+}
+
+.world-transition-constellation-layer {
+  position: relative;
+  z-index: 2;
+  width: min(86vw, 260px);
+  margin: 0 auto 0.35rem;
+  opacity: calc(0.2 + var(--constellation-fade, 0.8) * 0.72);
+  transform: translate3d(0, calc((1 - var(--constellation-fade, 1)) * -8px), 0);
+  transition:
+    opacity 420ms var(--ease-gentle),
+    transform 420ms var(--ease-gentle);
+  pointer-events: none;
+}
+
+.world-transition-horizon-svg-wrap {
+  width: min(90vw, 310px);
+  margin: 0 auto -0.6rem;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.world-transition-botanical-layer {
+  width: min(76vw, 190px);
+  margin: 0.65rem auto 0;
+  opacity: calc(0.28 + var(--sunshine-bloom, 0) * 0.72);
+  transform: translate3d(0, calc((1 - var(--sunshine-bloom, 0)) * 8px), 0);
+  transition:
+    opacity 520ms var(--ease-cinematic),
+    transform 520ms var(--ease-cinematic);
+  pointer-events: none;
+}
+
+/* Varied Choreography Vocabulary Classes */
+.choreographed-scene {
+  transition:
+    opacity var(--motion-duration-slow) var(--ease-cinematic),
+    transform var(--motion-duration-slow) var(--ease-cinematic);
+}
+
+.choreographed-scene.is-entering.vocab-ink-draw {
+  opacity: 0.75;
+  transform: translate3d(0, 10px, 0);
+}
+
+.choreographed-scene.is-entering.vocab-image-mask {
+  opacity: 0.82;
+  transform: translate3d(0, 14px, 0) scale(0.985);
+}
+
+.choreographed-scene.is-entering.vocab-typography-reveal {
+  opacity: 0.7;
+  transform: translate3d(0, 16px, 0);
+}
+
+.choreographed-scene.is-entering.vocab-subtle-parallax {
+  opacity: 0.86;
+  transform: translate3d(0, 12px, 0);
+}
+
+.choreographed-scene.is-entering.vocab-light-transition {
+  opacity: 0.78;
+  transform: translate3d(0, 8px, 0);
+}
+
+.choreographed-scene.is-entering.vocab-staggered-reveal {
+  opacity: 0.72;
+  transform: translate3d(0, 18px, 0);
+}
+
+.choreographed-scene.vocab-stillness,
+.choreographed-scene.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
 }
 
 .memory-meta-bar {
@@ -2356,10 +2531,15 @@ body.page-hidden *::after {
   .reveal-block,
   .reveal-stagger-child,
   .kinetic-interlude-inner,
-  .memory-card-wrapper {
+  .memory-card-wrapper,
+  .choreographed-scene,
+  .parallax-layer {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
+  }
+  .memory-image-frame {
+    clip-path: none !important;
   }
 }
 
@@ -2384,10 +2564,16 @@ body.reduced-motion-mode *::after {
 body.reduced-motion-mode .reveal-block,
 body.reduced-motion-mode .reveal-stagger-child,
 body.reduced-motion-mode .kinetic-interlude-inner,
-body.reduced-motion-mode .memory-card-wrapper {
+body.reduced-motion-mode .memory-card-wrapper,
+body.reduced-motion-mode .choreographed-scene,
+body.reduced-motion-mode .parallax-layer {
   opacity: 1 !important;
   transform: none !important;
   filter: none !important;
+}
+
+body.reduced-motion-mode .memory-image-frame {
+  clip-path: none !important;
 }
 
 /* ============================================================================

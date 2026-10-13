@@ -240,11 +240,14 @@ describe('Complete Shu Experience Journey', () => {
   });
 
   it('renders MaskedTextReveal, SvgLineDraw, and ParallaxLayer cleanly in both standard and reduced-motion modes', async () => {
-    const { MaskedTextReveal, ParallaxLayer, SvgLineDraw } = await import(
-      '../components/motion/MotionPrimitives'
-    );
+    const {
+      MaskedTextReveal,
+      ParallaxLayer,
+      SvgLineDraw,
+      getActiveParallaxSubscriberCount,
+    } = await import('../components/motion/MotionPrimitives');
 
-    const { rerender } = render(
+    const { rerender, unmount } = render(
       <div>
         <MaskedTextReveal
           as="h2"
@@ -252,8 +255,16 @@ describe('Complete Shu Experience Journey', () => {
           mode="words"
           reducedMotion={false}
         />
-        <ParallaxLayer speed={0.08} reducedMotion={false}>
-          <span>Parallax child</span>
+        <ParallaxLayer speed={0.08} maxOffset={18} reducedMotion={false}>
+          <span>Parallax child 1</span>
+        </ParallaxLayer>
+        <ParallaxLayer
+          speed={0.05}
+          maxOffset={14}
+          axis="x"
+          reducedMotion={false}
+        >
+          <span>Parallax child 2</span>
         </ParallaxLayer>
         <SvgLineDraw d="M 0,50 L 100,50" isDrawn={true} reducedMotion={false} />
       </div>,
@@ -262,9 +273,10 @@ describe('Complete Shu Experience Journey', () => {
     expect(
       screen.getByRole('heading', { name: /You’re my moon and my sunshine/i }),
     ).toBeInTheDocument();
-    expect(screen.getByText('Parallax child')).toBeInTheDocument();
+    expect(screen.getByText('Parallax child 1')).toBeInTheDocument();
+    expect(getActiveParallaxSubscriberCount()).toBe(2);
 
-    // Rerender in reducedMotion=true mode
+    // Rerender in reducedMotion=true mode: subscribers should detach and transform reset
     rerender(
       <div>
         <MaskedTextReveal
@@ -273,15 +285,268 @@ describe('Complete Shu Experience Journey', () => {
           mode="lines"
           reducedMotion={true}
         />
-        <ParallaxLayer speed={0.08} reducedMotion={true}>
-          <span>Parallax child</span>
+        <ParallaxLayer speed={0.08} maxOffset={18} reducedMotion={true}>
+          <span>Parallax child 1</span>
+        </ParallaxLayer>
+        <ParallaxLayer
+          speed={0.05}
+          maxOffset={14}
+          axis="x"
+          reducedMotion={true}
+        >
+          <span>Parallax child 2</span>
         </ParallaxLayer>
         <SvgLineDraw d="M 0,50 L 100,50" isDrawn={false} reducedMotion={true} />
       </div>,
     );
 
+    expect(getActiveParallaxSubscriberCount()).toBe(0);
     expect(
       screen.getByRole('heading', { name: /You’re my moon and my sunshine/i }),
     ).toBeInTheDocument();
+
+    unmount();
+    expect(getActiveParallaxSubscriberCount()).toBe(0);
+  });
+
+  it('supports hand-drawn SVG motifs, selectable image reveal masks, WorldTransitionStage, and reversible scroll cleanup', async () => {
+    const { act } = await import('@testing-library/react');
+    const {
+      HandDrawnOrnament,
+      HAND_DRAWN_MOTIFS,
+      MediaRevealFrame,
+      WorldTransitionStage,
+      ChoreographedScene,
+      getActiveParallaxSubscriberCount,
+    } = await import('../components/motion/MotionPrimitives');
+
+    // Track IntersectionObserver callbacks and disconnect calls to verify scroll reversal & cleanup
+    let observerCallback: IntersectionObserverCallback | null = null;
+    const disconnectSpy = vi.fn();
+    const OriginalIO = globalThis.IntersectionObserver;
+
+    class MockIntersectionObserver implements IntersectionObserver {
+      readonly root: Element | Document | null = null;
+      readonly rootMargin: string = '0px';
+      readonly thresholds: ReadonlyArray<number> = [0];
+      constructor(cb: IntersectionObserverCallback) {
+        observerCallback = cb;
+      }
+      observe() {}
+      unobserve() {}
+      disconnect() {
+        disconnectSpy();
+      }
+      takeRecords(): IntersectionObserverEntry[] {
+        return [];
+      }
+    }
+
+    globalThis.IntersectionObserver =
+      MockIntersectionObserver as unknown as typeof IntersectionObserver;
+
+    try {
+      const motifNames = Object.keys(HAND_DRAWN_MOTIFS) as Array<
+        keyof typeof HAND_DRAWN_MOTIFS
+      >;
+
+      const { container, rerender, unmount } = render(
+        <div>
+          {motifNames.map((motif) => (
+            <HandDrawnOrnament
+              key={motif}
+              motif={motif}
+              stroke="#d6c8f7"
+              triggerOnScroll={false}
+              isDrawn={true}
+              reducedMotion={false}
+            />
+          ))}
+
+          <MediaRevealFrame
+            slotId="test-organic"
+            src="/api/media/photos/memory-01"
+            alt="Organic mask keepsake"
+            aspect="portrait"
+            revealVariant="organic-curve"
+            decorativeAccent="botanical"
+            phase="entering"
+            foregroundOverlay={<span>Foregroundpetal</span>}
+          />
+
+          <MediaRevealFrame
+            slotId="test-radial"
+            src="/api/media/photos/memory-02"
+            alt="Radial mask keepsake"
+            aspect="square"
+            revealVariant="radial"
+            decorativeAccent="celestial"
+            phase="in-view"
+          />
+
+          <WorldTransitionStage
+            id="test-world-stage"
+            activeWorld="moonlight"
+            reducedMotion={false}
+          >
+            <p>Transition content</p>
+          </WorldTransitionStage>
+
+          <ChoreographedScene
+            id="test-reversible-scene"
+            vocabulary="ink-draw"
+            reversible={true}
+            reducedMotion={false}
+          >
+            <p>Reversible scene body</p>
+          </ChoreographedScene>
+
+          <ChoreographedScene
+            id="test-stillness-scene"
+            vocabulary="stillness"
+            reducedMotion={false}
+          >
+            <p>Stillness scene body</p>
+          </ChoreographedScene>
+        </div>,
+      );
+
+      // All decorative hand-drawn SVGs must be aria-hidden="true"
+      const svgs = container.querySelectorAll('svg.hand-drawn-ornament');
+      expect(svgs.length).toBeGreaterThanOrEqual(motifNames.length);
+      svgs.forEach((svg) => {
+        expect(svg.getAttribute('aria-hidden')).toBe('true');
+      });
+
+      // Verify selectable image reveal variants & decorative accents
+      const organicFrame = container.querySelector(
+        '[data-slot-id="test-organic"]',
+      );
+      expect(organicFrame?.getAttribute('data-reveal-variant')).toBe(
+        'organic-curve',
+      );
+      expect(
+        organicFrame?.querySelector('.accent-botanical'),
+      ).toBeInTheDocument();
+      expect(
+        organicFrame?.querySelector('.media-foreground-separation'),
+      ).toBeInTheDocument();
+
+      const radialFrame = container.querySelector(
+        '[data-slot-id="test-radial"]',
+      );
+      expect(radialFrame?.getAttribute('data-reveal-variant')).toBe('radial');
+      expect(
+        radialFrame?.querySelector('.accent-celestial'),
+      ).toBeInTheDocument();
+
+      // Stillness vocabulary is immediately in-view without waiting for scroll
+      const stillnessEl = container.querySelector('#test-stillness-scene');
+      expect(stillnessEl?.getAttribute('data-scroll-phase')).toBe('in-view');
+
+      // Test reversible scroll choreography on #test-reversible-scene:
+      // 1) Initial state is 'entering'
+      const reversibleEl = container.querySelector('#test-reversible-scene')!;
+      expect(reversibleEl.getAttribute('data-scroll-phase')).toBe('entering');
+
+      // 2) Intersecting -> 'in-view'
+      act(() => {
+        observerCallback?.(
+          [
+            {
+              isIntersecting: true,
+              target: reversibleEl,
+              boundingClientRect: { top: 120 } as DOMRectReadOnly,
+            } as IntersectionObserverEntry,
+          ],
+          {} as IntersectionObserver,
+        );
+      });
+      expect(reversibleEl.getAttribute('data-scroll-phase')).toBe('in-view');
+      expect(reversibleEl.getAttribute('data-has-revealed')).toBe('true');
+
+      // 3) Scrolled past top of viewport (top < 0) -> 'exiting-top' (remains visible)
+      act(() => {
+        observerCallback?.(
+          [
+            {
+              isIntersecting: false,
+              target: reversibleEl,
+              boundingClientRect: { top: -80 } as DOMRectReadOnly,
+            } as IntersectionObserverEntry,
+          ],
+          {} as IntersectionObserver,
+        );
+      });
+      expect(reversibleEl.getAttribute('data-scroll-phase')).toBe(
+        'exiting-top',
+      );
+      expect(reversibleEl.classList.contains('is-visible')).toBe(true);
+
+      // 4) Scrolled back up so element is below viewport again (top > 0) -> reverses cleanly to 'entering'
+      act(() => {
+        observerCallback?.(
+          [
+            {
+              isIntersecting: false,
+              target: reversibleEl,
+              boundingClientRect: { top: 640 } as DOMRectReadOnly,
+            } as IntersectionObserverEntry,
+          ],
+          {} as IntersectionObserver,
+        );
+      });
+      expect(reversibleEl.getAttribute('data-scroll-phase')).toBe('entering');
+
+      // 5) Rerender with reducedMotion=true: everything settles to 'in-view' and 'none' reveal variant
+      rerender(
+        <div>
+          <MediaRevealFrame
+            slotId="test-organic"
+            src="/api/media/photos/memory-01"
+            alt="Organic mask keepsake"
+            aspect="portrait"
+            revealVariant="organic-curve"
+            decorativeAccent="botanical"
+            phase="entering"
+            reducedMotion={true}
+          />
+          <WorldTransitionStage
+            id="test-world-stage"
+            activeWorld="sunshine"
+            reducedMotion={true}
+          >
+            <p>Transition content</p>
+          </WorldTransitionStage>
+          <ChoreographedScene
+            id="test-reversible-scene"
+            vocabulary="ink-draw"
+            reversible={true}
+            reducedMotion={true}
+          >
+            <p>Reversible scene body</p>
+          </ChoreographedScene>
+        </div>,
+      );
+
+      expect(
+        container
+          .querySelector('[data-slot-id="test-organic"]')
+          ?.getAttribute('data-reveal-variant'),
+      ).toBe('none');
+      expect(
+        container
+          .querySelector('#test-reversible-scene')
+          ?.getAttribute('data-scroll-phase'),
+      ).toBe('in-view');
+
+      // Unmount verifies observer disconnect & scroll coordinator cleanup
+      unmount();
+      expect(disconnectSpy).toHaveBeenCalled();
+      expect(getActiveParallaxSubscriberCount()).toBe(0);
+    } finally {
+      globalThis.IntersectionObserver = OriginalIO;
+    }
   });
 });
+

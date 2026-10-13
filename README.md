@@ -83,14 +83,16 @@ All personal text and media are isolated in `private-content/`. No fabricated re
 
 ---
 
-## 5. Cinematic Motion Primitives & Reduced-Motion Support
+## 5. Cinematic Motion Primitives, Hand-Drawn SVG & Reduced-Motion Support
 
 Reusable motion primitives live in `src/hooks/useRevealOnScroll.ts` and `src/components/motion/MotionPrimitives.tsx`:
-- **`useRevealOnScroll(reducedMotion, { reversible })`**: Tracks element viewport phases (`'entering' | 'in-view' | 'exiting-top'`) using a single `IntersectionObserver` per instance and cleans up on unmount.
+- **`useRevealOnScroll(reducedMotion, { reversible })`**: Tracks element viewport phases (`'entering' | 'in-view' | 'exiting-top'`) and `hasRevealed` state using a single `IntersectionObserver` per instance and cleans up on unmount.
 - **`<MaskedTextReveal>`**: Word-by-word or line-by-line masked typography reveal that preserves a unified `aria-label` for screen readers and renders static text immediately when `reducedMotion` is active.
-- **`<MediaRevealFrame>`**: Handles aspect-ratio reservation (`portrait`, `landscape`, `square`, `wide` — zero layout shift), controlled `clip-path` crop + blur + scale reveal, `<video>`/`<img>` switching, and a styled archival fallback plate (`.media-fallback-plate`) if an asset fails to load.
-- **`<ParallaxLayer>`**: Passive scroll + `requestAnimationFrame` `translate3d` layer that pauses automatically when `document.hidden` is true or `reducedMotion` is enabled.
-- **`<SvgLineDraw>`**: Normalized `pathLength={100}` stroke-dashoffset line drawing primitive.
+- **`<SvgLineDraw>` & `<HandDrawnOrnament>`**: Progressive normalized `pathLength={100}` stroke-dashoffset line drawing supporting multi-stroke paths, custom timing/colors, and built-in motifs (`constellation`, `crescent-moon`, `botanical-stem`, `floral-flourish`, `organic-border`, `photo-corners`, `horizon-sunrise`). Always `aria-hidden="true"` and `focusable="false"`.
+- **`<MediaRevealFrame>`**: Handles aspect-ratio reservation (`portrait`, `landscape`, `square`, `wide` — zero layout shift), selectable mask reveal variants (`inset`, `organic-curve`, `radial`, `paper-frame`, `gentle-scale`, `none`) without blur filter animations, optional hand-drawn SVG frame accents (`photo-corners`, `botanical`, `celestial`), optional foreground separation overlay, `<video>`/`<img>` switching, and a styled archival fallback plate (`.media-fallback-plate`) if an asset fails to load.
+- **`<ParallaxLayer>`**: Multiplexed through a single shared passive `scroll`/`resize` + `requestAnimationFrame` coordinator (`subscribeToScrollCoordinator`) that detaches automatically when zero active layers remain (`getActiveParallaxSubscriberCount() === 0`), clamps offsets conservatively (`<= 28px`), and resets to `translate3d(0, 0, 0)` when `reducedMotion` is enabled or on unmount.
+- **`<WorldTransitionStage>`**: Scroll-linked Moonlight-to-Sunshine transition stage exposing `--world-transition-progress` (`0..1`), `--constellation-fade`, and `--sunshine-bloom` CSS custom properties alongside progressive horizon drawing and botanical accents.
+- **`<ChoreographedScene>`**: Supports varied scene vocabularies (`ink-draw`, `image-mask`, `typography-reveal`, `subtle-parallax`, `light-transition`, `staggered-reveal`, `stillness`) so sections never rely on a monotonous universal preset.
 - **Full / Calm Motion Control**: Automatically respects `prefers-reduced-motion: reduce` and provides an interactive `Motion: Full / Calm` HUD button (`body.reduced-motion-mode`).
 
 ---

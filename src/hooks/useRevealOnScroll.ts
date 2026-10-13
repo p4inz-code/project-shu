@@ -14,7 +14,7 @@ export interface RevealOnScrollOptions {
   rootMargin?: string;
 }
 
-export function useRevealOnScroll<T extends HTMLElement = HTMLDivElement>(
+export function useRevealOnScroll<T extends Element = HTMLDivElement>(
   reducedMotion = false,
   options: RevealOnScrollOptions = {},
 ) {
@@ -26,6 +26,7 @@ export function useRevealOnScroll<T extends HTMLElement = HTMLDivElement>(
 
   const ref = useRef<T | null>(null);
   const [isVisible, setIsVisible] = useState<boolean>(reducedMotion);
+  const [hasRevealed, setHasRevealed] = useState<boolean>(reducedMotion);
   const [phase, setPhase] = useState<ScrollViewportPhase>(
     reducedMotion ? 'in-view' : 'entering',
   );
@@ -33,6 +34,7 @@ export function useRevealOnScroll<T extends HTMLElement = HTMLDivElement>(
   useEffect(() => {
     if (reducedMotion) {
       setIsVisible(true);
+      setHasRevealed(true);
       setPhase('in-view');
       return;
     }
@@ -42,6 +44,7 @@ export function useRevealOnScroll<T extends HTMLElement = HTMLDivElement>(
 
     if (typeof IntersectionObserver === 'undefined') {
       setIsVisible(true);
+      setHasRevealed(true);
       setPhase('in-view');
       return;
     }
@@ -51,6 +54,7 @@ export function useRevealOnScroll<T extends HTMLElement = HTMLDivElement>(
         for (const entry of entries) {
           if (entry.isIntersecting) {
             setIsVisible(true);
+            setHasRevealed(true);
             setPhase('in-view');
             if (!reversible) {
               observer.unobserve(entry.target);
@@ -59,6 +63,7 @@ export function useRevealOnScroll<T extends HTMLElement = HTMLDivElement>(
             if (entry.boundingClientRect.top < 0) {
               // Scrolled past top of viewport: keep visible & accessible, mark exiting-top
               setIsVisible(true);
+              setHasRevealed(true);
               setPhase('exiting-top');
             } else {
               // Below viewport (user scrolled back up): reverse cleanly
@@ -78,5 +83,5 @@ export function useRevealOnScroll<T extends HTMLElement = HTMLDivElement>(
     return () => observer.disconnect();
   }, [reducedMotion, reversible, threshold, rootMargin]);
 
-  return { ref, isVisible, phase };
+  return { ref, isVisible, hasRevealed, phase };
 }

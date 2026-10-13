@@ -14,8 +14,10 @@ import { PersonalLetter } from './components/PersonalLetter';
 import { EndingSection } from './components/EndingSection';
 import { useRevealOnScroll } from './hooks/useRevealOnScroll';
 import {
+  HandDrawnOrnament,
   MaskedTextReveal,
   MediaRevealFrame,
+  WorldTransitionStage,
 } from './components/motion/MotionPrimitives';
 
 export type VisualWorld = 'moonlight' | 'sunshine';
@@ -56,6 +58,21 @@ const KineticInterlude: React.FC<KineticInterludeProps> = ({
           reducedMotion={reducedMotion}
           reversible
           className="kinetic-interlude-statement"
+        />
+        <HandDrawnOrnament
+          motif={variant === 'sunshine' ? 'floral-flourish' : 'crescent-moon'}
+          stroke={
+            variant === 'sunshine' ? 'var(--sun-rose)' : 'var(--moon-lavender)'
+          }
+          isDrawn={isVisible}
+          triggerOnScroll={false}
+          reducedMotion={reducedMotion}
+          style={{
+            width: variant === 'sunshine' ? '156px' : '76px',
+            height: 'auto',
+            marginTop: '0.45rem',
+            opacity: 0.78,
+          }}
         />
         <div className="kinetic-interlude-rule" />
       </div>
@@ -547,6 +564,10 @@ export const App: React.FC = () => {
                       )}`}
                       alt={content.hero.portrait.title}
                       aspect={content.hero.portrait.aspect}
+                      revealVariant="organic-curve"
+                      decorativeAccent="photo-corners"
+                      accentColor="rgba(214, 200, 247, 0.68)"
+                      reducedMotion={reducedMotion}
                       fallbackTitle={content.hero.portrait.title}
                       fallbackSubtitle={content.hero.portrait.caption}
                     />
@@ -658,11 +679,12 @@ export const App: React.FC = () => {
         />
 
         {/* Scene 02: The Dawn Horizon — Cinematic Transition from Moonlight to Sunshine */}
-        <section
+        <WorldTransitionStage
           id="theme-transition-scene"
-          ref={transitionSceneRef}
-          className="dawn-transition-scene"
-          aria-labelledby="dawn-transition-heading"
+          stageRef={transitionSceneRef}
+          activeWorld={activeWorld}
+          reducedMotion={reducedMotion}
+          ariaLabelledBy="dawn-transition-heading"
         >
           <div className="dawn-transition-inner">
             <span
@@ -775,7 +797,7 @@ export const App: React.FC = () => {
               )}
             </div>
           </div>
-        </section>
+        </WorldTransitionStage>
 
         {/* Scene 03: Sunshine — Luminous Daylight Editorial Spread */}
         <section

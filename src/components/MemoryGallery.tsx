@@ -318,6 +318,8 @@ export const MemoryGallery: React.FC<MemoryGalleryProps> = ({
               mediaType={intro.featuredFilm.mediaType}
               alt={intro.featuredFilm.title}
               aspect="wide"
+              revealVariant="paper-frame"
+              reducedMotion={reducedMotion}
               fallbackTitle={intro.featuredFilm.title}
               fallbackSubtitle={intro.featuredFilm.caption}
             />
@@ -341,6 +343,14 @@ export const MemoryGallery: React.FC<MemoryGalleryProps> = ({
               item.mediaType === 'video'
                 ? `/api/media/video/${encodeURIComponent(item.fileStem)}`
                 : `/api/media/photos/${encodeURIComponent(item.fileStem)}`;
+            const variantForFrame =
+              item.frameStyle === 'editorial'
+                ? 'paper-frame'
+                : item.frameStyle === 'film-strip'
+                  ? 'gentle-scale'
+                  : item.frameStyle === 'scrapbook-tape'
+                    ? 'organic-curve'
+                    : 'inset';
 
             return (
               <div
@@ -400,6 +410,8 @@ export const MemoryGallery: React.FC<MemoryGalleryProps> = ({
                     alt={item.title}
                     aspect={item.aspect}
                     phase={phase}
+                    revealVariant={variantForFrame}
+                    reducedMotion={reducedMotion}
                     fallbackTitle={item.title}
                     fallbackSubtitle={item.caption}
                   />
