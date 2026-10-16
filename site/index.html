@@ -33,7 +33,7 @@ button{font:inherit;-webkit-tap-highlight-color:transparent;}
 button:focus-visible,input:focus-visible,[role=slider]:focus-visible{outline:2px solid #f3a9bd;outline-offset:3px;}
 input::placeholder{color:currentColor;opacity:.35;}
 </style>
-<style>@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.06)}30%{transform:scale(.98)}45%{transform:scale(1.04)}}</style>
+<style>@keyframes branchSway{0%,100%{transform:rotate(0deg)}50%{transform:rotate(1.6deg) translateY(3px)}}@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.06)}30%{transform:scale(.98)}45%{transform:scale(1.04)}}</style>
 </helmet>
 <div ref="{{ rootRef }}" style="position:relative; font-family:'Geist', system-ui, sans-serif; color:var(--ni,#f6f2fb); background:var(--n0,#0c0918); overflow-x:clip;">
 
@@ -42,6 +42,32 @@ input::placeholder{color:currentColor;opacity:.35;}
 <div data-letterbox="" aria-hidden="true" style="position:fixed; left:0; right:0; top:0; height:7svh; z-index:94; pointer-events:none; background:#050308; transform-origin:50% 0; transform:scaleY(0);"></div>
 <div data-letterbox="" aria-hidden="true" style="position:fixed; left:0; right:0; bottom:0; height:7svh; z-index:94; pointer-events:none; background:#050308; transform-origin:50% 100%; transform:scaleY(0);"></div>
 <div aria-hidden="true" style="position:fixed; inset:0; z-index:93; pointer-events:none; background:radial-gradient(130% 95% at 50% 50%, transparent 62%, rgba(5,3,8,.38) 100%);"></div>
+
+<sc-if value="{{ unlocked }}">
+<div aria-hidden="true" data-wash="" style="position:fixed; inset:0; z-index:91; pointer-events:none; opacity:0; background:radial-gradient(90% 70% at 50% 40%, rgba(247,193,207,.55), rgba(243,169,189,.18) 55%, transparent 80%); mix-blend-mode:soft-light;"></div>
+<canvas data-fx="sakura" data-global="1" data-n=".5" aria-hidden="true" style="position:fixed; inset:0; width:100%; height:100%; z-index:92; pointer-events:none;"></canvas>
+<svg data-branch="" aria-hidden="true" focusable="false" viewBox="0 0 360 270" style="position:fixed; left:clamp(-30px,-4vw,-6px); top:clamp(40px,6vh,64px); width:clamp(200px,34vw,420px); z-index:49; pointer-events:none; overflow:visible; transform-origin:0 0; animation:branchSway 9s ease-in-out infinite; opacity:.92; transition:opacity .4s linear;">
+  <defs>
+    <g id="blsm">
+      <g fill="#fbd5df" stroke="#e98aa6" stroke-width=".9"><ellipse rx="6.5" ry="10" cy="-8"/><ellipse rx="6.5" ry="10" cy="-8" transform="rotate(72)"/><ellipse rx="6.5" ry="10" cy="-8" transform="rotate(144)"/><ellipse rx="6.5" ry="10" cy="-8" transform="rotate(216)"/><ellipse rx="6.5" ry="10" cy="-8" transform="rotate(288)"/></g>
+      <circle r="2.6" fill="#f0b45e"/><g stroke="#d6577e" stroke-width=".7" stroke-linecap="round"><path d="M0 0 L0 -5"/><path d="M0 0 L4.7 -1.5"/><path d="M0 0 L2.9 4"/><path d="M0 0 L-2.9 4"/><path d="M0 0 L-4.7 -1.5"/></g>
+    </g>
+  </defs>
+  <g fill="none" stroke="#7a4a5f" stroke-linecap="round" stroke-width="3.2">
+    <path data-r="draw" data-d="300" data-dur="2800" pathLength="1" d="M-10 22 C 60 46, 118 22, 172 74 S 262 134, 338 118"/>
+    <path data-r="draw" data-d="1300" data-dur="2000" pathLength="1" stroke-width="2.2" d="M112 40 C 134 92, 120 132, 152 172"/>
+    <path data-r="draw" data-d="1800" data-dur="1800" pathLength="1" stroke-width="2" d="M204 88 C 218 44, 252 32, 288 42"/>
+    <path data-r="draw" data-d="2100" data-dur="1400" pathLength="1" stroke-width="1.6" d="M254 112 C 262 150, 250 176, 270 204"/>
+  </g>
+  <g data-r="pop" data-d="1500"><use href="#blsm" x="58" y="40"/></g>
+  <g data-r="pop" data-d="1800"><use href="#blsm" x="114" y="38" transform="rotate(20 114 38)"/></g>
+  <g data-r="pop" data-d="2100"><use href="#blsm" x="170" y="74" transform="rotate(-14 170 74)"/></g>
+  <g data-r="pop" data-d="2500"><use href="#blsm" x="152" y="172" transform="rotate(30 152 172)"/></g>
+  <g data-r="pop" data-d="2700"><use href="#blsm" x="288" y="42" transform="rotate(-24 288 42)"/></g>
+  <g data-r="pop" data-d="2900"><use href="#blsm" x="268" y="206" transform="rotate(10 268 206)"/></g>
+  <g data-r="pop" data-d="3100"><use href="#blsm" x="336" y="118" transform="rotate(40 336 118)"/></g>
+</svg>
+</sc-if>
 
 <sc-if value="{{ gated }}" hint-placeholder-val="{{ true }}">
 <div ref="{{ gateRef }}" data-tapfx="" data-burst="petals" data-screen-label="00 Invitation" style="position:fixed; inset:0; z-index:80; background:radial-gradient(120% 80% at 80% 8%, #2d2350 0%, #1b1433 36%, #0c0918 74%); color:#f6f2fb; display:flex; flex-direction:column; justify-content:flex-end; padding:max(28px, env(safe-area-inset-top)) clamp(22px,6vw,80px) max(30px, calc(env(safe-area-inset-bottom) + 18px)); overflow:hidden;">
@@ -1024,7 +1050,7 @@ class Component extends DCLogic {
     clearTimeout(this.rt);
     this.rt = setTimeout(() => {
       document.body.style.overflow = unlocked ? '' : 'hidden';
-      this.moonTex(); this.setupReveals(unlocked); this.setupLoops(); this.setupFx(); this.setupLanterns(); this.setupResets(); this.hydrateMedia(); this.kick();
+      this.moonTex(); this.setupReveals(unlocked); this.setupLoops(); this.setupFx(); this.setupLanterns(); this.setupResets(); this.hydrateMedia(); this.setupGusts(); this.setupSmooth(); this.kick();
     }, 60);
   }
   moonTex() {
@@ -1206,10 +1232,10 @@ class Component extends DCLogic {
     }
     f.bursts = f.bursts.filter(b => b.life > 0);
     for (const b of f.bursts) {
-      b.life -= .016;
+      b.life -= b.dl || .016;
       ctx.globalAlpha = clamp(b.life);
       if (b.ring) { ctx.strokeStyle = '#f3a9bd'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(b.x, b.y, (1 - b.life) * 70, 0, 6.283); ctx.stroke(); continue; }
-      b.x += b.vx; b.y += b.vy; b.vx *= .96; b.vy = b.vy * .96 + (b.kind === 'stars' ? .01 : .03); b.rot += .03;
+      b.x += b.vx; b.y += b.vy; b.vx *= b.drag || .96; b.vy = b.vy * .96 + (b.kind === 'stars' ? .01 : .03); b.rot += .03;
       if (b.kind === 'hearts') { ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(Math.sin(b.rot) * .4); ctx.fillStyle = ['#e98aa6','#f3a9bd','#d6577e','#f7c1cf'][b.c]; heartPath(ctx, b.r); ctx.fill(); ctx.restore(); }
       else if (b.kind === 'petals') this.drawSakura(ctx, { x:b.x, y:b.y, r:b.r, rot:b.rot, flip:b.rot * 3, kind:0, c:b.c });
       else { ctx.fillStyle = '#f6f2fb'; ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, 6.283); ctx.fill(); }
@@ -1393,6 +1419,7 @@ class Component extends DCLogic {
         else if (v === 'driftR') { el.style.translate = `${(q * 26).toFixed(1)}px ${(-q * 30).toFixed(1)}px`; el.style.opacity = (1 - 0.35 * q).toFixed(3); }
       });
     }
+    const br = root.querySelector('[data-branch]'); if (br) br.style.opacity = (0.92 - 0.72 * clamp(scrollY / (vh * 0.9))).toFixed(3);
     const cineOn = !this.state.calm && this.state.unlocked;
     const sy = scrollY, dv = Math.abs(sy - (this.lastSY ?? sy)); this.lastSY = sy;
     this.lbx = (this.lbx || 0) * .9 + Math.min(1, dv / 50) * .1;
@@ -1424,6 +1451,52 @@ class Component extends DCLogic {
       root.querySelectorAll('[data-cine],h2,[data-tilt3d]').forEach(el => { el.style.transform = ''; el.style.borderRadius = ''; el.style.opacity = ''; });
     }
     if (this.moving) this.kick();
+  }
+
+  // Petal gust + pink wash when a new scene enters from below (cherry-blossom scene change).
+  setupGusts() {
+    if (this.gustIo) this.gustIo.disconnect();
+    const root = this.rootRef.current; if (!root || !this.state.unlocked) return;
+    this.gustIo = new IntersectionObserver(es => es.forEach(en => {
+      if (!en.isIntersecting || en.boundingClientRect.top <= 0) return;
+      const now = performance.now(); if (now - (this.lastGust || 0) < 2200) return;
+      this.lastGust = now; this.gust();
+    }), { threshold:.3 });
+    root.querySelectorAll('[data-screen-label]').forEach(el => { if (!el.dataset.screenLabel.startsWith('00')) this.gustIo.observe(el); });
+  }
+  gust() {
+    if (this.state.calm) return;
+    const f = this.fx.find(f => f.cv.dataset.global); if (!f || !f.w) return;
+    const n = f.w < 500 ? 22 : 36;
+    for (let i = 0; i < n; i++) f.bursts.push({ kind:'petals', x:R(-60, f.w * .12), y:R(f.h * .05, f.h * .95), vx:R(4, 9), vy:R(-1.4, 1.2), life:R(.8, 1.6), dl:.0075, drag:.989, r:R(5, 10.5), rot:R(0, 6.28), c:Math.floor(R(0, 4)) });
+    const wash = this.rootRef.current && this.rootRef.current.querySelector('[data-wash]');
+    if (wash && wash.animate) wash.animate([{ opacity:0 }, { opacity:.9, offset:.35 }, { opacity:0 }], { duration:1700, easing:'ease-in-out' });
+    this.loop();
+  }
+  // Eased wheel scrolling on desktop (touch keeps native momentum).
+  setupSmooth() {
+    if (this.smoothOn || !matchMedia('(pointer:fine)').matches) return;
+    this.smoothOn = true;
+    let target = scrollY, cur = scrollY, active = false;
+    const max = () => document.documentElement.scrollHeight - innerHeight;
+    const step = () => {
+      if (!active) return;
+      cur += (target - cur) * .09;
+      if (Math.abs(target - cur) < .5) { cur = target; active = false; }
+      scrollTo(0, cur);
+      if (active) requestAnimationFrame(step);
+    };
+    this.onWheel = e => {
+      if (this.state.calm || !this.state.unlocked || this.state.lb >= 0 || e.ctrlKey || e.defaultPrevented) return;
+      if (e.target.closest && e.target.closest('input,textarea,select')) return;
+      e.preventDefault();
+      if (!active) { cur = scrollY; target = scrollY; }
+      target = clamp(target + e.deltaY * (e.deltaMode === 1 ? 32 : 1), 0, max());
+      if (!active) { active = true; requestAnimationFrame(step); }
+    };
+    addEventListener('wheel', this.onWheel, { passive:false });
+    this.onSync = () => { if (!active) { target = scrollY; cur = scrollY; } };
+    addEventListener('scroll', this.onSync, { passive:true });
   }
 
   scrollToY(y) { scrollTo({ top:y, behavior: this.state.calm ? 'auto' : 'smooth' }); }
