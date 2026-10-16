@@ -1,9 +1,3 @@
-name = "project-shu"
+name = "yourbirthday"
 compatibility_date = "2024-11-01"
-pages_build_output_dir = "dist"
-
-# Do not commit secrets here.
-# Use .dev.vars for local development and Cloudflare Pages Encrypted Environment Variables in production:
-# - SHU_PASSWORD
-# - SHU_SESSION_SECRET
-# - SHU_PASSWORD_HINT (optional)
+pages_build_output_dir = "site"

@@ -2,17 +2,10 @@
   "name": "project-shu",
   "private": true,
   "version": "1.0.0",
-  "description": "A personal, password-protected digital love experience for Yashvi Pokar (Shu) from Atharva Patil",
+  "description": "A one-day birthday website for Shu (static, deployed from /site to Cloudflare Pages)",
   "type": "module",
   "scripts": {
-    "predev": "node scripts/pack-private-assets.mjs",
-    "dev": "vite",
-    "build": "node scripts/pack-private-assets.mjs && tsc -b && vite build",
-    "preview": "vite preview",
-    "pretest": "node scripts/pack-private-assets.mjs",
-    "test": "vitest run",
-    "pretypecheck": "node scripts/pack-private-assets.mjs",
-    "typecheck": "tsc --noEmit"
+    "start": "node .claude/serve.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
