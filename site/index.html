@@ -990,7 +990,6 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
     </div>
     <div style="display:flex; flex-direction:column; gap:8px;">
       <div style="font:500 10px/1 'Geist', sans-serif; letter-spacing:.24em; text-transform:uppercase; color:#9a90ba; margin-bottom:2px;">Options</div>
-      <sc-if value="{{ canFull }}"><button onClick="{{ toggleFull }}" style="min-height:46px; border-radius:12px; border:1px solid rgba(246,242,251,.25); background:transparent; color:inherit; font:500 13px/1 'Geist', sans-serif; cursor:pointer;">{{ fullLabel }}</button></sc-if>
       <button onClick="{{ reloadSite }}" style="min-height:46px; border-radius:12px; border:1px solid rgba(233,138,166,.6); background:transparent; color:#f3a9bd; font:500 13px/1 'Geist', sans-serif; cursor:pointer;">{{ reloadLabel }}</button>
     </div>
     <div style="margin-top:auto; font:400 13px/1.6 'Homemade Apple', cursive; color:#b4a9d4;">made by Atharva</div>
@@ -1256,7 +1255,7 @@ class Component extends DCLogic {
     this.marqSun = words(SUN_WORDS, SUN_WORDS[0]);
   }
 
-  componentDidMount() {
+  componentDidMount() { try { history.scrollRestoration = 'manual'; } catch (e) {}
     if ((window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) || /[?&]calm=1/.test(location.search)) this.setState({ calm:true });
     this.applyPalette();
     const g = this.grainRef.current;

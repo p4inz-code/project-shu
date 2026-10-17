@@ -156,15 +156,16 @@
       var c = Math.cos(ang), s = Math.sin(ang), d = k[0] * v[0] + k[1] * v[1] + k[2] * v[2], x = [k[1] * v[2] - k[2] * v[1], k[2] * v[0] - k[0] * v[2], k[0] * v[1] - k[1] * v[0]];
       return [v[0] * c + x[0] * s + k[0] * d * (1 - c), v[1] * c + x[1] * s + k[1] * d * (1 - c), v[2] * c + x[2] * s + k[2] * d * (1 - c)];
     }
-    var queue = [];
+    var queue = [], bid = 0, frameId = 0;
     function branch(p, dir, len, r, dep, order) {
+      var id = ++bid;
       var n = Math.max(2, Math.round(len / 30)), cur = p.slice(), d = dir.slice(), droop = .016 + dep * .011;
       for (var i = 0; i < n; i++) {
         var t = i / n, step = len / n;
         d = norm([d[0] + R(-.1, .1), d[1] + R(-.07, .08) - droop, d[2] + R(-.1, .1)]);
         var nx = [cur[0] + d[0] * step, cur[1] + d[1] * step, cur[2] + d[2] * step];
         var ord = order + (i + 1) / n;
-        segs.push({ a: cur, b: nx, r0: r * (1 - t * .5), r1: r * (1 - (t + 1 / n) * .5), dep: dep, ord: ord, tick: Math.random() });
+        segs.push({ a: cur, b: nx, r0: r * (1 - t * .5), r1: r * (1 - (t + 1 / n) * .5), dep: dep, ord: ord, tick: Math.random(), br: id });
         if (dep >= 2 && Math.random() < .95) anchors.push({ p: nx, dep: dep, ord: ord, w: 1 });
         if (dep < 5 && i >= 1 && Math.random() < (dep === 1 ? .92 : dep === 2 ? .82 : dep === 3 ? .66 : .42)) {
           var side = rotAround(d, perp(d), R(.45, 1.0) * (Math.random() < .5 ? 1 : -1));
@@ -180,10 +181,10 @@
       var SEG_BUDGET = coarse ? 260 : 360, FLOWER_BUDGET = coarse ? 520 : 900;
       var tl = 118, trunkTop = [0, 0, 0];
       var cur = [0, 0, 0], d = norm([R(-.1, .1), 1, R(-.1, .1)]);
-      for (var i = 0; i < 3; i++) { d = norm([d[0] + R(-.1, .1), d[1], d[2] + R(-.1, .1)]); var nx = [cur[0] + d[0] * tl / 3, cur[1] + d[1] * tl / 3, cur[2] + d[2] * tl / 3]; segs.push({ a: cur, b: nx, r0: 17 - i * 1.6, r1: 17 - (i + 1) * 1.6, dep: 0, ord: (i + 1) / 3 * .8, tick: Math.random() }); cur = nx; }
+      for (var i = 0; i < 3; i++) { d = norm([d[0] + R(-.1, .1), d[1], d[2] + R(-.1, .1)]); var nx = [cur[0] + d[0] * tl / 3, cur[1] + d[1] * tl / 3, cur[2] + d[2] * tl / 3]; segs.push({ a: cur, b: nx, r0: 17 - i * 1.6, r1: 17 - (i + 1) * 1.6, dep: 0, ord: (i + 1) / 3 * .8, tick: Math.random(), br: 0 }); cur = nx; }
       trunkTop = cur;
       // a couple of buttress roots
-      for (var rr = 0; rr < 4; rr++) { var az = rr / 4 * TAU + R(-.4, .4); segs.push({ a: [0, 5, 0], b: [Math.cos(az) * 22, 0, Math.sin(az) * 22], r0: 7, r1: 2.2, dep: 0, ord: .1, tick: 1 }); }
+      for (var rr = 0; rr < 4; rr++) { var az = rr / 4 * TAU + R(-.4, .4); segs.push({ a: [0, 5, 0], b: [Math.cos(az) * 22, 0, Math.sin(az) * 22], r0: 7, r1: 2.2, dep: 0, ord: .1, tick: 1, br: -1 - rr }); }
       var nb = Math.round(R(5, 7));
       for (var b = 0; b < nb; b++) {
         var az2 = b / nb * TAU + R(-.35, .35), el = R(.3, .82);
@@ -193,6 +194,8 @@
       { var dl = norm([R(-.18, .18), 1, R(-.18, .18)]); branch(trunkTop, dl, R(150, 195), 8.4, 1, .8); }
       while (queue.length && segs.length < SEG_BUDGET) { var q = queue.shift(); branch(q[0], q[1], q[2], q[3], q[4], q[5]); }
       queue = [];
+      var byBr = {}; segs.forEach(function (sg) { (byBr[sg.br] = byBr[sg.br] || []).push(sg); });
+      Object.keys(byBr).forEach(function (k) { var a = byBr[k]; a.forEach(function (sg, i) { sg.pv = a[i - 1] || null; sg.nx = a[i + 1] || null; }); });
       // flowers from anchors (subsampled by quality)
       var dens = 1;
       anchors.forEach(function (an) {
@@ -201,7 +204,7 @@
         for (var k = 0; k < n; k++) {
           flowers.push({
             p: [an.p[0] + R(-10, 10), an.p[1] + R(-8, 9), an.p[2] + R(-10, 10)], sz: R(.8, 1.3), rot: R(0, TAU), sq: R(.55, 1), ph: R(0, TAU),
-            delay: clamp(an.ord * .22 + R(0, .5), 0, .98), bud: Math.random() < .12, aged: Math.random() < .2, special: false, vi: Math.floor(R(0, 5)), dep: an.dep
+            delay: clamp(an.ord * .22 + R(0, .5), 0, .98), bud: Math.random() < .035, aged: Math.random() < .2, special: false, vi: Math.floor(R(0, 5)), dep: an.dep
           });
         }
       });
@@ -296,13 +299,14 @@
 
       // draw list: segs + flowers, far to near
       var items = [], drawSeg = [], i2;
-      var gAll = bloom * 1.7;
+      var gAll = bloom * 1.7; frameId++;
       for (i2 = 0; i2 < segs.length; i2++) {
         var sg2 = segs[i2], g = calm ? 1 : clamp((gAll - sg2.ord * .75) / .35, 0, 1); if (g <= 0) continue;
         var sa = swayAt(sg2.a, tt * .001, w), sb = swayAt(sg2.b, tt * .001, w);
         var ax = sg2.a, bx = sg2.b;
         var bp = [ax[0] + (bx[0] - ax[0]) * g, ax[1] + (bx[1] - ax[1]) * g, ax[2] + (bx[2] - ax[2]) * g];
         var pa = proj(ax, sa, { x: 0, y: 0, s: 1, z: 0 }), pb = proj(bp, [lerp(sa[0], sb[0], g), lerp(sa[1], sb[1], g)], { x: 0, y: 0, s: 1, z: 0 });
+        sg2.P = { ax: pa.x, ay: pa.y, bx: pb.x, by: pb.y, s0: pa.s, s1: pb.s, g: g, f: frameId };
         items.push({ z: (pa.z + pb.z) / 2, t: 0, a: pa, b: pb, s: sg2, g: g });
       }
       for (i2 = 0; i2 < flowers.length; i2++) {
@@ -317,15 +321,18 @@
       for (i2 = 0; i2 < items.length; i2++) {
         var it = items[i2];
         if (it.t === 0) {
-          var hz = clamp((it.z + 260) / 520, 0, 1), s = it.s, wdt = Math.max(.6, (s.r0 + s.r1) / 2 * ((it.a.s + it.b.s) / 2) * U * 1.7);
-          var tw = s.dep >= 3, cmain = tw ? BARK.twig : (s.dep >= 2 ? BARK.mid : BARK.dark), cc = mix(cmain, [210, 170, 184], hz * .38);
-          ctx.lineCap = 'round'; ctx.strokeStyle = rgb(cc); ctx.lineWidth = wdt;
-          ctx.beginPath(); ctx.moveTo(it.a.x, it.a.y); ctx.lineTo(it.b.x, it.b.y); ctx.stroke();
-          if (wdt > 3.2) { ctx.strokeStyle = rgb(mix(BARK.hi, [230, 200, 212], hz * .4), .28); ctx.lineWidth = wdt * .36; ctx.beginPath(); ctx.moveTo(it.a.x - wdt * .2, it.a.y - wdt * .16); ctx.lineTo(it.b.x - wdt * .2, it.b.y - wdt * .16); ctx.stroke(); }
+          var hz = clamp((it.z + 260) / 520, 0, 1), s = it.s, P = s.P, tw = s.dep >= 3, cmain = tw ? BARK.twig : (s.dep >= 2 ? BARK.mid : BARK.dark), cc = mix(cmain, [210, 170, 184], hz * .38);
+          var dx = P.bx - P.ax, dy = P.by - P.ay, dl = Math.hypot(dx, dy) || 1, ux = dx / dl, uy = dy / dl, nxx = -uy, nyy = ux;
+          var rEnd = s.r0 + (s.r1 - s.r0) * P.g, w0 = Math.max(.7, s.r0 * P.s0 * U * 1.8), w1 = Math.max(.6, rEnd * P.s1 * U * 1.8);
+          ctx.fillStyle = rgb(cc); ctx.beginPath();
+          ctx.moveTo(P.ax + nxx * w0 / 2, P.ay + nyy * w0 / 2); ctx.lineTo(P.bx + nxx * w1 / 2, P.by + nyy * w1 / 2); ctx.lineTo(P.bx - nxx * w1 / 2, P.by - nyy * w1 / 2); ctx.lineTo(P.ax - nxx * w0 / 2, P.ay - nyy * w0 / 2); ctx.closePath(); ctx.fill();
+          ctx.beginPath(); ctx.arc(P.ax, P.ay, w0 / 2, 0, TAU); ctx.fill(); ctx.beginPath(); ctx.arc(P.bx, P.by, w1 / 2, 0, TAU); ctx.fill();
+          if (w0 > 2.6) { ctx.strokeStyle = rgb(mix(BARK.hi, [230, 200, 212], hz * .4), .26); ctx.lineWidth = Math.max(1, (w0 + w1) * .13); ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(P.ax + nxx * w0 * .2, P.ay + nyy * w0 * .2); ctx.lineTo(P.bx + nxx * w1 * .2, P.by + nyy * w1 * .2); ctx.stroke(); }
+          var wdt = (w0 + w1) / 2;
           if (wdt > 4.2 && s.dep <= 2) { // horizontal lenticels
-            ctx.strokeStyle = 'rgba(28,18,24,.42)'; ctx.lineWidth = Math.max(.8, wdt * .06);
-            var ang = Math.atan2(it.b.y - it.a.y, it.b.x - it.a.x) + Math.PI / 2, kk = 2 + Math.floor(wdt / 6);
-            for (var m = 0; m < kk; m++) { var tp = (m + .5) / kk, lx = lerp(it.a.x, it.b.x, tp), ly = lerp(it.a.y, it.b.y, tp), ll = wdt * (.18 + .1 * ((m * 7 + s.tick * 13) % 3) / 3), off = (((m * 5 + s.tick * 9) % 3) / 3 - .5) * wdt * .5; ctx.beginPath(); ctx.moveTo(lx - Math.cos(ang) * ll + off * .2, ly - Math.sin(ang) * ll); ctx.lineTo(lx + Math.cos(ang) * ll + off * .2, ly + Math.sin(ang) * ll); ctx.stroke(); }
+            ctx.strokeStyle = 'rgba(28,18,24,.42)'; ctx.lineWidth = Math.max(.8, wdt * .06); ctx.lineCap = 'round';
+            var kk = 2 + Math.floor(wdt / 6);
+            for (var m = 0; m < kk; m++) { var tp = (m + .5) / kk, lx = lerp(P.ax, P.bx, tp), ly = lerp(P.ay, P.by, tp), wl = lerp(w0, w1, tp), ll = wl * (.16 + .1 * ((m * 7 + s.tick * 13) % 3) / 3), off = (((m * 5 + s.tick * 9) % 3) / 3 - .5) * wl * .5; ctx.beginPath(); ctx.moveTo(lx - nxx * ll + ux * off * .2, ly - nyy * ll + uy * off * .2); ctx.lineTo(lx + nxx * ll + ux * off * .2, ly + nyy * ll + uy * off * .2); ctx.stroke(); }
           }
         } else {
           var f = it.f, p = it.p, hb = clamp((it.z + 260) / 520, 0, 1), hi = hb < .33 ? 0 : hb < .66 ? 1 : 2;
@@ -334,7 +341,7 @@
           var face = .72 + .28 * Math.abs(Math.cos(yaw * .8 + f.ph));
           ctx.globalAlpha = clamp(it.st * 1.6) * (1 - hb * .14);
           ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(f.rot + Math.sin(tt * .0007 + f.ph) * .08 * (calm ? 0 : 1)); ctx.scale(face, f.sq);
-          if (f.special) { var hg = ctx.createRadialGradient(0, 0, 0, 0, 0, size * .95); hg.addColorStop(0, 'rgba(255,214,226,.55)'); hg.addColorStop(1, 'rgba(255,214,226,0)'); ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(0, 0, size * .95, 0, TAU); ctx.fill(); }
+          if (f.special) { var hg = ctx.createRadialGradient(0, 0, 0, 0, 0, size * .72); hg.addColorStop(0, 'rgba(255,224,232,.32)'); hg.addColorStop(1, 'rgba(255,224,232,0)'); ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(0, 0, size * .72, 0, TAU); ctx.fill(); }
           ctx.drawImage(sp, -size / 2, -size / 2, size, size); ctx.restore();
           if (f.special) { var ni = nodes.indexOf(f); if (ni >= 0) nodePos[ni] = p; }
         }
@@ -385,7 +392,7 @@
     function resize() {
       var r = canvas.getBoundingClientRect(); W = Math.max(1, r.width); H = Math.max(1, r.height);
       dpr = Math.min(devicePixelRatio || 1, coarse ? 1.5 : 1.75); canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
-      U = Math.min(W / 700, H / 470) * 1.06;
+      U = Math.min(W / 700, H / 470) * 1.2;
       if (visible) { running = true; kick(); }
     }
     build(); buildSprites();
