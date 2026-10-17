@@ -16,7 +16,7 @@ Create the Pages project named `yourbirthday` from this repo:
 - Framework preset: None · Build command: *(empty)* · Build output directory: `site`
 
 ## Gate (two stages)
-1. Passphrase: checked in the browser against SHA-256 hashes in `PHRASE_HASHES` (top of the script in `site/index.html`). Placeholder phrase: **`shu`**. Hint text: `HINT`. New hash: `echo -n "newphrase" | sha256sum`.
+1. Passphrase: checked in the browser against SHA-256 hashes in `PHRASE_HASHES` (top of the script in `site/index.html`). Current phrase: **`athvi2067`**. Hint text: `HINT`. New hash: `echo -n "newphrase" | sha256sum`.
 2. Star lock: tap the 5 stars in the secret order `STAR_ORDER` (indexes 0-4 left to right; placeholder `[2,0,4,1,3]`). A hint (`STAR_HINT`) appears after 3 misses. Star positions: `GATE_STARS`.
 Light gate, not real security. On localhost only, `/#open` skips the gate for QA.
 
