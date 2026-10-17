@@ -15,8 +15,13 @@ A one-day birthday site for Shu (26 Oct). Static, no build step. Target URL: `yo
 Create the Pages project named `yourbirthday` from this repo:
 - Framework preset: None · Build command: *(empty)* · Build output directory: `site`
 
-## Gate
-Passphrase is checked in the browser against SHA-256 hashes in `PHRASE_HASHES` (top of the script in `site/index.html`). Placeholder phrase: **`shu`**. Hint text: `HINT`. New hash: `echo -n "newphrase" | sha256sum`. This is a light gate, not real security.
+## Gate (two stages)
+1. Passphrase: checked in the browser against SHA-256 hashes in `PHRASE_HASHES` (top of the script in `site/index.html`). Placeholder phrase: **`shu`**. Hint text: `HINT`. New hash: `echo -n "newphrase" | sha256sum`.
+2. Star lock: tap the 5 stars in the secret order `STAR_ORDER` (indexes 0-4 left to right; placeholder `[2,0,4,1,3]`). A hint (`STAR_HINT`) appears after 3 misses. Star positions: `GATE_STARS`.
+Light gate, not real security. On localhost only, `/#open` skips the gate for QA.
+
+## Scenes
+Gate -> title card -> Moonlight -> chapters -> Dawn (light leak) -> Sunshine -> keepsakes + sakura -> song -> heart constellation -> letter -> finale -> lanterns -> credits. Cherry-blossom layer: fixed blossom branch (fades after the hero), global drifting petals, petal gust + pink wash at every scene change, eased wheel scrolling on desktop.
 
 ## Filling in real content (in `site/index.html`, logic block at top of the script)
 - Photos: put files in `site/media/photos/` and set `src` in `MEDIA` (`memory-01…06`, `film-01`), `PORTRAIT`, `FINAL` (e.g. `'media/photos/memory-01.jpg'`).

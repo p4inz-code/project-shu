@@ -33,7 +33,7 @@ button{font:inherit;-webkit-tap-highlight-color:transparent;}
 button:focus-visible,input:focus-visible,[role=slider]:focus-visible{outline:2px solid #f3a9bd;outline-offset:3px;}
 input::placeholder{color:currentColor;opacity:.35;}
 </style>
-<style>@keyframes branchSway{0%,100%{transform:rotate(0deg)}50%{transform:rotate(1.6deg) translateY(3px)}}@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.06)}30%{transform:scale(.98)}45%{transform:scale(1.04)}}</style>
+<style>@keyframes titleCard{0%{opacity:0}14%{opacity:1}78%{opacity:1}100%{opacity:0;visibility:hidden}}@keyframes titleDolly{0%{transform:scale(.9);opacity:0;filter:blur(8px)}20%{opacity:1;filter:blur(0)}100%{transform:scale(1.12)}}@keyframes branchSway{0%,100%{transform:rotate(0deg)}50%{transform:rotate(1.6deg) translateY(3px)}}@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.06)}30%{transform:scale(.98)}45%{transform:scale(1.04)}}</style>
 </helmet>
 <div ref="{{ rootRef }}" style="position:relative; font-family:'Geist', system-ui, sans-serif; color:var(--ni,#f6f2fb); background:var(--n0,#0c0918); overflow-x:clip;">
 
@@ -69,6 +69,16 @@ input::placeholder{color:currentColor;opacity:.35;}
 </svg>
 </sc-if>
 
+<sc-if value="{{ title }}">
+<div onClick="{{ skipTitle }}" aria-hidden="true" style="position:fixed; inset:0; z-index:96; background:#050308; display:grid; place-items:center; text-align:center; cursor:pointer; animation:titleCard 4400ms cubic-bezier(.4,0,.2,1) forwards;">
+  <div style="animation:titleDolly 4400ms cubic-bezier(.16,1,.3,1) forwards;">
+    <div style="font:400 clamp(14px,3.6vw,20px)/1.6 'Homemade Apple', cursive; color:#f3a9bd;">a film for</div>
+    <div style="font:italic 400 clamp(96px,30vw,240px)/0.95 'Bodoni Moda', serif; letter-spacing:-0.04em; color:#f6f2fb;">Shu</div>
+    <div style="margin-top:10px; font:500 10.5px/1 'Geist', sans-serif; letter-spacing:.3em; text-transform:uppercase; color:#9a90ba;">Moonlight &amp; Sunshine</div>
+  </div>
+</div>
+</sc-if>
+
 <sc-if value="{{ gated }}" hint-placeholder-val="{{ true }}">
 <div ref="{{ gateRef }}" data-tapfx="" data-burst="petals" data-screen-label="00 Invitation" style="position:fixed; inset:0; z-index:80; background:radial-gradient(120% 80% at 80% 8%, #2d2350 0%, #1b1433 36%, #0c0918 74%); color:#f6f2fb; display:flex; flex-direction:column; justify-content:flex-end; padding:max(28px, env(safe-area-inset-top)) clamp(22px,6vw,80px) max(30px, calc(env(safe-area-inset-bottom) + 18px)); overflow:hidden;">
   <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; background:radial-gradient(240px circle at var(--mx,72%) var(--my,22%), rgba(243,169,189,.12), transparent 70%);"></div>
@@ -100,8 +110,18 @@ input::placeholder{color:currentColor;opacity:.35;}
       <span data-r="letter" data-d="600" style="display:inline-block;">S</span><span data-r="letter" data-d="760" style="display:inline-block;">h</span><span data-r="letter" data-d="920" style="display:inline-block;">u</span><span data-r="pop" data-d="1500" aria-hidden="true" style="display:inline-block; align-self:flex-end; margin:0 0 .16em .06em; width:.11em; height:.11em; border-radius:50%; background:#f3a9bd; box-shadow:0 0 18px #f3a9bd;"></span>
     </div>
   </div>
+  <sc-if value="{{ stage2 }}">
+  <div ref="{{ gsRef }}" role="group" aria-label="Star lock" style="position:relative; width:100%; max-width:460px; height:clamp(150px,24svh,210px); margin-top:clamp(14px,3svh,26px); border-radius:22px; border:1px solid rgba(246,242,251,.16); background:rgba(12,9,24,.5); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); overflow:hidden;">
+    <div aria-live="polite" style="position:absolute; left:18px; right:18px; top:12px; font:400 13px/1.5 'Homemade Apple', cursive; color:#f3a9bd;">{{ gateMsg2 }}</div>
+    <sc-for list="{{ gateStars }}" as="g" hint-placeholder-count="5">
+      <button type="button" onClick="{{ g.tap }}" aria-label="{{ g.aria }}" style="position:absolute; left:{{ g.x }}%; top:{{ g.y }}%; width:48px; height:48px; margin:-24px 0 0 -24px; padding:0; border:0; border-radius:50%; background:transparent; cursor:pointer; display:grid; place-items:center;">
+        <span style="width:8px; height:8px; border-radius:50%; background:#f6f2fb; opacity:{{ g.op }}; transform:{{ g.tf }}; box-shadow:{{ g.glow }}; transition:transform .5s cubic-bezier(.16,1,.3,1), box-shadow .6s, opacity .3s;"></span>
+      </button>
+    </sc-for>
+  </div>
+  </sc-if>
   <form onSubmit="{{ submitGate }}" data-r="rise" data-d="1300" style="position:relative; display:flex; flex-direction:column; gap:12px; width:100%; max-width:460px; margin-top:clamp(18px,4svh,40px);">
-    <label for="shu-phrase" style="font:500 10.5px/1 'Geist', sans-serif; letter-spacing:.24em; text-transform:uppercase; white-space:nowrap; color:#b4a9d4;">Only you know the words. Then press the seal.</label>
+    <label for="shu-phrase" style="font:500 10.5px/1 'Geist', sans-serif; letter-spacing:.24em; text-transform:uppercase; line-height:1.6; color:#b4a9d4;">Only you know the words. Then press the seal.</label>
     <div ref="{{ typedRef }}" aria-hidden="true" style="display:flex; gap:7px; height:8px; padding-left:24px;">
       <sc-for list="{{ typed }}" as="d" hint-placeholder-count="0"><span style="width:5px; height:5px; border-radius:50%; background:#f3a9bd; box-shadow:0 0 8px #f3a9bd;"></span></sc-for>
     </div>
@@ -228,6 +248,7 @@ input::placeholder{color:currentColor;opacity:.35;}
 
 <section id="dawn" data-dawn="" data-world="dawn" data-screen-label="02 First light" style="position:relative; height:340svh; background:#1b1433;">
   <div data-sky="" style="position:sticky; top:0; height:100svh; overflow:hidden; background:linear-gradient(180deg, #0c0918, #1b1433 55%, #2c2152);">
+    <div aria-hidden="true" style="position:absolute; inset:-10% -30%; z-index:6; pointer-events:none; mix-blend-mode:screen; opacity:calc(1 - max(var(--p,0) - .5, .5 - var(--p,0)) * 3.2); transform:translateX(calc(var(--p,0) * 120% - 60%)); background:linear-gradient(100deg, transparent 28%, rgba(255,200,150,.5) 44%, rgba(255,140,175,.4) 52%, rgba(255,230,210,.28) 58%, transparent 72%); filter:blur(6px);"></div>
     <canvas data-fx="stars" aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none; opacity:clamp(0, calc(1 - var(--p,0) * 1.8), 1); transform:translateY(calc(var(--p,0) * -16vh));"></canvas>
     <div aria-hidden="true" style="position:absolute; left:50%; top:16%; width:clamp(90px,24vw,200px); aspect-ratio:1; transform:translate(-50%, calc(var(--p,0) * 70vh)) rotate(calc(var(--p,0) * 30deg)); opacity:clamp(0, calc(1 - var(--p,0) * 1.6), 1);">
       <div style="position:absolute; inset:-40%; border-radius:50%; background:radial-gradient(circle, rgba(220,208,245,.3) 22%, transparent 66%);"></div>
@@ -738,6 +759,19 @@ input::placeholder{color:currentColor;opacity:.35;}
   </div>
 </section>
 
+<section data-screen-label="11 Credits" style="position:relative; background:#050308; color:#f6f2fb; text-align:center; padding:clamp(120px,24svh,220px) 24px clamp(100px,18svh,180px); display:flex; flex-direction:column; align-items:center; gap:clamp(40px,8svh,72px); overflow:hidden;">
+  <canvas data-fx="sakura" data-n=".35" aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;"></canvas>
+  <div data-r="fade" data-dur="2400" style="position:relative; font:italic 400 clamp(36px,9vw,84px)/1 'Bodoni Moda', serif; letter-spacing:-0.03em;">Shu <span style="color:#f3a9bd;">&amp;</span> the Moon</div>
+  <div data-r="rise" style="display:flex; flex-direction:column; gap:6px;"><span style="font:500 10.5px/1 'Geist', sans-serif; letter-spacing:.3em; text-transform:uppercase; color:#9a90ba;">starring</span><span style="font:italic 400 clamp(24px,6vw,40px)/1.2 'Bodoni Moda', serif;">Shu</span></div>
+  <div data-r="rise" style="display:flex; flex-direction:column; gap:6px;"><span style="font:500 10.5px/1 'Geist', sans-serif; letter-spacing:.3em; text-transform:uppercase; color:#9a90ba;">written, directed &amp; very nervous</span><span style="font:italic 400 clamp(24px,6vw,40px)/1.2 'Bodoni Moda', serif;">Atharva</span></div>
+  <div data-r="rise" style="display:flex; flex-direction:column; gap:6px;"><span style="font:500 10.5px/1 'Geist', sans-serif; letter-spacing:.3em; text-transform:uppercase; color:#9a90ba;">special effects</span><span style="font:italic 400 clamp(20px,5vw,30px)/1.3 'Bodoni Moda', serif;">a few thousand cherry blossom petals</span></div>
+  <div data-r="rise" style="display:flex; flex-direction:column; gap:6px;"><span style="font:500 10.5px/1 'Geist', sans-serif; letter-spacing:.3em; text-transform:uppercase; color:#9a90ba;">lighting</span><span style="font:italic 400 clamp(20px,5vw,30px)/1.3 'Bodoni Moda', serif;">the moon, and the sun</span></div>
+  <div data-r="ink" data-d="200" style="position:relative; font:400 clamp(15px,4vw,20px)/1.6 'Homemade Apple', cursive; color:#f7c1cf;">no feelings were harmed in the making of this film</div>
+  <div data-r="fade" data-d="300" style="position:relative; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+    <button onClick="{{ toTop }}" style="min-height:48px; padding:0 22px; border-radius:999px; border:1px solid rgba(246,242,251,.3); background:transparent; color:#f6f2fb; font:500 14px/1 'Geist', sans-serif; cursor:pointer;">Back to the beginning</button>
+  </div>
+</section>
+
 <sc-if value="{{ lbOpen }}">
 <div role="dialog" aria-modal="true" aria-label="Memory" onClick="{{ closeLb }}" onPointerDown="{{ swipeStart }}" onPointerUp="{{ swipeEnd }}" style="position:fixed; inset:0; z-index:90; background:rgba(12,9,24,.95); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; padding:max(64px, calc(env(safe-area-inset-top) + 56px)) 16px max(24px, env(safe-area-inset-bottom)); touch-action:pan-y;">
   <button onClick="{{ closeLb }}" aria-label="Close" style="position:absolute; top:max(10px, env(safe-area-inset-top)); right:10px; width:48px; height:48px; border-radius:50%; border:0; background:transparent; color:#f6f2fb; font:300 30px/1 'Geist', sans-serif; cursor:pointer;" style-hover="background:rgba(246,242,251,.1);">×</button>
@@ -790,6 +824,10 @@ const PORTRAIT = { slot:'portrait-01', src:'', focus:'50% 30%', label:'portrait-
 const FINAL = { slot:'final-photo', src:'', focus:'50% 40%', label:'final-photo · the two of you · portrait works best' };
 const HINT = '[ your hint here ]';
 // Gate: SHA-256 hex of the allowed passphrases (lowercased). Placeholder phrase is "shu". Make a hash: echo -n "yourphrase" | sha256sum
+// Stage 2 of the gate: tap the stars in this order (indexes 0-4, left to right). Placeholder order; change it.
+const STAR_ORDER = [2, 0, 4, 1, 3];
+const GATE_STARS = [[14, 38], [33, 70], [52, 30], [71, 66], [87, 34]];
+const STAR_HINT = '[ a hint for the star order, shown after 3 misses ]';
 const PHRASE_HASHES = ['bef9a0ab123c0575c9ed42922b85625063b2704b22f965a3787fa38fc6511635'];
 const sha256 = async t => { if (!(window.crypto && crypto.subtle)) return t; const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)); return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2, '0')).join(''); };
 // Sample letter. Placeholder copy for Atharva to rewrite in his own words.
@@ -978,9 +1016,9 @@ class Ambient {
 }
 
 class Component extends DCLogic {
-  state = { unlocked:false, phrase:'', gateErr:false, gateMsg:'write something first', hint:false, calm:false, sound:true, moon:0, awake:false, taps:0, lit:STARS.map(() => false), last:-1,
+  state = { unlocked:false, phrase:'', gateErr:false, gateMsg:'write something first', stage2:false, seq:[], fails:0, gateOk:false, msg2:'', title:false, hint:false, calm:false, sound:true, moon:0, awake:false, taps:0, lit:STARS.map(() => false), last:-1,
     lb:-1, flipped:false, playing:false, t:0, dur:PREVIEW_DUR, follow:true, audioErr:false, toast:'', secretEnd:false, holding:false, sec:[false,false,false], sel:0, opened:MEDIA.map(() => false), letterOpen:false, lanterns:0, lanternsDone:false };
-  rootRef = React.createRef(); gateRef = React.createRef(); progRef = React.createRef(); discRef = React.createRef(); grainRef = React.createRef(); typedRef = React.createRef(); eqRef = React.createRef(); lanternRef = React.createRef(); inspRef = React.createRef(); lyricRef = React.createRef(); barsRef = React.createRef(); envRef = React.createRef(); starRef = React.createRef();
+  rootRef = React.createRef(); gsRef = React.createRef(); gateRef = React.createRef(); progRef = React.createRef(); discRef = React.createRef(); grainRef = React.createRef(); typedRef = React.createRef(); eqRef = React.createRef(); lanternRef = React.createRef(); inspRef = React.createRef(); lyricRef = React.createRef(); barsRef = React.createRef(); envRef = React.createRef(); starRef = React.createRef();
   world = 0; override = null; natW = 0; smooth = {}; anims = []; fx = []; amb = new Ambient();
 
   constructor(p) {
@@ -1022,8 +1060,8 @@ class Component extends DCLogic {
     this.onVis = () => { this.amb.suspend(document.hidden); if (!document.hidden) this.loop(); };
     document.addEventListener('visibilitychange', this.onVis);
     this.setupAudio();
-    if (this.props.skipGate) this.setState({ unlocked:true });
-    this.refresh(!!this.props.skipGate);
+    if (this.props.skipGate || (/^(localhost|127.0.0.1)$/.test(location.hostname) && location.hash === '#open')) this.setState({ unlocked:true });
+    this.refresh(!!this.props.skipGate || (/^(localhost|127.0.0.1)$/.test(location.hostname) && location.hash === '#open'));
   }
   componentDidUpdate(pp) {
     const p = this.props;
@@ -1510,6 +1548,22 @@ class Component extends DCLogic {
     const phrase = this.state.phrase.trim().toLowerCase();
     if (!phrase) { this.setState({ gateErr:true, gateMsg:'write something first' }); shake(); return; }
     if (!PHRASE_HASHES.includes(await sha256(phrase))) { this.setState({ gateErr:true, gateMsg:'that’s not it, try again' }); shake(); return; }
+    if (!this.state.stage2) { this.formEl = form; this.setState({ stage2:true, seq:[], fails:0, gateErr:false, msg2:'' }); return; }
+    if (this.state.gateOk) this.openSeal(form);
+  };
+  tapGateStar(i) {
+    const st = this.state; if (st.gateOk || st.seq.includes(i) || st.seq.length >= STAR_ORDER.length) return;
+    const seq = [...st.seq, i]; this.setState({ seq });
+    const gs = this.gsRef.current;
+    if (seq.length < STAR_ORDER.length) return;
+    if (STAR_ORDER.every((v, k) => v === seq[k])) { this.setState({ gateOk:true, msg2:'the sky remembers you' }); setTimeout(() => this.openSeal(this.formEl), 700); return; }
+    const fails = st.fails + 1;
+    this.setState({ fails, msg2:'the sky didn’t answer. try again' });
+    if (gs && gs.animate) gs.animate([{ transform:'translateX(0)' },{ transform:'translateX(-8px)' },{ transform:'translateX(7px)' },{ transform:'translateX(-3px)' },{ transform:'translateX(0)' }], { duration:420 });
+    setTimeout(() => this.setState({ seq:[] }), 650);
+  }
+  openSeal(form) {
+    if (!form || this.sealing) return; this.sealing = true;
     if (this.state.sound) this.amb.start(.32);
     const g = this.gateRef.current;
     if (this.state.calm || !g || !g.animate) return this.unlock();
@@ -1526,9 +1580,9 @@ class Component extends DCLogic {
     const a = g.animate([{ clipPath:'circle(150% at ' + cx + ' ' + cy + ')' }, { clipPath:'circle(0% at ' + cx + ' ' + cy + ')' }], { duration:1500, delay:550, easing:'cubic-bezier(.77,0,.18,1)', fill:'forwards' });
     a.onfinish = () => this.unlock();
     clearTimeout(this.ut); this.ut = setTimeout(() => this.unlock(), 2300);
-  };
-  unlock() { clearTimeout(this.ut); if (this.state.unlocked) return; scrollTo(0, 0); this.setState({ unlocked:true, phrase:'', gateErr:false, hint:false }); this.refresh(true); }
-  lock = () => { this.pause(); this.amb.stop(); scrollTo(0, 0); this.setState({ unlocked:false }); this.refresh(false); };
+  }
+  unlock() { clearTimeout(this.ut); if (this.state.unlocked) return; scrollTo(0, 0); this.sealing = false; this.setState({ unlocked:true, phrase:'', gateErr:false, hint:false, title:!this.state.calm }); if (!this.state.calm) { clearTimeout(this.tit); this.tit = setTimeout(() => this.setState({ title:false }), 4600); } this.refresh(true); }
+  lock = () => { this.pause(); this.amb.stop(); scrollTo(0, 0); this.sealing = false; this.setState({ unlocked:false, stage2:false, seq:[], fails:0, gateOk:false, msg2:'', title:false }); this.refresh(false); };
 
   setupAudio() {
     if (this.audio) { this.audio.pause(); this.audio = null; }
@@ -1635,6 +1689,9 @@ class Component extends DCLogic {
       promises: PROMISES.map((t, i) => ({ text:t, n:ROMAN[i] + '.', d:600 + i * 220 })),
       fin:{ ...FINAL, isImg: !!FINAL.src },
       rootRef:this.rootRef, gateRef:this.gateRef, progRef:this.progRef, discRef:this.discRef, grainRef:this.grainRef, typedRef:this.typedRef, eqRef:this.eqRef, lanternRef:this.lanternRef, inspRef:this.inspRef, lyricRef:this.lyricRef, barsRef:this.barsRef, envRef:this.envRef, starRef:this.starRef,
+      stage2:s.stage2, title:s.title, gsRef:this.gsRef, skipTitle: () => this.setState({ title:false }), toTop: () => this.scrollToY(0),
+      gateMsg2: s.fails >= 3 ? STAR_HINT : (s.msg2 || 'Now wake the stars, in the order only you would know.'),
+      gateStars: GATE_STARS.map((p, i) => { const on = s.seq.includes(i); return { x:p[0], y:p[1], aria:'Star ' + (i + 1) + (on ? ', lit' : ''), tap: () => this.tapGateStar(i), op:on ? 1 : .6, tf:on ? 'scale(1.9)' : 'scale(1)', glow:on ? '0 0 16px 5px rgba(243,169,189,.85)' : 'none' }; }),
       gated:!s.unlocked, unlocked:s.unlocked, phrase:s.phrase, gateErr:s.gateErr, gateMsg:s.gateMsg,
       typed: Array.from({ length:Math.min(s.phrase.length, 18) }, (_, i) => i),
       onPhrase: e => {
