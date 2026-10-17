@@ -19,10 +19,8 @@ A one-day birthday site for Shu (26 Oct). Static, no build step.
 ## Deploy
 Cloudflare Pages from this repo: no build command, output directory `site`.
 
-## The gate (two stages)
-1. Passphrase `athvi2067`, checked in the browser against a SHA-256 hash (`PHRASE_HASHES` in `site/index.html`). Case and surrounding spaces are ignored. Make a new hash with `echo -n "newphrase" | sha256sum`. Hint text is `HINT`.
-2. Star lock: tap the five stars in `STAR_ORDER` (indexes 0 to 4, left to right; now `[2,0,4,1,3]`). `STAR_HINT` shows after 3 misses.
-After 4 wrong phrases the gate says the site is private and to ask Atharva. It is a light gate, not real security. On localhost only, `/#open` skips it for testing; `?calm=1` forces the still, reduced-motion version.
+## The gate
+The lock screen is a teaser. The passphrase is checked with PBKDF2 (150,000 rounds, salted) in the browser, so the answer is not readable in the page source. After the passphrase there is one more step. After 3 wrong passphrases the gate tells the visitor to contact Atharva. On localhost only, `/#open` skips it for testing; `?calm=1` forces the still, reduced-motion version. It is a light gate, not real security.
 
 ## Sound
 One speaker button (top right) controls all sound. Ambient piano starts on the gate tap. When the mashup is added, it will be muted by the same button. Pressing Play on the song while sound is off turns sound back on.
@@ -42,3 +40,21 @@ To fill one: put the file in `site/media/photos/` and set its `src` in `MEDIA`, 
 
 ## Copy
 All lines are drafts for Atharva to rewrite: `LETTER`, `SIGNATURE`, `PS`, `SECRETS`, `STARS`, `COMPLETE`, `WHISPERS`, `WISHES`, `PROMISES`, `SECRET_END`, and the headings in the template. Bracketed text marks a spot only Atharva can fill.
+
+## Epigraphs (real quotes, original language, credited)
+Set in `site/index.html` between scenes. Please verify wording against your own copies before the day:
+
+| Scene break | Quote | Credit |
+|---|---|---|
+| after the hero | I cannot exist without you. | John Keats, letter to Fanny Brawne, 1819 |
+| before first light | Le coeur a ses raisons que la raison ne connait point. | Blaise Pascal, Pensees, 1670 |
+| before keepsakes | Poesia... eres tu. | Gustavo Adolfo Becquer, Rimas, 1871 |
+| before the song | Dhai aakhar prem ka, padhe so pandit hoy. | Kabir, doha, 15th century |
+| before the stars | Amor, ch'a nullo amato amar perdona. | Dante, Inferno V, c. 1320 |
+| before the letter | Whatever our souls are made of, his and mine are the same. | Emily Bronte, Wuthering Heights, 1847 |
+| before the finale | You pierce my soul. I am half agony, half hope. | Jane Austen, Persuasion, 1817 |
+| before the birthday | I love thee with the breath, smiles, tears, of all my life. | E. B. Browning, Sonnets from the Portuguese, 1850 |
+| before the lanterns | Dongjitdal gineun bameul han heorireul bae neo... (Korean) | Hwang Jini, sijo, 16th century |
+| before the credits | Vivamus, mea Lesbia, atque amemus. | Catullus, Carmen 5, c. 60 BC |
+
+No Gujarati or Marathi line is in yet: I could not confirm a classical quote with certainty. Candidates to check: Narsinh Mehta or Dayaram (Gujarati), Tukaram or Dnyaneshwar (Marathi).

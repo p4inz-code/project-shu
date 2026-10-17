@@ -82,11 +82,18 @@
     c.closePath();
   }
   // open: 0 closed bud .. 1 fully open. age: 0 pink .. 1 almost white. haze: 0 near .. 1 far (paler)
-  function makeFlowerSprite(open, age, haze, seedRot) {
+  var PAL = [
+    [[232, 110, 150], [246, 176, 196], [255, 240, 244]],
+    [[238, 140, 168], [250, 200, 214], [255, 246, 248]],
+    [[226, 96, 138], [240, 150, 178], [252, 226, 234]],
+    [[240, 156, 150], [250, 202, 196], [255, 240, 232]],
+    [[214, 120, 170], [238, 178, 210], [252, 236, 246]]
+  ];
+  function makeFlowerSprite(open, age, haze, seedRot, vi) {
     var S = 96, cv = document.createElement('canvas'); cv.width = cv.height = S; var c = cv.getContext('2d');
     c.translate(S / 2, S / 2);
     var r = S * .46, hz = [247, 226, 234];
-    var base = mix([232, 110, 150], hz, haze * .55), mid = mix([246, 176, 196], hz, haze * .5), tip = mix([255, 240, 244], hz, haze * .3);
+    var pal = PAL[(vi || 0) % PAL.length], base = mix(pal[0], hz, haze * .55), mid = mix(pal[1], hz, haze * .5), tip = mix(pal[2], hz, haze * .3);
     base = mix(base, [250, 235, 240], age * .55); mid = mix(mid, [255, 244, 247], age * .6);
     if (open < .25) { // bud: two overlapped teardrops, deep pink
       c.rotate(seedRot);
@@ -101,10 +108,10 @@
     var sy = lerp(.55, 1, clamp((open - .25) / .75));
     c.rotate(seedRot); c.scale(1, 1);
     for (var i = 0; i < 5; i++) {
-      c.save(); c.rotate(i * TAU / 5 + R(-.06, .06)); c.scale(lerp(.55, 1, clamp((open - .2) / .8)), 1);
-      var pr = r * lerp(.62, 1, open);
+      c.save(); c.rotate(i * TAU / 5 + R(-.09, .09)); c.scale(lerp(.55, 1, clamp((open - .2) / .8)) * R(.9, 1.08), 1);
+      var pr = r * lerp(.62, 1, open) * R(.92, 1.06);
       var gr = c.createLinearGradient(0, 0, 0, -pr);
-      gr.addColorStop(0, rgb(base)); gr.addColorStop(.45, rgb(mid)); gr.addColorStop(1, rgb(tip));
+      gr.addColorStop(0, rgb(base, .86)); gr.addColorStop(.45, rgb(mid, .74)); gr.addColorStop(1, rgb(tip, .62));
       c.fillStyle = gr; petalPath(c, pr); c.fill();
       c.strokeStyle = 'rgba(214,90,126,' + (.22 * (1 - haze * .6)).toFixed(2) + ')'; c.lineWidth = .8; c.stroke();
       c.strokeStyle = 'rgba(200,70,110,' + (.2 * (1 - age * .6)).toFixed(2) + ')'; c.lineWidth = .7;
@@ -194,7 +201,7 @@
         for (var k = 0; k < n; k++) {
           flowers.push({
             p: [an.p[0] + R(-10, 10), an.p[1] + R(-8, 9), an.p[2] + R(-10, 10)], sz: R(.8, 1.3), rot: R(0, TAU), sq: R(.55, 1), ph: R(0, TAU),
-            delay: clamp(an.ord * .22 + R(0, .5), 0, .98), bud: Math.random() < .12, aged: Math.random() < .2, special: false, vi: Math.floor(R(0, 3)), dep: an.dep
+            delay: clamp(an.ord * .22 + R(0, .5), 0, .98), bud: Math.random() < .12, aged: Math.random() < .2, special: false, vi: Math.floor(R(0, 5)), dep: an.dep
           });
         }
       });
@@ -217,7 +224,7 @@
       sprites = []; petalSp = [];
       for (var h = 0; h < 3; h++) {
         var haze = h * .45, row = { bud: [], half: [], open: [], aged: [] };
-        for (var v = 0; v < 3; v++) { row.bud.push(makeFlowerSprite(0, 0, haze, R(0, TAU))); row.half.push(makeFlowerSprite(.55, 0, haze, R(0, TAU))); row.open.push(makeFlowerSprite(1, 0, haze, R(0, TAU))); row.aged.push(makeFlowerSprite(1, 1, haze, R(0, TAU))); }
+        for (var v = 0; v < 5; v++) { row.bud.push(makeFlowerSprite(0, 0, haze, R(0, TAU), v)); row.half.push(makeFlowerSprite(.55, 0, haze, R(0, TAU), v)); row.open.push(makeFlowerSprite(1, 0, haze, R(0, TAU), v)); row.aged.push(makeFlowerSprite(1, 1, haze, R(0, TAU), v)); }
         sprites.push(row); petalSp.push(makePetalSprite(haze));
       }
     }
@@ -396,5 +403,40 @@
     return { kick: kick, rebuild: function () { petals = []; pile = []; build(); kick(); }, nodeCount: function () { return nodes.length; }, stats: function () { return { flowers: flowers.length, segs: segs.length, quality: quality, petals: petals.length, pile: pile.length, nodes: nodes.length, whisp: whisp.length }; } };
   }
 
-  window.ShuFX = { R: R, clamp: clamp, makeNoise: makeNoise, wind: wind, loopRand: loopRand, depth: depth, tree: tree, coarse: coarse, reduced: reduced };
+  /* ---------- moon: lit lunar surface (maria, craters, limb darkening) rendered once and shared ---------- */
+  var moonTex = null;
+  function buildMoon(S) {
+    var seedv = Math.random() * 1000, G = 96, grid = new Float32Array(G * G); for (var i = 0; i < grid.length; i++) grid[i] = Math.random();
+    function vn(x, y) { x = ((x % G) + G) % G; y = ((y % G) + G) % G; var xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi, u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf), x1 = (xi + 1) % G, y1 = (yi + 1) % G; return lerp(lerp(grid[yi * G + xi], grid[yi * G + x1], u), lerp(grid[y1 * G + xi], grid[y1 * G + x1], u), v); }
+    function fbm(x, y) { var a = .5, f = 1, s = 0; for (var o = 0; o < 5; o++) { s += a * vn(x * f + seedv, y * f + seedv * .7); f *= 2.03; a *= .5; } return s; }
+    var H = new Float32Array(S * S), craters = [];
+    for (var c = 0; c < 52; c++) { var rr = Math.pow(Math.random(), 2.8) * .085 + .01, a = Math.random() * TAU, d = Math.sqrt(Math.random()) * .92; craters.push({ x: .5 + Math.cos(a) * d * .5, y: .5 + Math.sin(a) * d * .5, r: rr, depth: R(.5, 1) }); }
+    for (var y = 0; y < S; y++) for (var x = 0; x < S; x++) H[y * S + x] = fbm(x / S * 5, y / S * 5) * .35;
+    craters.forEach(function (k) {
+      var cx = k.x * S, cy = k.y * S, r = k.r * S, x0 = Math.max(0, Math.floor(cx - r * 1.6)), x1 = Math.min(S - 1, Math.ceil(cx + r * 1.6)), y0 = Math.max(0, Math.floor(cy - r * 1.6)), y1 = Math.min(S - 1, Math.ceil(cy + r * 1.6));
+      for (var y = y0; y <= y1; y++) for (var x = x0; x <= x1; x++) { var d = Math.hypot(x - cx, y - cy) / r; if (d < 1) H[y * S + x] -= (1 - d * d) * .3 * k.depth; var rim = Math.exp(-Math.pow((d - 1.02) / .16, 2)); H[y * S + x] += rim * .11 * k.depth; }
+    });
+    var cv = document.createElement('canvas'); cv.width = cv.height = S; var cx2 = cv.getContext('2d'), img = cx2.createImageData(S, S), L = [-.5, -.52, .69], ll = Math.hypot(L[0], L[1], L[2]); L = [L[0] / ll, L[1] / ll, L[2] / ll];
+    for (var y2 = 0; y2 < S; y2++) for (var x2 = 0; x2 < S; x2++) {
+      var px = (x2 + .5) / S * 2 - 1, py = (y2 + .5) / S * 2 - 1, r2 = px * px + py * py, o = (y2 * S + x2) * 4;
+      if (r2 >= 1.02) { img.data[o + 3] = 0; continue; }
+      var nz = Math.sqrt(Math.max(0, 1 - r2)), xm = Math.max(1, Math.min(S - 2, x2)), ym = Math.max(1, Math.min(S - 2, y2));
+      var gx = (H[ym * S + xm + 1] - H[ym * S + xm - 1]) * 2.0, gy = (H[(ym + 1) * S + xm] - H[(ym - 1) * S + xm]) * 2.0;
+      var nx = px - gx, ny = py - gy, nzz = nz + .0001, nl = Math.hypot(nx, ny, nzz); nx /= nl; ny /= nl; nzz /= nl;
+      var lam = Math.max(0, nx * L[0] + ny * L[1] + nzz * L[2]);
+      var mar = fbm(x2 / S * 2.2 + 9, y2 / S * 2.2 + 3), maria = clamp((mar - .46) * 4.2), alb = lerp(.98, .62, maria) * (.92 + H[y2 * S + x2] * .16);
+      var limb = .62 + .38 * Math.pow(nz, .45), v = alb * (.2 + .92 * lam) * limb;
+      var edge = clamp((1.02 - Math.sqrt(r2)) * S * .5);
+      img.data[o] = clamp(v * 1.02) * 255; img.data[o + 1] = clamp(v * .97) * 255; img.data[o + 2] = clamp(v * 1.04) * 255; img.data[o + 3] = edge * 255;
+    }
+    cx2.putImageData(img, 0, 0); return cv;
+  }
+  function moon(canvas) {
+    if (!moonTex) moonTex = buildMoon(480);
+    canvas.width = canvas.height = 480; var c = canvas.getContext('2d'); c.clearRect(0, 0, 480, 480); c.drawImage(moonTex, 0, 0);
+    // faint warm rim light on the lit edge
+    var g = c.createRadialGradient(170, 160, 90, 240, 240, 250); g.addColorStop(0, 'rgba(255,248,236,0)'); g.addColorStop(1, 'rgba(255,236,214,.16)'); c.globalCompositeOperation = 'source-atop'; c.fillStyle = g; c.fillRect(0, 0, 480, 480); c.globalCompositeOperation = 'source-over';
+  }
+
+  window.ShuFX = { moon: moon, R: R, clamp: clamp, makeNoise: makeNoise, wind: wind, loopRand: loopRand, depth: depth, tree: tree, coarse: coarse, reduced: reduced };
 })();
