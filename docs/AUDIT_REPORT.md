@@ -35,14 +35,14 @@ Environment: Chromium in the Claude desktop preview pane, desktop and emulated p
 - Any real photo, the real song, or the final mashup. All media are placeholders.
 
 ## Known limits
-- The gate is a light check in the browser, as agreed. Anyone who reads the page source can find the hash and the star order.
+- The gate is a light check in the browser, as agreed. See the addendum for what it does and does not protect.
 - The tree is pseudo-3D drawn on a 2D canvas, not WebGL. It adapts its detail if frames run slow.
 - Scroll-driven colour changes (the dawn sky) are deterministic on purpose. Ambient motion (petals, wind, loops, gust timing, tile sway, light flicker) is randomised.
 - The old React and Functions app is still in the repo and unused.
 
 ## Addendum: lock screen and later changes
 - Passphrase check: empty, junk, injection strings, near misses and mixed case all behave; wrong tries give a tease, then a romantic hint, then the contact message.
-- Second step: physics was simulated frame by frame (a fast lunge reaches it, a slow approach does not, each miss makes it slower and easier); a full catch and drop unlocks the page.
+- Second unlock step: simulated frame by frame and driven end to end; it unlocks the page, gets easier after misses, and stays inside the screen.
 - 10 epigraphs render in Latin, Devanagari, Hangul and accented scripts; 0 errors across a 22-step sweep; no overflow; no dashes in visible text.
 - Not verified: touch dragging on a real phone, Safari and Firefox, and PBKDF2 timing on low-end phones (150,000 rounds is a deliberate short pause).
 - Security limit: the answer is no longer readable in the source, but a determined person could still brute-force the short phrase offline or bypass the page in the console. Casual F12 reading will not reveal it.
