@@ -1024,7 +1024,7 @@ const SLOT_NUM = {"portrait-01":"01","film-01":"02","memory-01":"03","memory-02"
 const _r = (a, b) => a + Math.random() * (b - a);
 const rj = (v, a) => v + _r(-a, a);
 // [left %, top %, width %, tilt deg, hang style]; every visit nudges them a little so the wall is never quite the same
-const WALL = [[3, 11, 19, -7, 'clip'], [78, 12, 19, 6, 'clip'], [1, 38, 16, 4, 'tape'], [83, 40, 16, -5, 'tape'], [5, 66, 19, -4, 'tape'], [75, 67, 19, 7, 'tape'], [27, 7, 13, 3, 'clip'], [60, 81, 14, -6, 'tape']];
+const WALL = [[3, 11, 19, -7, 'clip'], [78, 12, 19, 6, 'clip'], [1, 38, 16, 4, 'tape'], [83, 40, 16, -5, 'tape'], [5, 66, 19, -4, 'tape'], [75, 67, 19, 7, 'tape'], [27, 7, 13, 3, 'clip'], [27, 83, 13, -6, 'tape']];
 const COLLAGE = WALL.map(([l, t, w, r, k], i) => { const tt = rj(t, 2.5); return { l:rj(l, 2.4).toFixed(1) + '%', t:tt.toFixed(1) + '%', w:(w * _r(.92, 1.14)).toFixed(1) + '%', r:rj(r, 3.5).toFixed(1) + 'deg', d:+(.02 + i * .03 + _r(0, .02)).toFixed(3), opt:i > 5 ? 1 : 0, clip:k === 'clip', tape:k === 'tape', dp:_r(.4, 1.5).toFixed(2), sl:Math.max(0, tt - 5).toFixed(1), tr:rj(0, 6).toFixed(1) + 'deg', cap:'[ a few words ]', slot:'collage-0' + (i + 1), src:'' }; });
 const DOODLES = Array.from({ length:12 }, (_, i) => { const side = Math.random() < .5 ? _r(1, 22) : _r(78, 98); return { x:side.toFixed(1) + '%', y:_r(6, 92).toFixed(1) + '%', s:Math.round(_r(14, 30)) + 'px', r:Math.round(_r(-30, 30)) + 'deg', heart:i % 3 === 0, star:i % 3 === 1, bloom:i % 3 === 2, dp:_r(.3, 1.6).toFixed(2) }; });
 const PORTRAIT = { slot:'portrait-01', src:'', focus:'50% 30%', label:'No. 01 · portrait-01 · 4:5' };
@@ -2038,6 +2038,7 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
       stage2:s.stage2, title:s.title, gsRef:this.gsRef, skipTitle: () => this.setState({ title:false }), toTop: () => this.scrollToY(0),
       gateMsg2: s.twTries >= 7 ? HUSBAND : s.twTries >= 4 ? HINT3 : s.twTries >= 2 ? HINT2 : s.msg2, twRef:this.twRef,
       twKey: e => { if ((e.key === 'Enter' || e.key === ' ') && this.twWin && !this.sealing) { e.preventDefault(); this.twWin(); } },
+      collage: COLLAGE.map(c => ({ ...c, isImg: !!c.src })), doodles: DOODLES,
       gated:!s.unlocked, unlocked:s.unlocked, phrase:s.phrase, gateErr:s.gateErr, gateMsg:s.gateMsg,
       typed: Array.from({ length:Math.min(s.phrase.length, 18) }, (_, i) => i),
       onPhrase: e => {
