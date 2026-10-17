@@ -55,6 +55,8 @@ input::placeholder{color:currentColor;opacity:.35;}
 svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
 #memory-sakura [data-slot-id]::after{font-size:46px;}
 @keyframes treeSway{0%,100%{transform:rotate(-.7deg)}50%{transform:rotate(.8deg)}}
+/* Bodoni Moda at big sizes picks its thinnest optical size and the hairlines of H, A and Y disappear. Pin a sturdier one. */
+[style*="Bodoni Moda"], h1, h2 { font-optical-sizing:none !important; font-variation-settings:'opsz' 18 !important; }
 .moon-old{background:none !important; box-shadow:none !important;}
 .moon-old > span:not([data-keep]){display:none !important;}
 .moon-old > canvas{display:block;}
@@ -71,6 +73,7 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
 <div aria-hidden="true" style="position:fixed; inset:0; z-index:93; pointer-events:none; background:radial-gradient(130% 95% at 50% 50%, transparent 62%, rgba(5,3,8,.38) 100%);"></div>
 
 <sc-if value="{{ unlocked }}">
+<div data-veil="" aria-hidden="true" style="position:fixed; inset:0; z-index:39; pointer-events:none; visibility:hidden; opacity:0; background:color-mix(in oklch, var(--n0,#0c0918) calc((1 - var(--w,0)) * 50%), color-mix(in oklch, var(--d0,#fffaf5) 50%, transparent)); -webkit-backdrop-filter:blur(7px); backdrop-filter:blur(7px); -webkit-mask-image:linear-gradient(180deg, transparent calc(var(--vy,50%) - var(--vb,200px)), #000 var(--vy,50%), transparent calc(var(--vy,50%) + var(--vb,200px))); mask-image:linear-gradient(180deg, transparent calc(var(--vy,50%) - var(--vb,200px)), #000 var(--vy,50%), transparent calc(var(--vy,50%) + var(--vb,200px)));"></div>
 <div aria-hidden="true" data-wash="" style="position:fixed; inset:0; z-index:91; pointer-events:none; opacity:0; background:radial-gradient(90% 70% at 50% 40%, rgba(247,193,207,.55), rgba(243,169,189,.18) 55%, transparent 80%); mix-blend-mode:soft-light;"></div>
 <canvas data-fx="sakura" data-global="1" data-n=".5" aria-hidden="true" style="position:fixed; inset:0; width:100%; height:100%; z-index:92; pointer-events:none;"></canvas>
 <svg data-branch="" data-sway="" aria-hidden="true" focusable="false" viewBox="0 0 360 270" style="position:fixed; left:clamp(-30px,-4vw,-6px); top:clamp(40px,6vh,64px); width:clamp(200px,34vw,420px); z-index:49; pointer-events:none; overflow:visible; transform-origin:0 0; opacity:.92; transition:opacity .4s linear;">
@@ -757,7 +760,7 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
   </div>
 </section>
 
-<section id="finale" data-finale="" data-world="fin" data-screen-label="09 Finale" style="position:relative; height:360svh; background:var(--n0,#0c0918);">
+<section id="finale" data-finale="" data-world="fin" data-screen-label="09 Finale" style="position:relative; height:450svh; background:var(--n0,#0c0918);">
   <div style="position:sticky; top:0; height:100svh; overflow:hidden; color:#f6f2fb;">
     <div aria-hidden="true" style="position:absolute; inset:0; background:radial-gradient(70% 55% at 50% 45%, rgba(243,169,189,.22) 0%, transparent 70%); opacity:var(--a,0);"></div>
     <canvas data-fx="stars" data-n=".7" aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none; opacity:calc(1 - var(--o,0));"></canvas>
@@ -779,6 +782,20 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
       <div style="position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle at 44% 40%, #fffaf0 0%, #ffe3b0 40%, #f6b46a 80%, #ee9d5c 100%); box-shadow:0 0 50px 8px rgba(246,180,106,.5);"></div>
     </div>
     <div aria-hidden="true" style="position:absolute; left:50%; top:44%; width:clamp(90px,24vw,190px); aspect-ratio:1; border-radius:50%; background:radial-gradient(circle, #fffaf2 0%, rgba(255,214,200,.8) 35%, rgba(243,169,189,.35) 60%, transparent 72%); transform:translate(-50%,-50%) scale(calc(.4 + var(--m,0) * 4)); opacity:calc(var(--m,0) * (1 - var(--o,0) * .9));"></div>
+    <div aria-hidden="true" style="position:absolute; left:50%; top:44%; width:clamp(150px,32vw,290px); aspect-ratio:1; transform:translate(-50%,-50%) scale(calc(.55 + var(--m,0) * .45)); opacity:min(clamp(0, calc((var(--m,0) - .3) * 3), 1), calc(1 - var(--o,0) * 1.9)); filter:drop-shadow(0 0 34px rgba(246,200,160,.5));">
+      <div data-spin="52000" style="position:absolute; inset:0;">
+        <svg viewBox="-50 -50 100 100" width="100%" height="100%" style="display:block; overflow:visible;"><defs><radialGradient id="yyS" cx=".42" cy=".38"><stop offset="0" stop-color="#fffaf0"/><stop offset=".45" stop-color="#ffe3b0"/><stop offset="1" stop-color="#f0a860"/></radialGradient><radialGradient id="yyM" cx=".4" cy=".36"><stop offset="0" stop-color="#fffdf7"/><stop offset=".5" stop-color="#ddd4ea"/><stop offset="1" stop-color="#a99fc6"/></radialGradient></defs>
+          <circle r="48" fill="url(#yyS)"/>
+          <path d="M0 -48 A48 48 0 0 1 0 48 A24 24 0 0 1 0 0 A24 24 0 0 0 0 -48 Z" fill="url(#yyM)"/>
+          <circle cx="0" cy="-24" r="7" fill="#ffe3b0"/><circle cx="0" cy="24" r="7" fill="#e6def8"/>
+          <circle r="48" fill="none" stroke="rgba(255,255,255,.55)" stroke-width=".8"/>
+        </svg>
+      </div>
+    </div>
+    <div style="position:absolute; left:0; right:0; top:calc(44% + clamp(125px,22vw,185px)); display:grid; place-items:center; text-align:center; padding:0 22px; pointer-events:none;">
+      <div style="max-width:12em; font:italic 400 clamp(30px,7vw,66px)/1.12 'Bodoni Moda', serif; letter-spacing:-0.025em; text-wrap:balance; text-shadow:0 2px 26px rgba(12,9,24,.7); opacity:min(clamp(0, calc((var(--f,0) - .45) * 12), 1), clamp(0, calc((.63 - var(--f,0)) * 12), 1)); transform:translateY(calc((1 - clamp(0, calc((var(--f,0) - .45) * 12), 1)) * 18px));">You’re the <span style="color:#d9cff7;">yin</span>, the still and silver half. I’m the <span style="color:#f0b45e;">yang</span>, warm and never quite settled.</div>
+      <div style="margin-top:14px; font:400 clamp(14px,3.4vw,19px)/1.6 'Homemade Apple', cursive; color:#f7c1cf; opacity:min(clamp(0, calc((var(--f,0) - .5) * 12), 1), clamp(0, calc((.63 - var(--f,0)) * 12), 1));">Put us together and the circle closes.</div>
+    </div>
     <div style="position:absolute; inset:0; clip-path:circle(calc(var(--o,0) * 78%) at 50% 44%);">
       <div data-slot-id="final-photo" style="position:absolute; inset:-6%; transform:scale(calc(1.3 - var(--o,0) * .3)) translateY(calc(var(--q,0) * -4%));">
         <div style="position:absolute; inset:0; background:repeating-linear-gradient(135deg, #2c2152 0 16px, #3b2d63 16px 32px);"></div>
@@ -1017,7 +1034,7 @@ const _s = [224,141,92,51,103,236,180,247,12,175,119,18,98,71,52,254];
 const _k = ["98166a52535a27c1","6f9ed6db7d54e668","f69814e33dcce6ff","c303a8ae164cc984"];
 const chk = async t => { try { const c = window.crypto; if (!(c && c.subtle && c.subtle.importKey)) return false; const km = await c.subtle.importKey('raw', new TextEncoder().encode(t), 'PBKDF2', false, ['deriveBits']); const bits = await c.subtle.deriveBits({ name:'PBKDF2', salt:Uint8Array.from(_s), iterations:150000, hash:'SHA-256' }, km, 256); const h = Array.from(new Uint8Array(bits)).map(x => x.toString(16).padStart(2, '0')).join(''); return h === _k.map(x => [...x].reverse().join('')).join(''); } catch (e) { return false; } };
 const TEASE = ['Hm. The moon raised an eyebrow.', 'Not quite. The moon is smiling, though.'];
-const HUSBAND = 'Still stuck, love? Call your husband.';
+const HUSBAND = 'Still locked out, love? You know who to call. Your husband.';
 const HINT2 = 'Be gentle. Small things come closer when you stay still.';
 const HINT3 = 'When you hold it, carry it to where our two initials meet.';
 // Sample letter. Placeholder copy for Atharva to rewrite in his own words.
@@ -1025,7 +1042,7 @@ const LETTER = [
   'Happy birthday, Shu. I’ve waited a long time to say it properly, and now I’m not sure where to begin. A tenth-grade classroom is as good a place as any.',
   'A card felt too small, so I built this instead. It took a lot of evenings. You’re in every scene, the quiet nights and the bright mornings, and the ordinary days you made better.',
   'You support me in the ways that count: when my head is a mess, when money is tight, when I need someone to tell me I can do it. You never make a show of it. I don’t think I’ve thanked you enough, so I’m putting it in ink: thank you.',
-  'I want a wedding day with you, and a lot of ordinary days after it where we keep each other happy. That is most of what I’m asking for. I hope this year goes easy on you, and that you get back as much warmth as you hand out.',
+  'I think about a wedding day with you, and then about all the ordinary years after it, the ones we’ll spend trying to keep each other happy. That’s most of what I want. I hope this year goes easy on you, and that you get back as much warmth as you hand out.',
   'Here’s to you, and to every birthday after this one.'
 ];
 const SIGNATURE = 'Atharva';
@@ -1036,8 +1053,8 @@ const SECRETS = [
   'You don’t have to be anyone but yourself around me.'
 ];
 const STARS = [
-  { x:18, y:32, label:'I. Your support', title:'The way you hold me up', note:'In my head, in my wallet, in my effort. You do it quietly, and I notice every time.' },
-  { x:36, y:62, label:'II. Your voice', title:'Your voice', note:'It was the first thing I noticed about you, and I still stop what I’m doing when I hear it.' },
+  { x:18, y:32, label:'I. Your support', title:'The way you hold me up', note:'When my thoughts get loud, when money gets tight, when I run out of effort, you steady me. You never announce it, and I notice every time.' },
+  { x:36, y:62, label:'II. Your voice', title:'Your voice', note:'Your voice was the first thing I noticed. It still stops me mid-sentence.' },
   { x:52, y:24, label:'III. Your expressions', title:'What your eyes say first', note:'You’ve often told me how you feel before you open your mouth. I like that I can read it.' },
   { x:70, y:56, label:'IV. Your presence', title:'How quiet it gets around you', note:'I mean the good kind, where nobody has to fill the space.' },
   { x:84, y:30, label:'V. Simply you', title:'Being exactly Shu', note:'I wouldn’t change a thing about how you do it.' }
@@ -1057,7 +1074,7 @@ const COMPLETE = { label:'All five, lit', title:'Something just for you', note:'
 const BLOSSOMS = [{x:14,y:32},{x:35.7,y:23.6},{x:50,y:16},{x:62,y:20.8},{x:85.3,y:29.6},{x:25,y:47.2}];
 const WHISPERS = [
   { x:31.7, y:37.6, text:'You’re the first person I want to tell things to.' },
-  { x:73, y:36.4, text:'If I ever drink, it’ll be red wine, and it’ll be with you.' },
+  { x:73, y:36.4, text:'I don’t drink. If that ever changes, it will be red wine, and you’ll be across the table.' },
   { x:67, y:10.4, text:'I still get butterflies. Please don’t tell anyone.' }
 ];
 const TRACK_TITLE = 'Saanson Ki Mala';
@@ -1069,7 +1086,7 @@ const LYRICS = [
   { t:166, line:'Swap these lines for moments from our real song.' }
 ];
 const WISHES = ['that this year goes easy on you','that you laugh until your cheeks hurt','for more late calls that turn into mornings','that you get to tick off everything on your list','that you always feel this loved','for a hundred more birthdays, together','that you remember how much you matter to me'];
-const PROMISES = ['Our wedding day, when it comes','Keeping each other happy, always','A quiet place that is always yours'];
+const PROMISES = ['A wedding day we’ll still be talking about years later','Two people who keep each other happy on the good days and the hard ones','A quiet place that is always yours'];
 const LANTERN = '<div style="position:absolute; inset:0;"><div style="position:absolute; left:50%; top:50%; width:360%; height:360%; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(circle, rgba(255,180,100,.3), transparent 62%);"></div><div style="position:absolute; inset:0; border-radius:44% 44% 30% 30% / 46% 46% 30% 30%; background:linear-gradient(180deg, #ffe2b0 0%, #f9b468 50%, #e2804a 100%); box-shadow:0 0 18px 4px rgba(255,170,90,.6), inset 0 -5px 9px rgba(150,50,25,.45), inset 0 3px 6px rgba(255,245,225,.6);"></div><div style="position:absolute; left:22%; right:22%; top:4%; bottom:4%; border-left:1px solid rgba(160,70,40,.22); border-right:1px solid rgba(160,70,40,.22); border-radius:40%;"></div><div data-fl="" style="position:absolute; left:33%; bottom:8%; width:34%; height:26%; border-radius:50%; background:radial-gradient(circle, #fffdf5 0%, #ffd27a 50%, transparent 72%);"></div><div style="position:absolute; left:26%; right:26%; bottom:-5%; height:7%; border-radius:2px; background:#8a4a30;"></div></div>';
 const SECRET_END = 'P.S. I’d choose you in every light.';
 const PREVIEW_DUR = 214;
@@ -1151,58 +1168,79 @@ const FX = {
     step:(p, t, w, h) => { p.vx += R(-.02, .02); p.vy += R(-.02, .02); p.vx *= .98; p.vy *= .98; p.x = (p.x + p.vx + w) % w; p.y = (p.y + p.vy + h) % h; }, alpha:(p, t) => Math.max(0, Math.sin(t * .0009 + p.ph)), cols:['#f0b45e','#f3a9bd'], glow:true }
 };
 
-// Background music. Set BG_TRACK to a royalty-free file (e.g. 'private-content/audio/ambient.mp3') to use it;
-// left empty, a soft generated piano lullaby plays instead (no licence needed).
-const BG_TRACK = '';
+// Background music: a generative, licence-free romantic score. The key, chord progression, instrument and melody
+// are chosen at random as it plays, so it never repeats the same way twice.
+// Optional: list royalty-free files in BG_TRACKS (for example 'media/audio/ambient-1.mp3') and they are blended in softly underneath.
+const BG_TRACKS = [];
+const DEG = [[0, 4, 7], [2, 5, 9], [4, 7, 11], [5, 9, 12], [7, 11, 14], [9, 12, 16]]; // I ii iii IV V vi
+const PROGS = [[0, 4, 5, 3], [5, 3, 0, 4], [0, 5, 3, 4], [1, 4, 0, 5], [0, 2, 5, 3], [3, 0, 4, 5], [5, 4, 3, 0]];
+const ROOTS = [48, 50, 53, 55, 45, 52];
+const PENT = [0, 2, 4, 7, 9];
+const ARPS = [[0, 2, 3, 4, 3, 2, 1, 3], [0, 2, 3, 2, 4, 3, 2, 1], [0, null, 2, 3, null, 4, 3, 2], [0, 3, 2, 4, null, 3, 2, null], [0, 2, null, 3, 2, null, 4, 3], [0, null, null, 2, null, 3, null, 2]];
 class Ambient {
-  constructor() { this.on = false; this.step = 0; }
+  constructor() { this.on = false; this.step = 0; this.bar = 0; this.mood = 'piano'; this.prog = PROGS[0]; this.root = 48; this.arp = ARPS[0]; this.melodyOn = false; this.mi = 4; this.chord = [48, 60, 64, 67, 72]; this.mel = []; this.ti = -1; }
+  graph() {
+    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return false; if (this.ac) return true;
+    const ac = this.ac = new AC(), master = this.master = ac.createGain(); master.gain.value = 0;
+    const comp = ac.createDynamicsCompressor(); comp.threshold.value = -22; comp.ratio.value = 3;
+    const lp = this.lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2600; lp.Q.value = .3;
+    const room = (t, fbv, w) => { const d = ac.createDelay(2); d.delayTime.value = t; const fb = ac.createGain(); fb.gain.value = fbv; const wet = ac.createGain(); wet.gain.value = w; lp.connect(d); d.connect(fb); fb.connect(d); d.connect(wet); wet.connect(master); };
+    room(.37, .34, .3); room(.61, .28, .2); lp.connect(master); master.connect(comp); comp.connect(ac.destination); return true;
+  }
   start(vol) {
     this.target = vol;
-    if (BG_TRACK) {
-      if (!this.el) { this.el = new Audio(BG_TRACK); this.el.loop = true; this.el.volume = 0; }
-      this.el.play().catch(() => {}); this.on = true; this.vol(vol); return;
-    }
-    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
-    if (!this.ac) {
-      const ac = this.ac = new AC();
-      const master = this.master = ac.createGain(); master.gain.value = 0;
-      const lp = this.lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2400; lp.Q.value = .3;
-      const dl = ac.createDelay(); dl.delayTime.value = .38; const fb = ac.createGain(); fb.gain.value = .32; const wet = ac.createGain(); wet.gain.value = .35;
-      lp.connect(master); lp.connect(dl); dl.connect(fb); fb.connect(dl); dl.connect(wet); wet.connect(master); master.connect(ac.destination);
-      const pad = ac.createGain(); pad.gain.value = .018; pad.connect(lp); this.pad = [];
-      for (let i = 0; i < 3; i++) { const o = ac.createOscillator(); o.type = 'sine'; o.start(); o.connect(pad); this.pad.push(o); }
-      // I – V – vi – IV in C, gentle arpeggios
-      const C = [[48, 60, 64, 67, 72], [43, 59, 62, 67, 71], [45, 60, 64, 69, 72], [41, 60, 65, 69, 72]];
-      const MEL = [76, null, 74, 72, 74, null, 76, 79, 74, null, 71, 72, 72, null, 76, 74, 76, null, 72, 69, 71, 72, 69, null, 72, null, 74, 76, 77, 76, 74, 72];
-      const pat = [0, 2, 3, 4, 3, 2, 1, 3];
-      const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
-      this.tick = setInterval(() => {
-        if (ac.state !== 'running') return;
-        const t = ac.currentTime + .05, s = this.step++, bar = Math.floor(s / 8) % 4, ch = C[bar], beat = s % 8;
-        if (beat === 0) ch.slice(1, 4).forEach((m, i) => this.pad[i].frequency.setTargetAtTime(mtof(m - 12), t, .6));
-        this.note(beat === 0 ? ch[0] : ch[pat[beat]], t, beat === 0 ? .05 : .028, beat === 0 ? 3.2 : 1.8);
-        const m = MEL[s % MEL.length]; if (m && (s >> 5) % 2 === 1) this.note(m, t, .03, 2.4);
-      }, 420);
-    }
-    if (this.ac.state === 'suspended') this.ac.resume();
-    this.on = true; this.vol(vol);
+    if (this.graph()) { if (!this.tick) this.begin(); if (this.ac.state === 'suspended') this.ac.resume(); }
+    this.tracks(); this.on = true; this.vol(vol);
   }
-  note(m, t, v, d) {
-    const ac = this.ac, f = 440 * Math.pow(2, (m - 69) / 12);
-    [[1, 1, 'sine'], [2, .28, 'sine'], [3, .08, 'triangle']].forEach(([mul, amp, type]) => {
-      const o = ac.createOscillator(), g = ac.createGain();
-      o.type = type; o.frequency.value = f * mul; o.detune.value = R(-3, 3);
-      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v * amp, t + .012); g.gain.exponentialRampToValueAtTime(.0001, t + d / mul);
-      o.connect(g); g.connect(this.lp); o.start(t); o.stop(t + d + .1);
-    });
+  tracks() {
+    if (!BG_TRACKS.length) return;
+    if (!this.el) { this.ti = Math.floor(R(0, BG_TRACKS.length)); const mk = () => { const e = new Audio(BG_TRACKS[this.ti]); e.volume = 0; e.addEventListener('ended', () => { this.ti = (this.ti + 1 + Math.floor(R(0, BG_TRACKS.length))) % BG_TRACKS.length; const n = mk(); this.el = n; n.volume = this.el.volume; if (this.on) n.play().catch(() => {}); }); return e; }; this.el = mk(); }
+    this.el.play().catch(() => {});
+  }
+  newBar(t) {
+    this.bar++;
+    if (this.bar === 1 || this.bar % 8 === 1) {
+      if (this.bar === 1 || Math.random() < .6) this.prog = PROGS[Math.floor(R(0, PROGS.length))];
+      if (this.bar > 1 && Math.random() < .35) this.root = ROOTS[Math.floor(R(0, ROOTS.length))];
+      if (this.bar === 1 || Math.random() < .5) this.mood = ['piano', 'piano', 'box', 'harp', 'strings'][Math.floor(R(0, 5))];
+      this.melodyOn = this.bar > 2 && Math.random() < .78;
+      this.mel = PENT.flatMap(o => [this.root + 24 + o, this.root + 36 + o]).sort((x, y) => x - y);
+      this.mi = Math.max(0, Math.min(this.mel.length - 1, this.mi));
+    }
+    this.arp = Math.random() < .1 ? ARPS[5] : ARPS[Math.floor(R(0, ARPS.length - 1))];
+    const d = DEG[this.prog[(this.bar - 1) % 4]], r = this.root;
+    this.chord = [r - 12 + d[0], r + 12 + d[0], r + 12 + d[1], r + 12 + d[2], r + 24 + d[0]];
+    if (this.mood === 'strings') [this.chord[1], this.chord[2], this.chord[3]].forEach(m => this.play(m - 12, t, .02, 7.2, 'pad'));
+  }
+  begin() {
+    this.tick = setInterval(() => {
+      const ac = this.ac; if (!ac || ac.state !== 'running') return;
+      const t = ac.currentTime + .05, beat = this.step % 8;
+      if (beat === 0) this.newBar(t);
+      const k = this.arp[beat];
+      if (k !== null && k !== undefined) this.play(this.chord[k % this.chord.length], t, beat === 0 ? .05 : .026, beat === 0 ? 3.2 : 1.8);
+      if (this.melodyOn && [2, 3, 5, 6, 7].includes(beat) && Math.random() < .4 && this.mel.length) {
+        this.mi = Math.max(0, Math.min(this.mel.length - 1, this.mi + (Math.random() < .5 ? -1 : 1) * Math.round(R(1, 2))));
+        this.play(this.mel[this.mi], t + R(0, .05), .03, 2.6, 'mel');
+      }
+      this.step++;
+    }, 430);
+  }
+  play(m, t, v, d, kind) {
+    const ac = this.ac, f = 440 * Math.pow(2, (m - 69) / 12), mood = kind === 'mel' ? (this.mood === 'box' ? 'box' : 'piano') : this.mood;
+    const env = (o, peak, att, dur, dest) => { const g = ac.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peak, t + att); g.gain.exponentialRampToValueAtTime(.0001, t + dur); o.connect(g); g.connect(dest || this.lp); o.start(t); o.stop(t + dur + .1); };
+    if (kind === 'pad') { [-6, 6].forEach(c => { const o = ac.createOscillator(), fl = ac.createBiquadFilter(); o.type = 'sawtooth'; o.frequency.value = f; o.detune.value = c; fl.type = 'lowpass'; fl.frequency.value = 800; const g = ac.createGain(); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v * .5, t + 1.4); g.gain.linearRampToValueAtTime(0.0001, t + d); o.connect(fl); fl.connect(g); g.connect(this.lp); o.start(t); o.stop(t + d + .2); }); return; }
+    if (mood === 'box') { [[2, 1, 'sine', .9], [5, .12, 'sine', .35]].forEach(([mul, amp, type, dd]) => { const o = ac.createOscillator(); o.type = type; o.frequency.value = f * mul; o.detune.value = R(-4, 4); env(o, v * amp * 1.1, .004, dd * (d > 2 ? 1.4 : 1)); }); return; }
+    if (mood === 'harp') { const o = ac.createOscillator(), fl = ac.createBiquadFilter(); o.type = 'triangle'; o.frequency.value = f; o.detune.value = R(-3, 3); fl.type = 'lowpass'; fl.frequency.setValueAtTime(3400, t); fl.frequency.exponentialRampToValueAtTime(800, t + .6); fl.connect(this.lp); env(o, v * 1.3, .006, Math.min(2.4, d), fl); return; }
+    [[1, 1, 'sine'], [2, .28, 'sine'], [3, .08, 'triangle']].forEach(([mul, amp, type]) => { const o = ac.createOscillator(); o.type = type; o.frequency.value = f * mul; o.detune.value = R(-3, 3); env(o, v * amp, .012, d / mul); });
   }
   vol(v) {
-    if (this.el) { clearInterval(this.fade); const to = Math.min(1, v * 6); this.fade = setInterval(() => { const e = this.el, d = to - e.volume; if (Math.abs(d) < .02) { e.volume = to; clearInterval(this.fade); if (!to) e.pause(); } else e.volume = Math.max(0, Math.min(1, e.volume + Math.sign(d) * .02)); }, 50); return; }
+    if (this.el) { clearInterval(this.fade); const to = Math.min(.5, v * 3); this.fade = setInterval(() => { const e = this.el, dlt = to - e.volume; if (Math.abs(dlt) < .02) { e.volume = to; clearInterval(this.fade); if (!to) e.pause(); } else e.volume = Math.max(0, Math.min(1, e.volume + Math.sign(dlt) * .02)); }, 80); }
     if (!this.ac) return; const g = this.master.gain, t = this.ac.currentTime; g.cancelScheduledValues(t); g.setValueAtTime(g.value, t); g.linearRampToValueAtTime(v * 1.6, t + 2.5);
   }
   stop() { this.on = false; this.vol(0); }
-  suspend(s) { if (this.el) { s ? this.el.pause() : (this.on && this.el.play().catch(() => {})); return; } if (this.ac) s ? this.ac.suspend() : this.ac.resume(); }
-  kill() { clearInterval(this.tick); clearInterval(this.fade); if (this.el) { this.el.pause(); this.el = null; } if (this.ac) this.ac.close(); this.ac = null; }
+  suspend(s) { if (this.el) { s ? this.el.pause() : (this.on && this.el.play().catch(() => {})); } if (this.ac) s ? this.ac.suspend() : this.ac.resume(); }
+  kill() { clearInterval(this.tick); clearInterval(this.fade); this.tick = 0; if (this.el) { this.el.pause(); this.el = null; } if (this.ac) this.ac.close(); this.ac = null; }
 }
 
 class Component extends DCLogic {
@@ -1633,8 +1671,8 @@ class Component extends DCLogic {
       fin.style.setProperty('--f', f.toFixed(4));
       fin.style.setProperty('--a', clamp(f / .4).toFixed(4));
       fin.style.setProperty('--m', clamp((f - .38) / .14).toFixed(4));
-      fin.style.setProperty('--o', clamp((f - .5) / .24).toFixed(4));
-      fin.style.setProperty('--q', clamp((f - .74) / .26).toFixed(4));
+      fin.style.setProperty('--o', clamp((f - .64) / .2).toFixed(4));
+      fin.style.setProperty('--q', clamp((f - .84) / .16).toFixed(4));
     }
     const bd = root.querySelector('[data-bday]');
     if (bd) {
@@ -1658,11 +1696,21 @@ class Component extends DCLogic {
         el.style.translate = `0 ${(-(r.top + r.height / 2 - vh / 2) * parseFloat(el.dataset.par)).toFixed(1)}px`;
       });
       root.querySelectorAll('[data-exit]').forEach(el => {
-        const r = el.getBoundingClientRect(), v = el.dataset.exit, q = clamp(-r.top / Math.max(1, r.height));
+        const r = el.getBoundingClientRect(), v = el.dataset.exit, q = clamp((-r.top / Math.max(1, r.height) - .15) / .85);
         if (v === 'fade') el.style.opacity = (1 - 0.55 * q).toFixed(3);
         else if (v === 'drift') { el.style.translate = `0 ${(-q * 48).toFixed(1)}px`; el.style.rotate = `${(-q * 2).toFixed(2)}deg`; el.style.opacity = (1 - 0.35 * q).toFixed(3); }
         else if (v === 'driftR') { el.style.translate = `${(q * 26).toFixed(1)}px ${(-q * 30).toFixed(1)}px`; el.style.opacity = (1 - 0.35 * q).toFixed(3); }
       });
+    }
+    const veil = root.querySelector('[data-veil]');
+    if (veil) {
+      if (this.state.calm || !this.state.unlocked) veil.style.visibility = 'hidden';
+      else {
+        let best = 0, bd = 1e9; root.querySelectorAll('section').forEach(sc => { const t = sc.getBoundingClientRect().top, d = Math.abs(t - vh * .5); if (d < bd) { bd = d; best = t; } });
+        const band = vh * .27;
+        if (bd < band * 1.5) { veil.style.visibility = 'visible'; veil.style.setProperty('--vy', best.toFixed(0) + 'px'); veil.style.setProperty('--vb', band.toFixed(0) + 'px'); veil.style.opacity = clamp(1 - bd / (band * 1.5)).toFixed(3); }
+        else veil.style.visibility = 'hidden';
+      }
     }
     const br2 = root.querySelector('[data-branch2]'); if (br2) br2.style.opacity = (0.5 - 0.3 * clamp(scrollY / (vh * 1.4))).toFixed(3);
     const br = root.querySelector('[data-branch]'); if (br) br.style.opacity = (0.92 - 0.72 * clamp(scrollY / (vh * 0.9))).toFixed(3);
@@ -1677,20 +1725,20 @@ class Component extends DCLogic {
         const r = el.getBoundingClientRect(); if (r.top > vh + 10 || r.bottom < -10) return;
         const q = clamp(r.top / vh), on = q > .001;
         el.style.transformOrigin = '50% 0';
-        el.style.transform = on ? 'perspective(1800px) rotateX(' + (q * 7).toFixed(2) + 'deg) scale(' + (1 - q * .08).toFixed(4) + ')' : '';
-        el.style.borderRadius = on ? (q * 56).toFixed(1) + 'px ' + (q * 56).toFixed(1) + 'px 0 0' : '';
+        el.style.transform = on ? 'perspective(1800px) rotateX(' + (q * 3).toFixed(2) + 'deg) scale(' + (1 - q * .035).toFixed(4) + ')' : '';
+        el.style.borderRadius = on ? (q * 26).toFixed(1) + 'px ' + (q * 26).toFixed(1) + 'px 0 0' : '';
       });
       root.querySelectorAll('h2').forEach(el => {
         const r = el.getBoundingClientRect(); if (r.bottom < -100 || r.top > vh + 100) return;
         const p = (r.top + r.height / 2 - vh / 2) / vh;
-        el.style.transform = 'perspective(1000px) translateZ(' + (-Math.abs(p) * 140).toFixed(1) + 'px) rotateX(' + (-p * 16).toFixed(2) + 'deg)';
-        el.style.opacity = clamp(1 - Math.max(0, Math.abs(p) - .3) * 1.3).toFixed(3);
+        el.style.transform = 'perspective(1000px) translateZ(' + (-Math.abs(p) * 55).toFixed(1) + 'px) rotateX(' + (-p * 5).toFixed(2) + 'deg)';
+        el.style.opacity = clamp(1 - Math.max(0, Math.abs(p) - .42) * 1.0).toFixed(3);
       });
       root.querySelectorAll('[data-tilt3d]').forEach(el => {
         if (el === this.tiltEl) return;
         const r = el.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) return;
         const p = (r.top + r.height / 2 - vh / 2) / vh;
-        el.style.transform = 'perspective(900px) rotateY(' + (p * 14).toFixed(2) + 'deg) rotateX(' + (p * 8).toFixed(2) + 'deg) translateZ(0)';
+        el.style.transform = 'perspective(900px) rotateY(' + (p * 8).toFixed(2) + 'deg) rotateX(' + (p * 5).toFixed(2) + 'deg) translateZ(0)';
       });
     } else if (this.cineWas) {
       this.cineWas = false;
@@ -1738,12 +1786,16 @@ class Component extends DCLogic {
   setupHold() {
     if (this.holdIo) this.holdIo.disconnect(); if (this.holdOut) this.holdOut.disconnect();
     const root = this.rootRef.current; if (!root || !this.state.unlocked) return;
-    const els = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(film-01|collage)/.test(el.getAttribute('data-slot-id')) && !el.closest('#memory-sakura') && !el.closest('[role=dialog]'));
-    this.holdIo = new IntersectionObserver(es => es.forEach(en => { const el = en.target; if (en.isIntersecting && !el.__held && !this.state.calm) { el.__held = true; this.hold(1000); } }), { rootMargin:'-44% 0px -44% 0px', threshold:0 });
+const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(film-01|collage)/.test(el.getAttribute('data-slot-id')) && !el.closest('#memory-sakura') && !el.closest('[role=dialog]'));
+    photos.forEach(el => { el.__ph = true; });
+    const moments = [...root.querySelectorAll('section[id] h2, section[aria-label=Epigraph] > div')].filter(el => !el.closest('#dawn, #finale, #birthday, #lanterns, #moon'));
+    const els = [...photos, ...moments];
+    this.holdIo = new IntersectionObserver(es => es.forEach(en => { const el = en.target; if (en.isIntersecting && !el.__held && !this.state.calm) { el.__held = true; this.hold(1000, !!el.__ph); } }), { rootMargin:'-44% 0px -44% 0px', threshold:0 });
     this.holdOut = new IntersectionObserver(es => es.forEach(en => { if (!en.isIntersecting) en.target.__held = false; }), { threshold:0 });
     els.forEach(el => { this.holdIo.observe(el); this.holdOut.observe(el); });
   }
-  hold(ms) {
+  hold(ms, force) {
+    const now = performance.now(); if (!force && now - (this.lastHold || 0) < 3800) return; this.lastHold = now;
     this.holdUntil = performance.now() + ms;
     if (this.stopSmooth) this.stopSmooth();
     if (matchMedia('(pointer:coarse)').matches) {
@@ -1759,7 +1811,7 @@ class Component extends DCLogic {
     const max = () => document.documentElement.scrollHeight - innerHeight;
     const step = () => {
       if (!active) return;
-      cur += (target - cur) * .09;
+      cur += (target - cur) * .072;
       if (Math.abs(target - cur) < .5) { cur = target; active = false; }
       scrollTo(0, cur);
       if (active) requestAnimationFrame(step);
@@ -1771,7 +1823,8 @@ class Component extends DCLogic {
       if (e.target.closest && e.target.closest('input,textarea,select')) return;
       e.preventDefault();
       if (!active) { cur = scrollY; target = scrollY; }
-      target = clamp(target + e.deltaY * (e.deltaMode === 1 ? 32 : 1), 0, max());
+      if (this.saf) { cancelAnimationFrame(this.saf); this.saf = 0; if (!active) { cur = scrollY; target = scrollY; } }
+      target = clamp(target + e.deltaY * (e.deltaMode === 1 ? 32 : 1) * .58, 0, max());
       if (!active) { active = true; requestAnimationFrame(step); }
     };
     addEventListener('wheel', this.onWheel, { passive:false });
@@ -1779,7 +1832,16 @@ class Component extends DCLogic {
     addEventListener('scroll', this.onSync, { passive:true });
   }
 
-  scrollToY(y) { scrollTo({ top:y, behavior: this.state.calm ? 'auto' : 'smooth' }); }
+  // eased jump (menu, buttons): long, soft start and finish instead of the browser's fast smooth scroll
+  scrollToY(y) {
+    if (this.state.calm) { scrollTo(0, y); return; }
+    cancelAnimationFrame(this.saf);
+    const y0 = scrollY, d = y - y0, dur = Math.min(2600, 1000 + Math.abs(d) * .11), t0 = performance.now(), ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const stop = () => { cancelAnimationFrame(this.saf); this.saf = 0; removeEventListener('touchstart', stop); };
+    addEventListener('touchstart', stop, { passive:true, once:true });
+    const step = t => { const k = Math.min(1, (t - t0) / dur); scrollTo(0, y0 + d * ease(k)); if (k < 1) this.saf = requestAnimationFrame(step); else this.saf = 0; };
+    this.saf = requestAnimationFrame(step);
+  }
   scrollToId(id) { const el = document.getElementById(id); if (el) this.scrollToY(el.getBoundingClientRect().top + scrollY); }
   toast(msg) { this.setState({ toast:msg }); clearTimeout(this.tt); this.tt = setTimeout(() => this.setState({ toast:'' }), 4400); }
 
