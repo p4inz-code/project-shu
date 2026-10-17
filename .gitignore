@@ -27,3 +27,5 @@ functions/_generated/
 *.njsproj
 *.sln
 *.sw?
+
+legacy/functions/_generated/
