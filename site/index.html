@@ -446,7 +446,7 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
     <sc-if value="{{ showLabels }}"><div data-r="fade" data-d="500" style="margin-top:10px; font:400 14px/1.6 'Homemade Apple', cursive; color:#d6577e; transform:rotate(-2deg);">(swap in the real ones: photos or clips)</div></sc-if>
   </div>
 
-  <div data-crop="" style="position:relative; height:180svh; margin:clamp(40px,8vh,90px) calc(-1 * clamp(20px,6vw,96px)) 0;">
+  <div data-crop="" style="position:relative; height:260svh; margin:clamp(40px,8vh,90px) calc(-1 * clamp(20px,6vw,96px)) 0;">
     <div data-exit="fade" style="position:sticky; top:0; height:100svh; display:grid; place-items:center;">
       <button onClick="{{ m1.open }}" data-slot-id="{{ m1.slot }}" aria-label="Open {{ m1.title }}" style="position:relative; width:100%; height:100%; padding:0; border:0; cursor:zoom-in; overflow:hidden; background:#1b1433; clip-path:inset(calc((1 - var(--c,1)) * 18%) calc((1 - var(--c,1)) * 22%) round calc((1 - var(--c,1)) * 200px));">
         <div style="position:absolute; inset:0; transform:scale(calc(1.2 - var(--c,1) * 0.2)) translateY(calc((1 - var(--c,1)) * 4%));">
@@ -782,13 +782,13 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
       <div style="position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle at 44% 40%, #fffaf0 0%, #ffe3b0 40%, #f6b46a 80%, #ee9d5c 100%); box-shadow:0 0 50px 8px rgba(246,180,106,.5);"></div>
     </div>
     <div aria-hidden="true" style="position:absolute; left:50%; top:44%; width:clamp(90px,24vw,190px); aspect-ratio:1; border-radius:50%; background:radial-gradient(circle, #fffaf2 0%, rgba(255,214,200,.8) 35%, rgba(243,169,189,.35) 60%, transparent 72%); transform:translate(-50%,-50%) scale(calc(.4 + var(--m,0) * 4)); opacity:calc(var(--m,0) * (1 - var(--o,0) * .9));"></div>
-    <div aria-hidden="true" style="position:absolute; left:50%; top:44%; width:clamp(150px,32vw,290px); aspect-ratio:1; transform:translate(-50%,-50%) scale(calc(.55 + var(--m,0) * .45)); opacity:min(clamp(0, calc((var(--m,0) - .3) * 3), 1), calc(1 - var(--o,0) * 1.9)); filter:drop-shadow(0 0 34px rgba(246,200,160,.5));">
+    <div aria-hidden="true" style="position:absolute; left:50%; top:44%; width:clamp(150px,32vw,290px); aspect-ratio:1; transform:translate(-50%,-50%) scale(calc(.55 + var(--m,0) * .45)); opacity:min(clamp(0, calc((var(--m,0) - .3) * 3), 1), calc(1 - var(--o,0) * 1.9)); filter:drop-shadow(0 0 30px rgba(238,138,60,.38)) drop-shadow(0 0 46px rgba(106,88,184,.35));">
       <div data-spin="52000" style="position:absolute; inset:0;">
-        <svg viewBox="-50 -50 100 100" width="100%" height="100%" style="display:block; overflow:visible;"><defs><radialGradient id="yyS" cx=".42" cy=".38"><stop offset="0" stop-color="#fffaf0"/><stop offset=".45" stop-color="#ffe3b0"/><stop offset="1" stop-color="#f0a860"/></radialGradient><radialGradient id="yyM" cx=".4" cy=".36"><stop offset="0" stop-color="#fffdf7"/><stop offset=".5" stop-color="#ddd4ea"/><stop offset="1" stop-color="#a99fc6"/></radialGradient></defs>
+        <svg viewBox="-50 -50 100 100" width="100%" height="100%" style="display:block; overflow:visible;"><defs><radialGradient id="yyS" cx=".4" cy=".36"><stop offset="0" stop-color="#ffb45a"/><stop offset=".5" stop-color="#f08a2c"/><stop offset="1" stop-color="#b8500f"/></radialGradient><radialGradient id="yyM" cx=".4" cy=".36"><stop offset="0" stop-color="#6a58b8"/><stop offset=".55" stop-color="#3b2c7a"/><stop offset="1" stop-color="#1c1442"/></radialGradient></defs>
           <circle r="48" fill="url(#yyS)"/>
           <path d="M0 -48 A48 48 0 0 1 0 48 A24 24 0 0 1 0 0 A24 24 0 0 0 0 -48 Z" fill="url(#yyM)"/>
-          <circle cx="0" cy="-24" r="7" fill="#ffe3b0"/><circle cx="0" cy="24" r="7" fill="#e6def8"/>
-          <circle r="48" fill="none" stroke="rgba(255,255,255,.55)" stroke-width=".8"/>
+          <circle cx="0" cy="-24" r="6" fill="#4a3a96"/><circle cx="0" cy="24" r="6" fill="#ffa84a"/>
+          <circle r="48" fill="none" stroke="rgba(255,214,170,.5)" stroke-width=".8"/>
         </svg>
       </div>
     </div>
@@ -905,7 +905,7 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
       <div style="display:flex; flex-direction:column; align-items:center; gap:24px; pointer-events:auto; cursor:default;">
         <div data-r="blur" data-dur="2400" style="max-width:13em; font:400 clamp(26px,6.4vw,54px)/1.1 'Bodoni Moda', serif; letter-spacing:-0.02em; text-wrap:balance; text-shadow:0 2px 24px rgba(12,9,24,.7);">Twenty six lanterns for the twenty sixth. Every one of them is <i style="color:#f7c1cf;">yours.</i></div>
         <div style="display:flex; flex-direction:column; gap:10px; padding:20px 26px; border-radius:24px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);">
-          <sc-for list="{{ promises }}" as="pr" hint-placeholder-count="3"></sc-for>
+          <sc-for list="{{ promises }}" as="pr" hint-placeholder-count="3"><div data-r="rise" data-d="{{ pr.d }}" style="display:flex; align-items:baseline; gap:14px; text-align:left;"><span style="flex:none; width:2.4em; font:italic 400 18px/1.3 'Bodoni Moda', serif; color:#f3a9bd;">{{ pr.n }}</span><span style="font:400 clamp(15px,3.6vw,19px)/1.5 'Geist', sans-serif; color:#f6f2fb;">{{ pr.text }}</span></div></sc-for>
         </div>
         <div data-r="ink" data-d="1400" style="font:400 clamp(16px,4vw,22px)/1.6 'Homemade Apple', cursive; color:#f7c1cf;">always, Atharva</div>
         <div data-r="fade" data-d="1800" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
@@ -926,7 +926,7 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
 
 <section data-screen-label="11 Credits" style="position:relative; background:#050308; color:#f6f2fb; text-align:center; padding:clamp(120px,24svh,220px) 24px clamp(100px,18svh,180px); display:flex; flex-direction:column; align-items:center; gap:clamp(40px,8svh,72px); overflow:hidden;">
   <canvas data-fx="sakura" data-n=".35" aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;"></canvas>
-  <div data-r="fade" data-dur="2400" style="position:relative; font:italic 400 clamp(36px,9vw,84px)/1 'Bodoni Moda', serif; letter-spacing:-0.03em;">You <span style="color:#f3a9bd;">&amp;</span> the Moon</div>
+  <div data-r="fade" data-dur="2400" style="position:relative; font:italic 400 clamp(36px,9vw,84px)/1 'Bodoni Moda', serif; letter-spacing:-0.03em;">You <span style="color:#f3a9bd;">&amp;</span> Me</div>
   <div data-r="rise" style="display:flex; flex-direction:column; gap:6px;"><span style="font:500 10.5px/1 'Geist', sans-serif; letter-spacing:.3em; text-transform:uppercase; color:#9a90ba;">starring</span><span style="font:italic 400 clamp(24px,6vw,40px)/1.2 'Bodoni Moda', serif;">you</span></div>
   <div data-r="rise" style="display:flex; flex-direction:column; gap:6px;"><span style="font:500 10.5px/1 'Geist', sans-serif; letter-spacing:.3em; text-transform:uppercase; color:#9a90ba;">made by, very nervously</span><span style="font:italic 400 clamp(24px,6vw,40px)/1.2 'Bodoni Moda', serif;">Atharva</span></div>
   <div data-r="rise" style="display:flex; flex-direction:column; gap:6px;"><span style="font:500 10.5px/1 'Geist', sans-serif; letter-spacing:.3em; text-transform:uppercase; color:#9a90ba;">special effects</span><span style="font:italic 400 clamp(20px,5vw,30px)/1.3 'Bodoni Moda', serif;">a few thousand cherry blossom petals</span></div>
@@ -990,10 +990,8 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
     </div>
     <div style="display:flex; flex-direction:column; gap:8px;">
       <div style="font:500 10px/1 'Geist', sans-serif; letter-spacing:.24em; text-transform:uppercase; color:#9a90ba; margin-bottom:2px;">Options</div>
-      <button onClick="{{ replayIntro }}" style="min-height:46px; border-radius:12px; border:1px solid rgba(246,242,251,.25); background:transparent; color:inherit; font:500 13px/1 'Geist', sans-serif; cursor:pointer;">Replay the opening</button>
       <sc-if value="{{ canFull }}"><button onClick="{{ toggleFull }}" style="min-height:46px; border-radius:12px; border:1px solid rgba(246,242,251,.25); background:transparent; color:inherit; font:500 13px/1 'Geist', sans-serif; cursor:pointer;">{{ fullLabel }}</button></sc-if>
       <button onClick="{{ reloadSite }}" style="min-height:46px; border-radius:12px; border:1px solid rgba(233,138,166,.6); background:transparent; color:#f3a9bd; font:500 13px/1 'Geist', sans-serif; cursor:pointer;">{{ reloadLabel }}</button>
-      <button onClick="{{ lockFromMenu }}" style="min-height:46px; border-radius:12px; border:0; background:transparent; color:#9a90ba; font:500 13px/1 'Geist', sans-serif; cursor:pointer;">Lock it again</button>
     </div>
     <div style="margin-top:auto; font:400 13px/1.6 'Homemade Apple', cursive; color:#b4a9d4;">made by Atharva</div>
   </aside>
@@ -1654,20 +1652,20 @@ class Component extends DCLogic {
     this.moving = false;
     const max = document.documentElement.scrollHeight - vh;
     if (this.progRef.current) this.progRef.current.style.scale = `${this.ease('prog', max > 0 ? clamp(scrollY / max) : 0).toFixed(4)} 1`;
-    const prog = el => { const r = el.getBoundingClientRect(); return clamp(-r.top / Math.max(1, r.height - vh)); };
+    const prog = el => clamp(-(this.docTop(el) - scrollY) / Math.max(1, el.offsetHeight - vh));
     let pd = 0;
     const dawn = root.querySelector('[data-dawn]');
     if (dawn) {
-      pd = this.ease('p', prog(dawn)); dawn.style.setProperty('--p', pd.toFixed(4));
+      pd = this.ease('p', prog(dawn)); dawn.style.setProperty('--p', pd.toFixed(4)); this.beat('dawn', pd, [.14, .5, .9]);
       const sky = dawn.querySelector('[data-sky]');
       if (sky) sky.style.background = `linear-gradient(180deg, ${ramp(SKY, pd, 1)} 0%, ${ramp(SKY, pd, 2)} 58%, ${ramp(SKY, pd, 3)} 100%)`;
       dawn.querySelectorAll('[data-hill]').forEach(el => { el.style.background = ramp(HILL, pd, +el.dataset.hill); });
       dawn.querySelectorAll('[data-cloud]').forEach(el => { el.style.background = ramp(CLOUD, pd, 1); });
     }
-    const crop = root.querySelector('[data-crop]'); if (crop) crop.style.setProperty('--c', this.ease('c', clamp(prog(crop) * 1.6)).toFixed(4));
+    const crop = root.querySelector('[data-crop]'); if (crop) { const cv = this.ease('c', clamp(prog(crop) * 1.6)); crop.style.setProperty('--c', cv.toFixed(4)); this.beat('crop', cv, [.93]); }
     const fin = root.querySelector('[data-finale]');
     if (fin) {
-      const f = this.ease('f', prog(fin));
+      const f = this.ease('f', prog(fin)); this.beat('fin', f, [.2, .34, .52, .74]);
       fin.style.setProperty('--f', f.toFixed(4));
       fin.style.setProperty('--a', clamp(f / .4).toFixed(4));
       fin.style.setProperty('--m', clamp((f - .38) / .14).toFixed(4));
@@ -1676,7 +1674,7 @@ class Component extends DCLogic {
     }
     const bd = root.querySelector('[data-bday]');
     if (bd) {
-      const b = this.ease('b', prog(bd)); bd.style.setProperty('--b', b.toFixed(4));
+      const b = this.ease('b', prog(bd)); bd.style.setProperty('--b', b.toFixed(4)); this.beat('bd', b, [.36, .56, .76, .92]);
       if (b > .36 && !this.bdBurst && !this.state.calm) {
         this.bdBurst = true;
         const fcv = this.fx.filter(f => bd.contains(f.cv) && f.type === 'sakura')[0];
@@ -1692,11 +1690,11 @@ class Component extends DCLogic {
     document.documentElement.style.setProperty('--w', this.override !== null ? this.override : w);
     if (!this.state.calm) {
       root.querySelectorAll('[data-par]').forEach(el => {
-        const r = el.parentElement.getBoundingClientRect(); if (r.bottom < -200 || r.top > vh + 200) return;
-        el.style.translate = `0 ${(-(r.top + r.height / 2 - vh / 2) * parseFloat(el.dataset.par)).toFixed(1)}px`;
+        const pe = el.parentElement, pt = this.docTop(pe) - scrollY, ph = pe.offsetHeight; if (pt + ph < -200 || pt > vh + 200) return;
+        el.style.translate = `0 ${(-(pt + ph / 2 - vh / 2) * parseFloat(el.dataset.par)).toFixed(1)}px`;
       });
       root.querySelectorAll('[data-exit]').forEach(el => {
-        const r = el.getBoundingClientRect(), v = el.dataset.exit, q = clamp((-r.top / Math.max(1, r.height) - .15) / .85);
+        const et = this.docTop(el) - scrollY, eh = el.offsetHeight, v = el.dataset.exit, q = clamp((-et / Math.max(1, eh) - .15) / .85);
         if (v === 'fade') el.style.opacity = (1 - 0.55 * q).toFixed(3);
         else if (v === 'drift') { el.style.translate = `0 ${(-q * 48).toFixed(1)}px`; el.style.rotate = `${(-q * 2).toFixed(2)}deg`; el.style.opacity = (1 - 0.35 * q).toFixed(3); }
         else if (v === 'driftR') { el.style.translate = `${(q * 26).toFixed(1)}px ${(-q * 30).toFixed(1)}px`; el.style.opacity = (1 - 0.35 * q).toFixed(3); }
@@ -1706,7 +1704,7 @@ class Component extends DCLogic {
     if (veil) {
       if (this.state.calm || !this.state.unlocked) veil.style.visibility = 'hidden';
       else {
-        let best = 0, bd = 1e9; root.querySelectorAll('section').forEach(sc => { const t = sc.getBoundingClientRect().top, d = Math.abs(t - vh * .5); if (d < bd) { bd = d; best = t; } });
+        let best = 0, bd = 1e9; root.querySelectorAll('section').forEach(sc => { const t = this.docTop(sc) - scrollY, d = Math.abs(t - vh * .5); if (d < bd) { bd = d; best = t; } });
         const band = vh * .27;
         if (bd < band * 1.5) { veil.style.visibility = 'visible'; veil.style.setProperty('--vy', best.toFixed(0) + 'px'); veil.style.setProperty('--vb', band.toFixed(0) + 'px'); veil.style.opacity = clamp(1 - bd / (band * 1.5)).toFixed(3); }
         else veil.style.visibility = 'hidden';
@@ -1722,22 +1720,22 @@ class Component extends DCLogic {
     if (cineOn) {
       this.cineWas = true;
       root.querySelectorAll('[data-cine]').forEach(el => {
-        const r = el.getBoundingClientRect(); if (r.top > vh + 10 || r.bottom < -10) return;
-        const q = clamp(r.top / vh), on = q > .001;
+        const ct = this.docTop(el) - scrollY; if (ct > vh + 10 || ct + el.offsetHeight < -10) return;
+        const q = clamp(ct / vh), on = q > .001;
         el.style.transformOrigin = '50% 0';
         el.style.transform = on ? 'perspective(1800px) rotateX(' + (q * 3).toFixed(2) + 'deg) scale(' + (1 - q * .035).toFixed(4) + ')' : '';
         el.style.borderRadius = on ? (q * 26).toFixed(1) + 'px ' + (q * 26).toFixed(1) + 'px 0 0' : '';
       });
       root.querySelectorAll('h2').forEach(el => {
-        const r = el.getBoundingClientRect(); if (r.bottom < -100 || r.top > vh + 100) return;
-        const p = (r.top + r.height / 2 - vh / 2) / vh;
+        const ht = this.docTop(el) - scrollY, hh = el.offsetHeight; if (ht + hh < -100 || ht > vh + 100) return;
+        const p = (ht + hh / 2 - vh / 2) / vh;
         el.style.transform = 'perspective(1000px) translateZ(' + (-Math.abs(p) * 55).toFixed(1) + 'px) rotateX(' + (-p * 5).toFixed(2) + 'deg)';
         el.style.opacity = clamp(1 - Math.max(0, Math.abs(p) - .42) * 1.0).toFixed(3);
       });
       root.querySelectorAll('[data-tilt3d]').forEach(el => {
         if (el === this.tiltEl) return;
-        const r = el.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) return;
-        const p = (r.top + r.height / 2 - vh / 2) / vh;
+        const tt2 = this.docTop(el) - scrollY, th = el.offsetHeight; if (tt2 + th < 0 || tt2 > vh) return;
+        const p = (tt2 + th / 2 - vh / 2) / vh;
         el.style.transform = 'perspective(900px) rotateY(' + (p * 8).toFixed(2) + 'deg) rotateX(' + (p * 5).toFixed(2) + 'deg) translateZ(0)';
       });
     } else if (this.cineWas) {
@@ -1766,6 +1764,15 @@ class Component extends DCLogic {
     const wash = this.rootRef.current && this.rootRef.current.querySelector('[data-wash]');
     if (wash && wash.animate) wash.animate([{ opacity:0 }, { opacity:.9, offset:.35 }, { opacity:0 }], { duration:1700, easing:'ease-in-out' });
     this.loop();
+  }
+  // "Hard refresh": re-fetch the page and its files from the network, drop any caches, then reload
+  async hardReload() {
+    try {
+      const urls = [location.href.split('#')[0], 'fx.js', 'support.js', 'vendor/react.production.min.js', 'vendor/react-dom.production.min.js'];
+      await Promise.all(urls.map(u => fetch(u, { cache:'reload' }).catch(() => {})));
+      if (window.caches) { const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); }
+    } catch (e) {}
+    location.reload();
   }
   async copyLink() {
     const u = location.href.split('#')[0].split('?')[0];
@@ -1833,6 +1840,12 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
   }
 
   // eased jump (menu, buttons): long, soft start and finish instead of the browser's fast smooth scroll
+  // layout position of an element in the document, ignoring any transform on it or its ancestors (rect-based maths fed back into the tilt and made it jitter)
+  docTop(el) { let y = 0, n = el; while (n) { y += n.offsetTop; n = n.offsetParent; } return y; }
+  beat(key, v, pts) {
+    const st = this.bs || (this.bs = {}), a = st[key] || (st[key] = []);
+    pts.forEach((p, i) => { if (v >= p && !a[i]) { a[i] = true; if (!this.state.calm && this.state.unlocked && !this.saf) this.hold(1100, true); } else if (v < p - .06) a[i] = false; });
+  }
   scrollToY(y) {
     if (this.state.calm) { scrollTo(0, y); return; }
     cancelAnimationFrame(this.saf);
@@ -2028,12 +2041,12 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
       menuOpen:s.menuOpen, openMenu: () => this.setState({ menuOpen:true }), closeMenu: () => this.setState({ menuOpen:false, reloadArm:false }), stop: e => e.stopPropagation(),
       siteUrl: location.href.split('#')[0].split('?')[0], selectAll: e => e.target.select(),
       copyLabel: s.copied ? 'Copied' : 'Copy', canShare: !!navigator.share, canFull: !!document.fullscreenEnabled, fullLabel: s.full ? 'Leave full screen' : 'Full screen',
-      reloadLabel: s.reloadArm ? 'Tap again to reload' : 'Reload the site',
+      reloadLabel: s.reloadArm ? 'Tap again to refresh' : 'Hard refresh',
       scenes: [["i.","Moonlight","moon"],["ii.","First light","dawn"],["iii.","Sunshine","sun"],["iv.","Keepsakes","memories"],["v.","Our song","score"],["vi.","Five stars","stars"],["vii.","The letter","letter"],["viii.","Together","finale"],["ix.","Happy birthday","birthday"],["x.","Lanterns","lanterns"]].map(([n, label, id]) => ({ n, label, go: () => { this.setState({ menuOpen:false }); setTimeout(() => this.scrollToId(id), 120); } })),
       copyLink: () => this.copyLink(), shareLink: () => { const u = location.href.split('#')[0].split('?')[0]; navigator.share({ title:'A little world', url:u }).catch(() => {}); },
       replayIntro: () => { this.setState({ menuOpen:false, title:true }); clearTimeout(this.tit); this.tit = setTimeout(() => this.setState({ title:false }), 4600); scrollTo(0, 0); },
       toggleFull: () => { if (document.fullscreenElement) { document.exitFullscreen(); this.setState({ full:false }); } else { document.documentElement.requestFullscreen().then(() => this.setState({ full:true })).catch(() => {}); } },
-      reloadSite: () => { if (!s.reloadArm) { this.setState({ reloadArm:true }); clearTimeout(this.rat); this.rat = setTimeout(() => this.setState({ reloadArm:false }), 2600); } else location.reload(); },
+      reloadSite: () => { if (!s.reloadArm) { this.setState({ reloadArm:true }); clearTimeout(this.rat); this.rat = setTimeout(() => this.setState({ reloadArm:false }), 2600); } else this.hardReload(); },
       lockFromMenu: () => { this.setState({ menuOpen:false }); this.lock(); },
       stage2:s.stage2, title:s.title, gsRef:this.gsRef, skipTitle: () => this.setState({ title:false }), toTop: () => this.scrollToY(0),
       gateMsg2: s.twTries >= 7 ? HUSBAND : s.twTries >= 4 ? HINT3 : s.twTries >= 2 ? HINT2 : s.msg2, twRef:this.twRef,
