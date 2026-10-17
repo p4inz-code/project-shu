@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -53,7 +53,7 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
 @media (max-width:600px){.bd-wrap[data-opt="1"]{display:none}}
 @keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.06)}30%{transform:scale(.98)}45%{transform:scale(1.04)}}</style>
 </helmet>
-<div ref="{{ rootRef }}" style="position:relative; font-family:'Geist', system-ui, sans-serif; color:var(--ni,#f6f2fb); background:var(--n0,#0c0918); overflow-x:clip;">
+<div ref="{{ rootRef }}" role="main" style="position:relative; font-family:'Geist', system-ui, sans-serif; color:var(--ni,#f6f2fb); background:var(--n0,#0c0918); overflow-x:clip;">
 
 <div ref="{{ grainRef }}" aria-hidden="true" style="position: fixed; inset: 0; z-index: 95; pointer-events: none; opacity: .07; mix-blend-mode: overlay; left: -70px; top: 31px"></div>
 
@@ -176,8 +176,8 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
 <div style="position:fixed; top:0; left:0; right:0; z-index:40; display:flex; justify-content:space-between; align-items:center; gap:8px; padding:max(10px, env(safe-area-inset-top)) clamp(8px,3.4vw,36px) 0; pointer-events:none; color:color-mix(in oklch, var(--ni,#f6f2fb) calc((1 - var(--w,0)) * 100%), var(--di,#2a1621)); transition:color .8s ease;">
   <button onClick="{{ tapMono }}" aria-label="Shu" style="pointer-events:auto; flex:none; width:46px; height:46px; border-radius:50%; background:transparent; border:0; color:inherit; font:italic 400 27px/1 'Bodoni Moda', serif; cursor:pointer; transition:transform .5s cubic-bezier(.16,1,.3,1);" style-active="transform:scale(.85) rotate(-8deg);">S.</button>
   <button onClick="{{ toggleSound }}" aria-pressed="{{ sound }}" aria-label="{{ soundLabel }}" style="pointer-events:auto; position:relative; flex:none; width:46px; height:46px; border-radius:50%; border:1px solid color-mix(in oklch, currentColor 20%, transparent); background:color-mix(in oklch, var(--n0,#0c0918) calc((1 - var(--w,0)) * 55%), color-mix(in oklch, var(--d0,#fffaf5) 70%, transparent)); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); color:inherit; display:grid; place-items:center; cursor:pointer; transition:background .8s, transform .4s;" style-active="transform:scale(.92);">
-    <span ref="{{ eqRef }}" style="display:flex; align-items:center; gap:2.5px; height:15px;"><span style="width:2px; height:{{ eq1 }}; background:currentColor; border-radius:1px; transition:height .5s;"></span><span style="width:2px; height:{{ eq2 }}; background:currentColor; border-radius:1px; transition:height .5s;"></span><span style="width:2px; height:{{ eq3 }}; background:currentColor; border-radius:1px; transition:height .5s;"></span><span style="width:2px; height:{{ eq2 }}; background:currentColor; border-radius:1px; transition:height .5s;"></span></span>
-    <span aria-hidden="true" style="position:absolute; left:13px; right:13px; top:50%; height:1.5px; background:currentColor; border-radius:1px; transform:rotate(-38deg) scaleX({{ slashX }}); transition:transform .4s;"></span>
+    <span ref="{{ eqRef }}" style="display:grid; place-items:center;"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" fill="currentColor" fill-opacity=".18"/><path d="M15.4 9a4.2 4.2 0 0 1 0 6" style="opacity:{{ arcOp }}; transition:opacity .4s;"/><path d="M18 6.5a7.6 7.6 0 0 1 0 11" style="opacity:{{ arcOp }}; transition:opacity .4s;"/></svg></span>
+    <span aria-hidden="true" style="position:absolute; left:12px; right:12px; top:50%; height:1.6px; background:currentColor; border-radius:1px; transform:rotate(-38deg) scaleX({{ slashX }}); transition:transform .4s;"></span>
   </button>
 </div>
 <div ref="{{ progRef }}" aria-hidden="true" style="position:fixed; left:0; right:0; bottom:0; height:2px; z-index:41; transform-origin:0 50%; background:color-mix(in oklch, #cdbff0 calc((1 - var(--w,0)) * 100%), #e98aa6);"></div>
@@ -1266,7 +1266,9 @@ class Component extends DCLogic {
       const f = { cv, type, def, ctx:cv.getContext('2d'), ps:[], bursts:[], vis:false, shoot:cv.dataset.shoot ? {} : null, n:+(cv.dataset.n || 1), hearts:!!cv.dataset.hearts };
       this.sizeFx(f); return f;
     });
-    this.fxIo = new IntersectionObserver(es => { es.forEach(en => { const f = this.fx.find(f => f.cv === en.target); if (f) f.vis = en.isIntersecting; }); this.loop(); }, { rootMargin:'100px' });
+    this.fxIo = new IntersectionObserver(es => { es.forEach(en => { const f = this.fx.find(f => f.cv === en.target); if (!f) return; f.vis = en.isIntersecting; clearTimeout(f.rel);
+      if (f.vis) { if (f.released) { f.released = false; f.w = 0; this.sizeFx(f); } }
+      else f.rel = setTimeout(() => { if (!f.vis && f.cv.isConnected) { f.cv.width = 1; f.cv.height = 1; f.released = true; } }, 3500); }); this.loop(); }, { rootMargin:'100px' });
     this.fx.forEach(f => this.fxIo.observe(f.cv));
     this.loop();
   }
@@ -1274,7 +1276,9 @@ class Component extends DCLogic {
     const dpr = Math.min(devicePixelRatio || 1, 2), r = f.cv.getBoundingClientRect();
     const w = Math.max(1, r.width), h = Math.max(1, r.height);
     if (Math.abs(w - (f.w || 0)) < 2 && Math.abs(h - (f.h || 0)) < 2) return;
-    f.w = w; f.h = h; f.cv.width = w * dpr; f.cv.height = h * dpr; f.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    f.w = w; f.h = h;
+    const k = Math.max(.35, Math.min(dpr, Math.sqrt(1800000 / (w * h)))); // cap backing store (~3M px) so tall sections never create huge canvases
+    f.cv.width = Math.max(1, Math.round(w * k)); f.cv.height = Math.max(1, Math.round(h * k)); f.ctx.setTransform(k, 0, 0, k, 0, 0);
     const n = Math.round(f.def.n * f.n * clamp(w * h / (390 * 844), .6, 2.2));
     f.ps = Array.from({ length:n }, () => { const p = {}; f.def.seed(p, w, h, f); return p; });
   }
@@ -1612,6 +1616,7 @@ class Component extends DCLogic {
     els.forEach(el => { this.holdIo.observe(el); this.holdOut.observe(el); });
   }
   hold(ms) {
+    (window.__holds = window.__holds || []).push(Math.round(performance.now()));
     this.holdUntil = performance.now() + ms;
     if (this.stopSmooth) this.stopSmooth();
     if (matchMedia('(pointer:coarse)').matches) {
@@ -1709,7 +1714,7 @@ class Component extends DCLogic {
     this.setState({ t:0, playing:false, dur:PREVIEW_DUR, audioErr:false });
   }
   play() {
-    if (!this.state.sound) { this.setState({ sound:true }); if (this.audio) this.audio.muted = false; this.amb.start(.05); }
+    if (!this.state.sound) { this.soundOn = true; this.setState({ sound:true }); if (this.audio) this.audio.muted = false; this.amb.start(.05); }
     this.spin(true); if (this.amb.on) this.amb.vol(.05);
     if (this.audio) { this.audio.play().then(() => this.setState({ playing:true })).catch(() => { this.setState({ audioErr:true }); this.spin(false); }); return; }
     this.setState({ playing:true });
@@ -1801,7 +1806,7 @@ class Component extends DCLogic {
       fin:{ ...FINAL, isImg: !!FINAL.src },
       rootRef:this.rootRef, gateRef:this.gateRef, progRef:this.progRef, discRef:this.discRef, grainRef:this.grainRef, typedRef:this.typedRef, eqRef:this.eqRef, lanternRef:this.lanternRef, inspRef:this.inspRef, lyricRef:this.lyricRef, barsRef:this.barsRef, envRef:this.envRef, starRef:this.starRef,
       stage2:s.stage2, title:s.title, gsRef:this.gsRef, skipTitle: () => this.setState({ title:false }), toTop: () => this.scrollToY(0),
-      gateMsg2: s.fails >= 3 ? STAR_HINT : (s.msg2 || 'Now wake the stars, in the order only you would know.'),
+      gateMsg2: s.gateOk ? 'the sky remembers you' : s.fails >= 3 ? STAR_HINT : (s.msg2 || 'Now wake the stars, in the order only you would know.'),
       gateStars: GATE_STARS.map((p, i) => { const on = s.seq.includes(i); return { x:p[0], y:p[1], aria:'Star ' + (i + 1) + (on ? ', lit' : ''), tap: () => this.tapGateStar(i), op:on ? 1 : .6, tf:on ? 'scale(1.9)' : 'scale(1)', glow:on ? '0 0 16px 5px rgba(243,169,189,.85)' : 'none' }; }),
       collage: COLLAGE.map(c => ({ ...c, isImg: !!c.src })), doodles: DOODLES,
       gated:!s.unlocked, unlocked:s.unlocked, phrase:s.phrase, gateErr:s.gateErr, gateMsg:s.gateMsg,
@@ -1815,9 +1820,9 @@ class Component extends DCLogic {
       submitGate:this.submitGate, lock:this.lock,
       calm:s.calm, motionLabel: s.calm ? 'Calm' : 'Full',
       toggleCalm: () => { this.setState({ calm:!s.calm }); this.fx.forEach(f => { f.drawnCalm = false; }); this.refresh(s.unlocked); },
-      soundLabel: s.sound ? 'Sound on. Tap to turn all sound off' : 'Sound off. Tap to turn sound on', slashX: soundOn ? 0 : 1,
+      soundLabel: s.sound ? 'Sound on. Tap to turn all sound off' : 'Sound off. Tap to turn sound on', slashX: soundOn ? 0 : 1, arcOp: soundOn ? 1 : 0,
       sound:s.sound, eq1: soundOn ? '12px' : '3px', eq2: soundOn ? '7px' : '3px', eq3: soundOn ? '14px' : '3px',
-      toggleSound: () => { const on = !s.sound; this.setState({ sound:on }); if (this.audio) this.audio.muted = !on; on ? this.amb.start(s.playing ? .05 : .32) : this.amb.stop(); },
+      toggleSound: () => { const on = !(this.soundOn !== undefined ? this.soundOn : s.sound); this.soundOn = on; this.setState({ sound:on }); if (this.audio) this.audio.muted = !on; on ? this.amb.start(s.playing ? .05 : .32) : this.amb.stop(); },
       tapMono: () => { const n = s.taps + 1; if (n >= 5) { this.setState({ taps:0 }); this.toast('Hi, Shu. You found a secret. There are a few more in here.'); } else this.setState({ taps:n }); },
       flipTheme: () => { const cur = this.override ?? this.natW; this.override = cur === 1 ? 0 : 1; this.applyPalette(); this.tick(); },
       moonShadow: MOON[s.moon], moonNote: MOON_NOTE[s.moon], eyesClosed: s.awake ? 0 : 1, eyesOpen: s.awake ? 1 : 0,
