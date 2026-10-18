@@ -32,9 +32,10 @@ Every photo slot shows its number so you can send "photo 05" and I know where it
 |---|---|---|
 | 01 | portrait-01 | Chapter I portrait |
 | 02 | film-01 | Full-bleed reel (keepsakes) |
-| 03 to 08 | memory-01 to memory-06 | Polaroids and the sakura tree inspector |
+| 03 to 08 | memory-01 to memory-06 | Polaroids in the keepsakes and the memory gallery |
 | 09 | final-photo | Finale |
 | 10 to 17 | collage-01 to collage-08 | Birthday memory wall |
+| 19 | model-3d | Frame reserved for the small 3D object (send the model file) |
 
 To fill one: put the file in `site/media/photos/` and set its `src` in `MEDIA`, `PORTRAIT`, `FINAL` or `COLLAGE` (for example `'media/photos/memory-01.jpg'`). The number disappears once an image loads. Song: `site/media/audio/our-song.mp3`, set `trackSrc` in `data-props`, plus `TRACK_TITLE`, `TRACK_NOTE`, `LYRICS`.
 

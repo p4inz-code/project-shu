@@ -483,15 +483,15 @@
     function draw() {
       var W = Math.max(2, cv.clientWidth), H = Math.max(2, cv.clientHeight), dpr = Math.min(devicePixelRatio || 1, 1.5);
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
-      var t = P.trunk;
+      var t = P.trunk, A = P.a * (W < 600 ? .62 : 1), HK = W < 600 ? .7 : 1;
       function cloud(x, y, r) {
         var n = Math.floor(r * r * .055 * P.dot) + 10;
-        for (var i = 0; i < n; i++) { var c = cols[Math.floor(Math.random() * cols.length)], a = R(.14, .55) * P.a, sz = R(1, 3.3) * P.dot; ctx.fillStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a.toFixed(2) + ')'; ctx.beginPath(); ctx.ellipse(x + gauss() * r * .5, y + gauss() * r * .42, sz, sz * R(.7, 1), R(0, TAU), 0, TAU); ctx.fill(); }
-        var g = ctx.createRadialGradient(x, y, 0, x, y, r); var c0 = cols[0]; g.addColorStop(0, 'rgba(' + c0[0] + ',' + c0[1] + ',' + c0[2] + ',' + (.16 * P.a).toFixed(2) + ')'); g.addColorStop(1, 'rgba(' + c0[0] + ',' + c0[1] + ',' + c0[2] + ',0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
+        for (var i = 0; i < n; i++) { var c = cols[Math.floor(Math.random() * cols.length)], a = R(.14, .55) * A, sz = R(1, 3.3) * P.dot; ctx.fillStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a.toFixed(2) + ')'; ctx.beginPath(); ctx.ellipse(x + gauss() * r * .5, y + gauss() * r * .42, sz, sz * R(.7, 1), R(0, TAU), 0, TAU); ctx.fill(); }
+        var g = ctx.createRadialGradient(x, y, 0, x, y, r); var c0 = cols[0]; g.addColorStop(0, 'rgba(' + c0[0] + ',' + c0[1] + ',' + c0[2] + ',' + (.16 * A).toFixed(2) + ')'); g.addColorStop(1, 'rgba(' + c0[0] + ',' + c0[1] + ',' + c0[2] + ',0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
       }
       function branch(x, y, ang, len, w, dep) {
         var x2 = x + Math.sin(ang) * len, y2 = y - Math.cos(ang) * len, cx = x + Math.sin(ang + R(-.25, .25)) * len * .5, cy = y - Math.cos(ang + R(-.25, .25)) * len * .5;
-        ctx.strokeStyle = 'rgba(' + t[0] + ',' + t[1] + ',' + t[2] + ',' + P.a + ')'; ctx.lineWidth = Math.max(.8, w); ctx.lineCap = 'round';
+        ctx.strokeStyle = 'rgba(' + t[0] + ',' + t[1] + ',' + t[2] + ',' + A + ')'; ctx.lineWidth = Math.max(.8, w); ctx.lineCap = 'round';
         ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(cx, cy, x2, y2); ctx.stroke();
         if (dep >= P.d - 1 || len < 10) { cloud(x2, y2, Math.max(11, len * 1.25)); return; }
         var kids = dep < 2 ? 3 : 2;
@@ -499,7 +499,7 @@
         if (dep >= 2 && Math.random() < .45) cloud(x2, y2, len * .9);
       }
       for (var i = 0; i < seedN; i++) {
-        var x = (i + R(.1, .9)) / seedN * W, th = H * R(P.hmin, P.hmax), tw = Math.max(2.5, th * .035);
+        var x = (i + R(.1, .9)) / seedN * W, th = H * R(P.hmin, P.hmax) * HK, tw = Math.max(2.5, th * .035);
         branch(x, H + 4, R(-.12, .12), th * .32, tw, 0);
       }
     }

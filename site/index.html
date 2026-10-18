@@ -65,6 +65,19 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
 .tw{animation:tw 1.5s steps(2) infinite;}
 @keyframes tw{0%{opacity:1}50%{opacity:.25}100%{opacity:1}}
 @media (prefers-reduced-motion: reduce){.bo{animation:none}.b0{opacity:1}.rayspin,.tw{animation:none}}
+.paper::before{content:''; position:absolute; inset:0; pointer-events:none; opacity:.2; mix-blend-mode:multiply; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .33  0 0 0 0 .25  0 0 0 .55 0'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");}
+.lt p:first-of-type::first-letter{float:left; font:italic 400 3.4em/.82 'Bodoni Moda', serif; padding:.06em .1em 0 0; color:#d6577e;}
+.wishbtn::after{content:''; position:absolute; inset:-9px; border-radius:999px; border:1px solid rgba(255,214,160,.38); animation:wishPulse 3.4s ease-out infinite; pointer-events:none;}
+@keyframes wishPulse{0%{transform:scale(.97); opacity:.75}100%{transform:scale(1.14); opacity:0}}
+.fl-btn{pointer-events:auto; position:relative; flex:none; width:58px; height:58px; padding:0; border:0; background:none; color:inherit; cursor:pointer; display:grid; place-items:center; transition:transform .7s cubic-bezier(.16,1,.3,1);}
+.fl-btn:hover{transform:rotate(16deg) scale(1.08);} .fl-btn:active{transform:scale(.92) rotate(-6deg);}
+.fl-bg{position:absolute; inset:0; width:100%; height:100%; overflow:visible; filter:drop-shadow(0 4px 10px rgba(120,40,80,.35));}
+.fl-p path{fill:rgba(247,170,196,.34); stroke:rgba(247,196,212,.9); stroke-width:.9;}
+.fl-c{fill:color-mix(in oklch, var(--n0,#0c0918) calc((1 - var(--w,0)) * 72%), color-mix(in oklch, var(--d0,#fffaf5) 86%, transparent)); stroke:rgba(247,196,212,.55); stroke-width:.7; transition:fill .8s;}
+.fl-i{position:relative; display:grid; place-items:center;}
+.sl button{animation:drIn .8s cubic-bezier(.16,1,.3,1) both; transition:padding .45s cubic-bezier(.16,1,.3,1), color .3s;} .sl button:hover{padding-left:14px; color:#f7c1cf;} .sl button:hover span:first-child{transform:rotate(60deg); transition:transform .6s;}
+.sl button:nth-child(1){animation-delay:.08s}.sl button:nth-child(2){animation-delay:.13s}.sl button:nth-child(3){animation-delay:.18s}.sl button:nth-child(4){animation-delay:.23s}.sl button:nth-child(5){animation-delay:.28s}.sl button:nth-child(6){animation-delay:.33s}.sl button:nth-child(7){animation-delay:.38s}.sl button:nth-child(8){animation-delay:.43s}.sl button:nth-child(9){animation-delay:.48s}.sl button:nth-child(10){animation-delay:.53s}
+[data-hl]{text-shadow:0 0 calc(var(--hl,0) * 20px) rgba(243,169,189,calc(var(--hl,0) * .65)) !important;}
 .moon-old{background:none !important; box-shadow:none !important;}
 .moon-old > span:not([data-keep]){display:none !important;}
 .moon-old > canvas{display:block;}
@@ -195,14 +208,14 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
 <sc-if value="{{ unlocked }}">
 <div style="position:fixed; top:0; left:0; right:0; z-index:40; display:flex; justify-content:space-between; align-items:center; gap:8px; padding:max(10px, env(safe-area-inset-top)) clamp(8px,3.4vw,36px) 0; pointer-events:none; color:color-mix(in oklch, var(--ni,#f6f2fb) calc((1 - var(--w,0)) * 100%), var(--di,#2a1621)); transition:color .8s ease;">
   <button onClick="{{ tapMono }}" aria-label="Shu" style="pointer-events:auto; flex:none; width:46px; height:46px; border-radius:50%; background:transparent; border:0; color:inherit; font:italic 400 27px/1 'Bodoni Moda', serif; cursor:pointer; transition:transform .5s cubic-bezier(.16,1,.3,1);" style-active="transform:scale(.85) rotate(-8deg);">S.</button>
-  <div style="display:flex; gap:8px; pointer-events:none;">
-  <button onClick="{{ openMenu }}" aria-haspopup="dialog" aria-label="Open menu" style="pointer-events:auto; position:relative; flex:none; width:46px; height:46px; border-radius:50%; border:1px solid color-mix(in oklch, currentColor 20%, transparent); background:color-mix(in oklch, var(--n0,#0c0918) calc((1 - var(--w,0)) * 55%), color-mix(in oklch, var(--d0,#fffaf5) 70%, transparent)); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); color:inherit; display:grid; place-items:center; cursor:pointer; transition:background .8s, transform .4s;" style-active="transform:scale(.92);">
+  <div style="display:flex; gap:4px; pointer-events:none;">
+  <button onClick="{{ openMenu }}" aria-haspopup="dialog" aria-label="Open menu" class="fl-btn"><svg class="fl-bg" viewBox="-28 -28 56 56" aria-hidden="true"><g class="fl-p"><path transform="rotate(0)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(72)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(144)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(216)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(288)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/></g><circle class="fl-c" r="13.5"/></svg><span class="fl-i">
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M5 8h14M5 12h14M5 16h9"/></svg>
-  </button>
-  <button onClick="{{ toggleSound }}" aria-pressed="{{ sound }}" aria-label="{{ soundLabel }}" style="pointer-events:auto; position:relative; flex:none; width:46px; height:46px; border-radius:50%; border:1px solid color-mix(in oklch, currentColor 20%, transparent); background:color-mix(in oklch, var(--n0,#0c0918) calc((1 - var(--w,0)) * 55%), color-mix(in oklch, var(--d0,#fffaf5) 70%, transparent)); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); color:inherit; display:grid; place-items:center; cursor:pointer; transition:background .8s, transform .4s;" style-active="transform:scale(.92);">
+  </span></button>
+  <button onClick="{{ toggleSound }}" aria-pressed="{{ sound }}" aria-label="{{ soundLabel }}" class="fl-btn"><svg class="fl-bg" viewBox="-28 -28 56 56" aria-hidden="true"><g class="fl-p"><path transform="rotate(0)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(72)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(144)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(216)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(288)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/></g><circle class="fl-c" r="13.5"/></svg><span class="fl-i">
     <span ref="{{ eqRef }}" style="display:grid; place-items:center;"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" fill="currentColor" fill-opacity=".18"/><path d="M15.4 9a4.2 4.2 0 0 1 0 6" style="opacity:{{ arcOp }}; transition:opacity .4s;"/><path d="M18 6.5a7.6 7.6 0 0 1 0 11" style="opacity:{{ arcOp }}; transition:opacity .4s;"/></svg></span>
     <span aria-hidden="true" style="position:absolute; left:12px; right:12px; top:50%; height:1.6px; background:currentColor; border-radius:1px; transform:rotate(-38deg) scaleX({{ slashX }}); transition:transform .4s;"></span>
-  </button>
+  </span></button>
   </div>
 </div>
 <div ref="{{ progRef }}" aria-hidden="true" style="position:fixed; left:0; right:0; bottom:0; height:2px; z-index:41; transform-origin:0 50%; background:color-mix(in oklch, #cdbff0 calc((1 - var(--w,0)) * 100%), #e98aa6);"></div>
@@ -742,24 +755,34 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
           <div data-crown="" aria-hidden="true" style="position:absolute; left:50%; top:58%; width:32%; aspect-ratio:1; margin:-16% 0 0 -16%; z-index:4; pointer-events:none;"><div data-spin="90000" style="width:100%; height:100%;"><svg viewBox="-10 -10 20 20" aria-hidden="true" style="display:block; width:100%; height:100%; overflow:visible;"><g style="fill:#f7c1cf; stroke:#e98aa6; stroke-width:.4;"><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(0)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(72)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(144)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(216)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(288)"></ellipse></g><circle r="2" style="fill:#f0b45e;"></circle></svg></div></div>
           <button onClick="{{ openLetter }}" aria-label="Break the wax seal and read the letter" style="position:absolute; left:50%; top:58%; width:19%; aspect-ratio:1; margin:-9.5% 0 0 -9.5%; z-index:5; padding:0; border:0; background:transparent; cursor:pointer; transition:transform .5s cubic-bezier(.16,1,.3,1);" style-hover="transform:rotate(-8deg) scale(1.05);" style-active="transform:scale(.92);"><span data-half="l" aria-hidden="true" style="position:absolute; inset:0; clip-path:polygon(0 0, 54% 0, 46% 38%, 57% 62%, 48% 100%, 0 100%);"><span style="position:absolute; inset:0; border-radius:47% 53% 50% 50% / 52% 48% 52% 48%; background:radial-gradient(circle at 36% 30%, #e07a96 0%, #c95472 38%, #9a3654 78%, #7a2440 100%); box-shadow:0 8px 18px -6px rgba(122,36,64,.8), inset -3px -4px 8px rgba(70,10,30,.45), inset 3px 3px 6px rgba(255,190,205,.45);"></span><span style="position:absolute; inset:16%; border-radius:50%; border:1.5px solid rgba(255,200,212,.38); box-shadow:inset 0 0 6px rgba(70,10,30,.4);"></span><span style="position:absolute; inset:0; display:grid; place-items:center; font:italic 500 clamp(11px,3vw,18px)/1 'Bodoni Moda', serif; color:#ffd9e2; white-space:nowrap; text-shadow:0 -1px 0 rgba(70,10,30,.5);">A ♥ S</span></span><span data-half="r" aria-hidden="true" style="position:absolute; inset:0; clip-path:polygon(54% 0, 100% 0, 100% 100%, 48% 100%, 57% 62%, 46% 38%);"><span style="position:absolute; inset:0; border-radius:47% 53% 50% 50% / 52% 48% 52% 48%; background:radial-gradient(circle at 36% 30%, #e07a96 0%, #c95472 38%, #9a3654 78%, #7a2440 100%); box-shadow:0 8px 18px -6px rgba(122,36,64,.8), inset -3px -4px 8px rgba(70,10,30,.45), inset 3px 3px 6px rgba(255,190,205,.45);"></span><span style="position:absolute; inset:16%; border-radius:50%; border:1.5px solid rgba(255,200,212,.38); box-shadow:inset 0 0 6px rgba(70,10,30,.4);"></span><span style="position:absolute; inset:0; display:grid; place-items:center; font:italic 500 clamp(11px,3vw,18px)/1 'Bodoni Moda', serif; color:#ffd9e2; white-space:nowrap; text-shadow:0 -1px 0 rgba(70,10,30,.5);">A ♥ S</span></span></button>
         </div>
-        <button onClick="{{ openLetter }}" style="min-height:48px; padding:0 24px; border-radius:999px; border:1px solid rgba(246,242,251,.3); background:transparent; color:#f6f2fb; font:500 14px/1 'Geist', sans-serif; cursor:pointer; transition:background .4s, color .4s, transform .4s;" style-hover="background:#f6f2fb; color:#0c0918;" style-active="transform:scale(.95);">Break the seal</button>
+        <button onClick="{{ openLetter }}" style="min-height:48px; padding:6px 18px; border:0; border-bottom:1px solid rgba(243,169,189,.55); background:transparent; color:#f3a9bd; font:400 clamp(16px,4vw,20px)/1.2 'Homemade Apple', cursive; text-shadow:0 0 18px rgba(243,169,189,.45); cursor:pointer; transition:transform .5s, text-shadow .5s;" style-hover="text-shadow:0 0 26px rgba(243,169,189,.8);" style-active="transform:scale(.95);">break the seal, gently</button>
       </div>
     </sc-if>
     <sc-if value="{{ letterOpen }}">
-      <article data-r="unfold" data-dur="1600" style="position:relative; margin:clamp(40px,8vh,80px) auto 0; background:linear-gradient(180deg, #fffaf5, #fbf3ea); color:#2a1621; padding:clamp(56px,11vw,96px) clamp(26px,7vw,80px) clamp(44px,8vw,84px); box-shadow:0 40px 90px -30px rgba(0,0,0,.7), 0 0 0 1px rgba(0,0,0,.03); transform-origin:50% 0;">
+      <article class="paper" data-r="unfold" data-dur="1800" style="position:relative; margin:clamp(40px,8vh,80px) auto 0; background:radial-gradient(120% 90% at 18% 0%, #fffdf8 0%, #fbf1e4 62%, #f2e1cd 100%); color:#2a1621; padding:clamp(64px,12vw,110px) clamp(28px,8vw,88px) clamp(48px,8vw,90px); clip-path:polygon(0% 0.21%, 4% 0.02%, 8% 0.35%, 12% 0.24%, 16% 0.06%, 20% 0.41%, 24% 0.44%, 28% 0.39%, 32% 0.03%, 36% 0.09%, 40% 0.45%, 44% 0.29%, 48% 0.25%, 52% 0.34%, 56% 0.21%, 60% 0.03%, 64% 0.07%, 68% 0.04%, 72% 0.21%, 76% 0.25%, 80% 0.49%, 84% 0.03%, 88% 0.14%, 92% 0.12%, 96% 0.07%, 100% 0.10%, 99.90% 4%, 100.00% 9%, 99.63% 14%, 99.77% 19%, 99.79% 24%, 99.73% 29%, 99.86% 34%, 99.88% 39%, 99.73% 44%, 99.88% 49%, 99.68% 54%, 99.80% 59%, 99.72% 64%, 99.74% 69%, 99.82% 74%, 99.95% 79%, 99.86% 84%, 99.75% 89%, 100.00% 94%, 99.58% 99%, 100% 99.94%, 96% 99.55%, 92% 99.76%, 88% 99.59%, 84% 99.84%, 80% 99.81%, 76% 99.86%, 72% 99.67%, 68% 99.58%, 64% 99.79%, 60% 99.81%, 56% 99.72%, 52% 99.85%, 48% 99.62%, 44% 99.81%, 40% 99.79%, 36% 99.83%, 32% 99.76%, 28% 99.68%, 24% 99.73%, 20% 99.60%, 16% 99.74%, 12% 99.74%, 8% 99.74%, 4% 99.82%, 0% 99.76%, 0.27% 96%, 0.27% 91%, 0.16% 86%, 0.20% 81%, 0.03% 76%, 0.05% 71%, 0.02% 66%, 0.18% 61%, 0.14% 56%, 0.20% 51%, 0.11% 46%, 0.14% 41%, 0.28% 36%, 0.03% 31%, 0.20% 26%, 0.37% 21%, 0.30% 16%, 0.25% 11%, 0.27% 6%); filter:drop-shadow(0 40px 50px rgba(0,0,0,.55)); transform-origin:50% 0;">
+        <svg aria-hidden="true" viewBox="0 0 120 80" style="position:absolute; left:2%; top:1.5%; width:clamp(70px,16vw,130px); overflow:visible; opacity:.9;"><path data-r="draw" data-d="300" data-dur="1800" d="M2 6 C 30 10, 52 26, 70 52 M30 12 C 34 28, 28 40, 18 52" pathLength="1" fill="none" stroke="#8f7a6a" stroke-width="1.4" stroke-linecap="round"/><g data-r="grow" data-d="1200"><use href="#blsm" transform="translate(52 28) scale(1.15) rotate(18)"/></g><g data-r="grow" data-d="1500"><use href="#blsm" transform="translate(70 52) scale(.8) rotate(-10)"/></g></svg>
+        <svg aria-hidden="true" viewBox="0 0 120 80" style="position:absolute; right:2%; top:1.5%; width:clamp(70px,16vw,130px); overflow:visible; opacity:.9; transform:scaleX(-1);"><path data-r="draw" data-d="500" data-dur="1800" d="M2 6 C 30 10, 52 26, 70 52 M30 12 C 34 28, 28 40, 18 52" pathLength="1" fill="none" stroke="#8f7a6a" stroke-width="1.4" stroke-linecap="round"/><g data-r="grow" data-d="1400"><use href="#blsm" transform="translate(52 28) scale(1.05) rotate(-12)"/></g><g data-r="grow" data-d="1700"><use href="#blsm" transform="translate(18 52) scale(.7) rotate(24)"/></g></svg>
+        <div aria-hidden="true" style="position:absolute; right:clamp(24px,7vw,70px); top:clamp(78px,13vw,118px); font:400 clamp(11px,2.8vw,14px)/1 'Homemade Apple', cursive; color:#b0707f; transform:rotate(3deg);">26 · october</div>
         <svg viewBox="0 0 240 60" aria-hidden="true" style="position:absolute; left:50%; top:clamp(10px,3vw,22px); width:min(52%, 220px); transform:translateX(-50%); overflow:visible;">
           <path data-r="draw" data-d="500" data-dur="1800" d="M8 46 C 60 26, 100 40, 120 24 S 190 8, 232 30" pathLength="1" fill="none" stroke-width="1.4" stroke-linecap="round" style="stroke:#8c5a6e;"></path>
           <path data-r="draw" data-d="1100" d="M70 36 C 74 24, 82 18, 92 16 M160 16 C 170 26, 180 30, 192 28" pathLength="1" fill="none" stroke-width="1" stroke-linecap="round" style="stroke:#8c5a6e;"></path>
           <g transform="translate(120 24) scale(1.4)"><g data-r="grow" data-d="1300" style="transform-box:fill-box; transform-origin:center;"><g style="fill:#f3a9bd; stroke:#e98aa6; stroke-width:.4;"><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(0)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(72)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(144)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(216)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(288)"></ellipse></g><circle r="2" style="fill:#f0b45e;"></circle></g></g><g transform="translate(92 16) scale(1)"><g data-r="grow" data-d="1450" style="transform-box:fill-box; transform-origin:center;"><g style="fill:#f7c1cf; stroke:#e98aa6; stroke-width:.4;"><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(0)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(72)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(144)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(216)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(288)"></ellipse></g><circle r="2" style="fill:#f0b45e;"></circle></g></g><g transform="translate(192 28) scale(1)"><g data-r="grow" data-d="1600" style="transform-box:fill-box; transform-origin:center;"><g style="fill:#fde4ea; stroke:#e98aa6; stroke-width:.4;"><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(0)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(72)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(144)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(216)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(288)"></ellipse></g><circle r="2" style="fill:#f0b45e;"></circle></g></g><g transform="translate(232 30) scale(0.8)"><g data-r="grow" data-d="1750" style="transform-box:fill-box; transform-origin:center;"><g style="fill:#f9d0db; stroke:#e98aa6; stroke-width:.4;"><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(0)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(72)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(144)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(216)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(288)"></ellipse></g><circle r="2" style="fill:#f0b45e;"></circle></g></g><g transform="translate(8 46) scale(0.8)"><g data-r="grow" data-d="1900" style="transform-box:fill-box; transform-origin:center;"><g style="fill:#f7c1cf; stroke:#e98aa6; stroke-width:.4;"><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(0)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(72)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(144)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(216)"></ellipse><ellipse cx="0" cy="-5.2" rx="3.6" ry="5.2" transform="rotate(288)"></ellipse></g><circle r="2" style="fill:#f0b45e;"></circle></g></g>
         </svg>
         <div data-r="ink" data-d="500" style="font:400 clamp(20px,5vw,28px)/1.6 'Homemade Apple', cursive; color:#d6577e;">My dearest Shu,</div>
-        <div style="margin-top:24px; display:flex; flex-direction:column; gap:1.15em; font:400 clamp(18px,4.4vw,21px)/1.72 'Bodoni Moda', serif; text-wrap:pretty;">
-          <sc-for list="{{ paras }}" as="para" hint-placeholder-count="5"><p data-r="ink" data-d="{{ para.d }}" style="margin:0;">{{ para.t }}</p></sc-for>
+        <div class="lt" style="margin-top:24px; display:flex; flex-direction:column; gap:1.25em; font:400 clamp(18px,4.4vw,21px)/1.78 'Bodoni Moda', serif; text-wrap:pretty;">
+          <sc-for list="{{ paras }}" as="para" hint-placeholder-count="5"><p data-r="{{ para.rv }}" data-d="{{ para.d }}" style="margin:0;">{{ para.t }}</p></sc-for>
         </div>
         <div data-r="ink" data-d="{{ closeD }}" style="margin-top:40px; font:400 clamp(15px,3.8vw,19px)/1.8 'Homemade Apple', cursive;">With all my love,<br><span style="font-size:1.5em; color:#d6577e;">{{ signature }}</span></div>
         <div data-r="ink" data-d="{{ psD }}" style="margin-top:28px; padding-top:18px; border-top:1px solid rgba(42,22,33,.1); font:italic 400 clamp(15px,3.8vw,17px)/1.6 'Bodoni Moda', serif; color:#7d5e6a;">{{ ps }}</div>
+        <svg viewBox="0 0 320 150" aria-hidden="true" style="display:block; width:min(100%,400px); margin:44px auto 0; overflow:visible; transform:rotate(-2deg); filter:drop-shadow(0 3px 3px rgba(80,40,50,.22));">
+          <path data-r="draw" data-d="200" data-dur="2400" d="M16 132 C 90 112, 150 122, 212 82 S 292 42, 308 16" pathLength="1" fill="none" stroke="#8f7a6a" stroke-width="2.2" stroke-linecap="round"/>
+          <path data-r="draw" data-d="700" data-dur="1400" d="M112 118 C 120 98, 134 88, 152 84 M236 66 C 240 48, 250 38, 264 34" pathLength="1" fill="none" stroke="#8f7a6a" stroke-width="1.4" stroke-linecap="round"/>
+          <g data-r="grow" data-d="900"><ellipse cx="52" cy="120" rx="9" ry="4.4" transform="rotate(-18 52 120)" fill="#a9b79a" opacity=".85"/></g><g data-r="grow" data-d="1050"><ellipse cx="132" cy="110" rx="9" ry="4.4" transform="rotate(24 132 110)" fill="#a9b79a" opacity=".85"/></g><g data-r="grow" data-d="1200"><ellipse cx="184" cy="96" rx="9" ry="4.4" transform="rotate(-28 184 96)" fill="#a9b79a" opacity=".85"/></g><g data-r="grow" data-d="1350"><ellipse cx="246" cy="62" rx="9" ry="4.4" transform="rotate(20 246 62)" fill="#a9b79a" opacity=".85"/></g><g data-r="grow" data-d="1500"><ellipse cx="286" cy="34" rx="9" ry="4.4" transform="rotate(-34 286 34)" fill="#a9b79a" opacity=".85"/></g>
+          <g data-r="grow" data-d="1100"><use href="#blsm" transform="translate(86 112) scale(1.5) rotate(-14)"/></g><g data-r="grow" data-d="1400"><use href="#blsm" transform="translate(152 84) scale(2.1) rotate(12)"/></g><g data-r="grow" data-d="1700"><use href="#blsm" transform="translate(210 80) scale(1.55) rotate(-8)"/></g><g data-r="grow" data-d="1950"><use href="#blsm" transform="translate(264 36) scale(1.8) rotate(20)"/></g><g data-r="grow" data-d="2200"><use href="#blsm" transform="translate(306 16) scale(1.1) rotate(-22)"/></g>
+          <g data-r="grow" data-d="1600"><circle cx="48" cy="126" r="3.6" fill="#e98aa6"/></g><g data-r="grow" data-d="1800"><circle cx="236" cy="66" r="3" fill="#e98aa6"/></g>
+        </svg>
       </article>
-      <div style="text-align:center; margin-top:24px;"><button onClick="{{ foldLetter }}" style="min-height:44px; padding:0 18px; border-radius:999px; border:0; background:transparent; color:#9a90ba; font:500 13px/1 'Geist', sans-serif; cursor:pointer;" style-hover="color:#f6f2fb;">Fold it back into the envelope</button></div>
+      <div style="text-align:center; margin-top:24px;"><button onClick="{{ foldLetter }}" style="min-height:44px; padding:0 18px; border-radius:999px; border:0; background:transparent; color:#b4a9d4; font:400 14px/1 'Homemade Apple', cursive; cursor:pointer;" style-hover="color:#f3a9bd;">fold it back into the envelope</button></div>
     </sc-if>
   </div>
 </section>
@@ -908,7 +931,7 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
     </div>
     <sc-if value="{{ lanternsOpen }}">
       <div style="display:flex; flex-direction:column; align-items:center; gap:12px;">
-        <button onClick="{{ releaseBtn }}" style="pointer-events:auto; min-height:52px; padding:0 14px 0 24px; border-radius:999px; border:0; background:#f6f2fb; color:#0c0918; font:500 14px/1 'Geist', sans-serif; display:flex; align-items:center; gap:14px; cursor:pointer; box-shadow:0 12px 40px -10px rgba(255,170,90,.85); transition:transform .4s cubic-bezier(.16,1,.3,1);" style-active="transform:scale(.95);">Send a wish up<span aria-hidden="true" style="width:30px; height:36px; display:grid; place-items:center;"><span style="width:16px; height:20px; border-radius:44% 44% 30% 30% / 46% 46% 30% 30%; background:linear-gradient(180deg, #ffe2b0, #f9b468 50%, #e2804a); box-shadow:0 0 12px 2px rgba(255,170,90,.7);"></span></span></button>
+        <button onClick="{{ releaseBtn }}" class="wishbtn" style="pointer-events:auto; position:relative; min-height:62px; padding:0 32px 0 20px; border-radius:999px; border:1px solid rgba(255,214,160,.5); background:radial-gradient(120% 170% at 28% 0%, rgba(255,214,160,.3), rgba(255,150,110,.12) 55%, rgba(70,36,86,.3)); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); color:#ffe9c8; font:italic 400 clamp(20px,4.8vw,26px)/1 'Bodoni Moda', serif; letter-spacing:.01em; display:flex; align-items:center; gap:14px; cursor:pointer; box-shadow:0 0 44px -6px rgba(255,170,90,.55), inset 0 0 24px rgba(255,200,140,.14); transition:transform .5s cubic-bezier(.16,1,.3,1), box-shadow .6s;" style-hover="transform:translateY(-3px); box-shadow:0 0 62px -4px rgba(255,170,90,.8), inset 0 0 26px rgba(255,200,140,.2);" style-active="transform:scale(.96);"><span aria-hidden="true" style="width:30px; height:38px; display:grid; place-items:center;"><span data-flicker="" style="width:17px; height:22px; border-radius:44% 44% 30% 30% / 46% 46% 30% 30%; background:linear-gradient(180deg, #fff0cc, #f9b468 50%, #e2804a); box-shadow:0 0 16px 3px rgba(255,170,90,.8);"></span></span>let a wish rise</button>
         <div style="font:400 12px/1.6 'Homemade Apple', cursive; color:#b4a9d4;">or tap anywhere in the sky</div>
       </div>
     </sc-if>
@@ -980,9 +1003,10 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
 
 <sc-if value="{{ menuOpen }}">
 <div onClick="{{ closeMenu }}" style="position:fixed; inset:0; z-index:97; background:rgba(5,3,8,.55); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);">
-  <aside role="dialog" aria-modal="true" aria-label="Menu" onClick="{{ stop }}" style="position:absolute; top:0; right:0; bottom:0; width:min(380px, 90vw); padding:max(22px, env(safe-area-inset-top)) 22px max(22px, env(safe-area-inset-bottom)); background:linear-gradient(180deg, rgba(27,20,51,.97), rgba(12,9,24,.98)); color:#f6f2fb; border-left:1px solid rgba(246,242,251,.14); overflow-y:auto; animation:drawerIn .5s cubic-bezier(.16,1,.3,1) both; display:flex; flex-direction:column; gap:22px; font-family:'Geist', system-ui, sans-serif;">
+  <aside role="dialog" aria-modal="true" aria-label="Menu" onClick="{{ stop }}" style="position:absolute; top:0; right:0; bottom:0; width:min(380px, 90vw); isolation:isolate; padding:max(22px, env(safe-area-inset-top)) 22px max(22px, env(safe-area-inset-bottom)); background:linear-gradient(180deg, rgba(27,20,51,.97), rgba(12,9,24,.98)); color:#f6f2fb; border-left:1px solid rgba(246,242,251,.14); overflow-y:auto; overflow-x:hidden; animation:drawerIn .5s cubic-bezier(.16,1,.3,1) both; display:flex; flex-direction:column; gap:22px; font-family:'Geist', system-ui, sans-serif;">
     <div style="display:flex; justify-content:space-between; align-items:center;">
-      <div style="font:italic 400 26px/1 'Bodoni Moda', serif;">A little world</div>
+      <div style="display:flex; align-items:center; gap:10px; font:italic 400 26px/1 'Bodoni Moda', serif;"><svg viewBox="-28 -28 56 56" width="26" height="26" aria-hidden="true" style="overflow:visible;"><g fill="rgba(247,170,196,.45)" stroke="rgba(247,196,212,.9)" stroke-width="1.6"><path transform="rotate(0)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(72)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(144)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(216)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(288)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/></g><circle r="6" fill="#ffe2aa"/></svg>A small gift</div>
+      <svg aria-hidden="true" viewBox="-28 -28 56 56" style="position:absolute; right:-70px; bottom:-60px; width:340px; opacity:.07; pointer-events:none; z-index:-1;"><g fill="#f7aac4"><path transform="rotate(0)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(72)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(144)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(216)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/><path transform="rotate(288)" d="M0 -3 C -13 -9 -16 -22 -4 -26 Q 0 -23 4 -26 C 16 -22 13 -9 0 -3 Z"/></g></svg>
       <button onClick="{{ closeMenu }}" aria-label="Close menu" style="width:44px; height:44px; border-radius:50%; border:0; background:transparent; color:inherit; font:300 22px/1 'Geist', sans-serif; cursor:pointer;">&times;</button>
     </div>
     <div>
@@ -995,7 +1019,7 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
     </div>
     <div>
       <div style="font:500 10px/1 'Geist', sans-serif; letter-spacing:.24em; text-transform:uppercase; color:#9a90ba; margin-bottom:10px;">Go to</div>
-      <div style="display:flex; flex-direction:column;">
+      <div class="sl" style="display:flex; flex-direction:column;">
         <sc-for list="{{ scenes }}" as="sc" hint-placeholder-count="10"><button onClick="{{ sc.go }}" style="display:flex; align-items:baseline; gap:12px; min-height:44px; padding:6px 4px; border:0; border-bottom:1px solid rgba(246,242,251,.08); background:transparent; color:inherit; text-align:left; cursor:pointer;"><span aria-hidden="true" style="flex:none; width:1.6em; color:#e98aa6; font-size:13px;">✿</span><span style="font:400 15px/1.2 'Geist', sans-serif;">{{ sc.label }}</span></button></sc-for>
       </div>
     </div>
@@ -1304,7 +1328,7 @@ class Component extends DCLogic {
     clearTimeout(this.rt);
     this.rt = setTimeout(() => {
       document.body.style.overflow = unlocked ? '' : 'hidden';
-      this.moonTex(); this.setupReveals(unlocked); this.setupLoops(); this.setupFx(); this.setupLanterns(); this.setupResets(); this.hydrateMedia(); this.setupGusts(); this.setupSmooth(); this.setupHold(); this.setupTree(); this.setupMoon(); this.setupForest(); this.kick();
+      this.moonTex(); this.setupReveals(unlocked); this.setupLoops(); this.setupFx(); this.setupLanterns(); this.setupResets(); this.hydrateMedia(); this.setupGusts(); this.setupSmooth(); this.setupHold(); this.setupTree(); this.setupMoon(); this.setupForest(); this.setupAccents(); this.kick();
     }, 60);
   }
   moonTex() {
@@ -1353,6 +1377,10 @@ class Component extends DCLogic {
     const root = this.rootRef.current; if (!root) return;
     if (this.io) this.io.disconnect();
     const all = [...root.querySelectorAll('[data-r]')]; all.forEach(el => { el.__seen = true; });
+    { // a different entrance for each line of text, never the same twice in a row
+      const pool = ['rise', 'blur', 'sweep', 'ink', 'bloom', 'fade']; let prev = '';
+      all.forEach(el => { const t = el.dataset.r; if (!pool.includes(t) || el.__rt || !(el instanceof HTMLElement) || el.closest('svg')) return; const txt = el.textContent.trim(); if (txt.length < 4 || el.querySelector('svg,img,canvas,button,video')) return; el.__rt = 1; const opts = pool.filter(x => x !== prev); const pick = opts[Math.floor(Math.random() * opts.length)]; el.dataset.r = pick; prev = pick; });
+    }
     if (this.state.calm || !('IntersectionObserver' in window)) {
       all.forEach(el => this.show(el, true));
       root.querySelectorAll('[data-par],[data-exit]').forEach(el => { el.style.translate = ''; el.style.opacity = ''; el.style.rotate = ''; });
@@ -1507,6 +1535,7 @@ class Component extends DCLogic {
 
   revealNew() {
     const root = this.rootRef.current; if (!root || !this.state.unlocked) return;
+    clearTimeout(this.accT); this.accT = setTimeout(() => this.setupAccents(), 400);
     const fresh = [...root.querySelectorAll('[data-r]')].filter(el => !el.__seen);
     if (!fresh.length) return;
     const calm = this.state.calm || !this.io;
@@ -1691,7 +1720,7 @@ class Component extends DCLogic {
         else if (v === 'driftR') { el.style.translate = `${(q * 26).toFixed(1)}px ${(-q * 30).toFixed(1)}px`; el.style.opacity = (1 - 0.35 * q).toFixed(3); }
       });
     }
-    this.wishLockTick(vh);
+    this.wishLockTick(vh); this.accentTick(vh);
     const veil = root.querySelector('[data-veil]');
     if (veil) {
       if (this.state.calm || !this.state.unlocked) veil.style.visibility = 'hidden';
@@ -1837,6 +1866,32 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
   beat(key, v, pts, ms) {
     const st = this.bs || (this.bs = {}), a = st[key] || (st[key] = []);
     pts.forEach((p, i) => { if (v >= p && !a[i]) { a[i] = true; if (!this.state.calm && this.state.unlocked && !this.saf) this.hold(ms || 1100, true); } else if (v < p - .06) a[i] = false; });
+  }
+  setupAccents() {
+    const root = this.rootRef.current; if (!root || !this.state.unlocked) return;
+    if (!this.sparkBox) { const b = document.createElement('div'); b.setAttribute('aria-hidden', 'true'); b.style.cssText = 'position:fixed; inset:0; pointer-events:none; z-index:38; overflow:hidden;'; root.appendChild(b); this.sparkBox = b; }
+    this.hlEls = [...root.querySelectorAll('section h1, section h2, section[aria-label=Epigraph] > div > div:first-child, article p, [data-hl]')].filter(el => { const t = el.textContent.trim(); return t.length >= 6 && t.length <= 240 && !el.closest('[role=dialog]') && !el.querySelector('button,input'); });
+    this.hlEls.forEach(el => el.setAttribute('data-hl', ''));
+  }
+  accentTick(vh) {
+    if (!this.hlEls || this.state.calm) return; const mid = vh * .5;
+    for (const el of this.hlEls) {
+      const t = this.docTop(el) - scrollY, h = el.offsetHeight;
+      if (t > vh * 1.2 || t + h < -vh * .2) { if (el.__hv) { el.style.setProperty('--hl', '0'); el.__hv = 0; el.__act = false; } continue; }
+      const v = clamp(1 - Math.abs(t + h / 2 - mid) / (vh * .34)); el.style.setProperty('--hl', v.toFixed(3)); el.__hv = 1;
+      if (v > .72 && !el.__act) { el.__act = true; this.sparkle(el); } else if (v < .25) el.__act = false;
+    }
+  }
+  sparkle(el) {
+    const b = this.sparkBox; if (!b || b.childElementCount > 40 || !el.animate) return; const r = el.getBoundingClientRect(), n = Math.round(R(4, 8)), cols = ['#f7c1cf', '#ffe2aa', '#ffffff', '#f3a9bd'];
+    for (let i = 0; i < n; i++) {
+      const sp = document.createElement('span'), sz = R(8, 17), c = cols[Math.floor(R(0, 4))];
+      sp.style.cssText = 'position:absolute; left:' + (r.left + Math.random() * r.width) + 'px; top:' + (r.top + Math.random() * r.height) + 'px; width:' + sz + 'px; height:' + sz + 'px; margin:' + (-sz / 2) + 'px 0 0 ' + (-sz / 2) + 'px;';
+      sp.innerHTML = '<svg viewBox="-10 -10 20 20" width="100%" height="100%" style="display:block; overflow:visible;"><path d="M0 -9 Q1.2 -1.2 9 0 Q1.2 1.2 0 9 Q-1.2 1.2 -9 0 Q-1.2 -1.2 0 -9 Z" fill="' + c + '"/></svg>';
+      b.appendChild(sp);
+      const a = sp.animate([{ opacity: 0, transform: 'translateY(0) scale(.2) rotate(0deg)' }, { opacity: 1, transform: 'translateY(-8px) scale(1) rotate(40deg)', offset: .35 }, { opacity: 0, transform: 'translateY(-26px) scale(.3) rotate(95deg)' }], { duration: R(900, 1700), delay: R(0, 480), easing: 'ease-out', fill: 'both' });
+      a.onfinish = () => sp.remove();
+    }
   }
   wishLockTick(vh) {
     const lan = this.rootRef.current && this.rootRef.current.querySelector('#lanterns'); if (!lan) return;
@@ -2035,7 +2090,7 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
       threadsOld: STARS.map((p, i) => ({ x:p.x, y:p.y, h:(88 - p.y).toFixed(1), by:88, sy: s.lit[i] ? 1 : 0, op: s.lit[i] ? 1 : 0, bs: s.lit[i] ? 1 : 0, br: s.lit[i] ? '0deg' : '-90deg' })),
       starDots: STARS.map((_, i) => ({ bg: s.lit[i] ? '#f6f2fb' : 'rgba(205,191,240,.25)', glow: s.lit[i] ? '0 0 8px 2px rgba(205,191,240,.7)' : 'none' })),
       sealed: !s.letterOpen, letterOpen: s.letterOpen, openLetter:this.openLetter, foldLetter: () => { this.opening = false; this.setState({ letterOpen:false }); },
-      paras: LETTER.map((t, i) => ({ t, d: 700 + i * 380 })), closeD: 700 + LETTER.length * 380, psD: 1000 + LETTER.length * 380, ps: PS,
+      paras: LETTER.map((t, i) => ({ t, d: 700 + i * 380, rv: ['ink', 'sweep', 'rise', 'blur', 'bloom'][i % 5] })), closeD: 700 + LETTER.length * 380, psD: 1000 + LETTER.length * 380, ps: PS,
       lanternLine: s.lanternsDone ? 'all seven, on their way up' : s.lanterns ? 'I wish ' + WISHES[s.lanterns - 1] + '.' : 'Seven wishes, one for every lantern. Tap the sky to send each one up.',
       lanternDots: WISHES.map((_, i) => ({ bg: i < s.lanterns ? '#f9b468' : 'rgba(246,242,251,.18)', glow: i < s.lanterns ? '0 0 10px 2px rgba(255,170,90,.7)' : 'none' })),
       lanternsDone: s.lanternsDone, lanternsOpen: !s.lanternsDone, skyTap:this.skyTap, releaseBtn: e => { e.stopPropagation(); this.releaseLantern(); },
