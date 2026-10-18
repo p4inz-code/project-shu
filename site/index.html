@@ -1876,24 +1876,39 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
     els.forEach(el => { this.holdIo.observe(el); this.holdOut.observe(el); });
     this.setupExtras(root);
   }
+  // Last page: the finale track loops from the wish panel onward; the song and piano step aside, and scrolling back up fades it out.
+  fadeAudio(a, to, ms, done) {
+    clearInterval(a.__f); const from = a.volume, t0 = performance.now();
+    a.__f = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / ms); a.volume = Math.max(0, Math.min(1, from + (to - from) * k)); if (k >= 1) { clearInterval(a.__f); done && done(); } }, 60);
+  }
+  finaleSwell(on) {
+    const FINALE_TRACK = 'media/audio/finale.mp3';
+    if (on) {
+      if (this.state.calm) return;
+      if (!this.finaleEl) { this.finaleEl = new Audio(FINALE_TRACK); this.finaleEl.loop = true; this.finaleEl.volume = 0; }
+      this.finaleEl.muted = !this.state.sound && this.soundOn !== true;
+      if (this.state.sound || this.soundOn) {
+        this.finaleEl.play().then(() => { this.fadeAudio(this.finaleEl, .9, 3500); this.amb.vol && this.amb.vol(.02); if (this.audio && !this.audio.paused) this.fadeAudio(this.audio, .15, 2500); }).catch(() => {});
+      }
+    } else if (this.finaleEl && !this.finaleEl.paused) {
+      this.fadeAudio(this.finaleEl, 0, 1800, () => this.finaleEl.pause());
+      if (this.audio && !this.audio.paused) this.fadeAudio(this.audio, 1, 1800);
+      if (this.amb.on) this.amb.start(this.state.playing ? .05 : .32);
+    }
+  }
   // Reel plays only while on screen; epigraph voices (when recorded) read each line once; the last page swells the music.
   setupExtras(root) {
     if (this.exIo) this.exIo.disconnect();
     const VOICE_IDS = [];   // add 'v01', 'v02'... as the recordings arrive in media/audio/voice/
-    const FINALE_TRACK = ''; // the ~20s finale track, e.g. 'media/audio/finale.mp3'
+    
     this.voiceDone = this.voiceDone || {};
     this.exIo = new IntersectionObserver(es => es.forEach(en => {
       const el = en.target;
       if (el.hasAttribute('data-reel')) { en.isIntersecting ? el.setAttribute('data-on', '') : el.removeAttribute('data-on'); return; }
+      if (el.id === 'lanterns') { this.finaleSwell(en.isIntersecting || en.boundingClientRect.top < 0); return; }
       if (!en.isIntersecting) return;
       const v = el.getAttribute('data-voice');
-      if (v) { if (VOICE_IDS.includes(v) && !this.voiceDone[v] && this.state.sound && !this.state.calm) { this.voiceDone[v] = 1; const a = new Audio('media/audio/voice/' + v + '.mp3'); a.volume = .95; a.play().catch(() => {}); } return; }
-      if (el.id === 'lanterns' && !this.swelled) {
-        this.swelled = true;
-        const ramp = (a, to) => { const t = setInterval(() => { const d = to - a.volume; if (Math.abs(d) < .03) { a.volume = to; clearInterval(t); } else a.volume = Math.max(0, Math.min(1, a.volume + Math.sign(d) * .03)); }, 80); };
-        if (this.audio && !this.audio.paused) ramp(this.audio, 1);
-        if (FINALE_TRACK && this.state.sound) { const f = new Audio(FINALE_TRACK); f.volume = 0; f.play().then(() => { this.amb.start(.05); ramp(f, 1); }).catch(() => {}); }
-      }
+      if (v && VOICE_IDS.includes(v) && !this.voiceDone[v] && this.state.sound && !this.state.calm) { this.voiceDone[v] = 1; const a = new Audio('media/audio/voice/' + v + '.mp3'); a.volume = .95; a.play().catch(() => {}); }
     }), { rootMargin: '-35% 0px -35% 0px', threshold: 0 });
     root.querySelectorAll('[data-reel],[data-voice],#lanterns').forEach(el => this.exIo.observe(el));
   }
@@ -2199,7 +2214,7 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
       toggleCalm: () => { this.setState({ calm:!s.calm }); this.fx.forEach(f => { f.drawnCalm = false; }); this.refresh(s.unlocked); },
       soundLabel: s.sound ? 'Sound on. Tap to turn all sound off' : 'Sound off. Tap to turn sound on', slashX: soundOn ? 0 : 1, arcOp: soundOn ? 1 : 0,
       sound:s.sound, eq1: soundOn ? '12px' : '3px', eq2: soundOn ? '7px' : '3px', eq3: soundOn ? '14px' : '3px',
-      toggleSound: () => { const on = !(this.soundOn !== undefined ? this.soundOn : s.sound); this.soundOn = on; this.setState({ sound:on }); if (this.audio) this.audio.muted = !on; on ? this.amb.start(s.playing ? .05 : .32) : this.amb.stop(); },
+      toggleSound: () => { const on = !(this.soundOn !== undefined ? this.soundOn : s.sound); this.soundOn = on; this.setState({ sound:on }); if (this.audio) this.audio.muted = !on; if (this.finaleEl) { this.finaleEl.muted = !on; if (on && this.finaleEl.paused && document.querySelector('#lanterns').getBoundingClientRect().top < innerHeight * .65) this.finaleSwell(true); } on ? this.amb.start(s.playing ? .05 : .32) : this.amb.stop(); },
       tapMono: () => { const n = s.taps + 1; if (n >= 5) { this.setState({ taps:0 }); this.toast('Hi, Shu. You found a secret. There are a few more in here.'); } else this.setState({ taps:n }); },
       flipTheme: () => { const cur = this.override ?? this.natW; this.override = cur === 1 ? 0 : 1; this.applyPalette(); this.tick(); },
       moonShadow: MOON[s.moon], moonNote: MOON_NOTE[s.moon], eyesClosed: s.awake ? 0 : 1, eyesOpen: s.awake ? 1 : 0,
