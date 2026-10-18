@@ -1939,7 +1939,6 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
   // Reel plays only while on screen; epigraph voices (when recorded) read each line once; the last page swells the music.
   setupExtras(root) {
     if (this.exIo) this.exIo.disconnect();
-    const VOICE_IDS = [];   // add 'v01', 'v02'... as the recordings arrive in media/audio/voice/
     
     this.voiceDone = this.voiceDone || {};
     this.exIo = new IntersectionObserver(es => es.forEach(en => {
@@ -1949,7 +1948,6 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
       if (!en.isIntersecting) { el.__hd = false; return; }
       const v = el.getAttribute('data-voice');
       if (v && !el.__hd && !this.state.calm && this.state.unlocked) { el.__hd = true; this.hold(1600, true); }
-      if (v && VOICE_IDS.includes(v) && !this.voiceDone[v] && this.state.sound && !this.state.calm) { this.voiceDone[v] = 1; const a = new Audio('media/audio/voice/' + v + '.mp3'); a.volume = .95; a.play().catch(() => {}); }
     }), { rootMargin: '-35% 0px -35% 0px', threshold: 0 });
     root.querySelectorAll('[data-reel],[data-voice],#birthday').forEach(el => this.exIo.observe(el));
   }
@@ -1968,7 +1966,7 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
       if (!active) return;
       cur += (target - cur) * .12;
       if (Math.abs(target - cur) < .5) { cur = target; active = false; }
-      scrollTo(0, cur);
+      scrollTo(0, cur); this.__setY = scrollY;
       if (active) requestAnimationFrame(step);
     };
     this.stopSmooth = () => { active = false; target = scrollY; cur = scrollY; };
@@ -1984,7 +1982,8 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
       if (!active) { active = true; requestAnimationFrame(step); }
     };
     addEventListener('wheel', this.onWheel, { passive:false });
-    this.onSync = () => { if (!active) { target = scrollY; cur = scrollY; } };
+    this.onSync = () => { if (this.__setY !== undefined && Math.abs(scrollY - this.__setY) > 2) { active = false; target = scrollY; cur = scrollY; this.__setY = scrollY; if (this.saf) { cancelAnimationFrame(this.saf); this.saf = 0; } } else if (!active) { target = scrollY; cur = scrollY; } };
+    addEventListener('pointerdown', e => { if (e.pointerType === 'mouse' && e.clientX >= document.documentElement.clientWidth) { active = false; target = scrollY; cur = scrollY; if (this.saf) { cancelAnimationFrame(this.saf); this.saf = 0; } } }, { passive:true });
     addEventListener('scroll', this.onSync, { passive:true });
   }
 
@@ -2037,7 +2036,7 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
     const y0 = scrollY, d = y - y0, dur = Math.min(2600, 1000 + Math.abs(d) * .11), t0 = performance.now(), ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     const stop = () => { cancelAnimationFrame(this.saf); this.saf = 0; removeEventListener('touchstart', stop); };
     addEventListener('touchstart', stop, { passive:true, once:true });
-    const step = t => { const k = Math.min(1, (t - t0) / dur); scrollTo(0, y0 + d * ease(k)); if (k < 1) this.saf = requestAnimationFrame(step); else this.saf = 0; };
+    const step = t => { const k = Math.min(1, (t - t0) / dur); scrollTo(0, y0 + d * ease(k)); this.__setY = scrollY; if (k < 1) this.saf = requestAnimationFrame(step); else this.saf = 0; };
     this.saf = requestAnimationFrame(step);
   }
   scrollToId(id) { const el = document.getElementById(id); if (el) this.scrollToY(el.getBoundingClientRect().top + scrollY); }
@@ -2320,15 +2319,7 @@ var fine=matchMedia('(pointer:fine)').matches, calm=matchMedia('(prefers-reduced
 document.addEventListener('contextmenu',function(e){if(e.target.closest&&e.target.closest(GATE))e.preventDefault();});
 document.addEventListener('selectstart',function(e){var n=e.target.nodeType===1?e.target:e.target.parentElement;if(n&&n.closest&&n.closest(GATE)&&!n.closest('input'))e.preventDefault();});
 document.addEventListener('dragstart',function(e){if(e.target.closest&&e.target.closest(GATE))e.preventDefault();});
-var VOICES=[];var cur=null,vs=[];function loadV(){try{vs=speechSynthesis.getVoices()||[];}catch(e){}}if('speechSynthesis' in window){loadV();speechSynthesis.onvoiceschanged=loadV;}
-function soundOn(){var b=document.querySelector('button.fl-btn[aria-label^="Sound"]');return !!b&&/^Sound on/i.test(b.getAttribute('aria-label'));}
-function stopSay(){try{if('speechSynthesis' in window)speechSynthesis.cancel();}catch(e){}if(cur){try{cur.pause();}catch(e){}cur=null;}}
-function say(sec,q){if(!sec||sec.__said||calm||!soundOn())return;var id=sec.getAttribute('data-voice');sec.__said=1;stopSay();
-if(VOICES.indexOf(id)>=0){cur=new Audio('media/audio/voice/'+id+'.mp3');cur.volume=.95;cur.play().catch(function(){});return;}
-if(!('speechSynthesis' in window))return;var map={en:'en-GB',hi:'hi-IN',fr:'fr-FR',es:'es-ES',it:'it-IT',ko:'ko-KR',la:'it-IT'};var lg=map[q.getAttribute('lang')||'en']||'en-GB';
-var u=new SpeechSynthesisUtterance((q.innerText||q.textContent).replace(/[“”"]/g,'').replace(/\s+/g,' ').trim());u.lang=lg;u.rate=.76;u.pitch=.95;u.volume=.9;
-var F=/zira|hazel|susan|heera|female|samantha|victoria|karen|moira|google uk english female|aria|jenny|sonia|paulina|helena|elsa|alice|yuna|sun-hi|lekha/i,ok=vs.filter(function(x){return x.lang.slice(0,2)===lg.slice(0,2);}),v=ok.filter(function(x){return F.test(x.name)&&x.lang.replace('_','-')===lg;})[0]||ok.filter(function(x){return F.test(x.name);})[0]||vs.filter(function(x){return x.lang.replace('_','-')===lg;})[0]||vs.filter(function(x){return x.lang.slice(0,2)===lg.slice(0,2);})[0];if(!v)return;u.voice=v;try{speechSynthesis.speak(u);}catch(e){}}
-function qx(){var els=document.querySelectorAll('[data-qx]');for(var k=0;k<els.length;k++){var el=els[k];if(el.__q)continue;el.__q=1;var i=+el.getAttribute('data-qx'),a=18+(i*7)%26,b=16+(i*11)%28;var io=new IntersectionObserver(function(es){es.forEach(function(en){var sec=en.target.closest('section');if(en.isIntersecting){en.target.classList.add('in');if(sec){sec.setAttribute('data-qs',en.target.getAttribute('data-qx'));sec.classList.add('qin');}say(sec,en.target);}else{en.target.classList.remove('in');if(sec){sec.classList.remove('qin');if(sec.__said){sec.__said=0;stopSay();}}}});},{rootMargin:'-'+a+'% 0px -'+b+'% 0px'});io.observe(el);}}
+function qx(){var els=document.querySelectorAll('[data-qx]');for(var k=0;k<els.length;k++){var el=els[k];if(el.__q)continue;el.__q=1;var i=+el.getAttribute('data-qx'),a=18+(i*7)%26,b=16+(i*11)%28;var io=new IntersectionObserver(function(es){es.forEach(function(en){var sec=en.target.closest('section');if(en.isIntersecting){en.target.classList.add('in');if(sec){sec.setAttribute('data-qs',en.target.getAttribute('data-qx'));sec.classList.add('qin');}}else{en.target.classList.remove('in');if(sec){sec.classList.remove('qin');}}});},{rootMargin:'-'+a+'% 0px -'+b+'% 0px'});io.observe(el);}}
 function acc(){var els=document.querySelectorAll('h2 i, h2 em, h2 span[style*="italic"][style*="color"]');for(var k=0;k<els.length;k++){var el=els[k];if(el.__a)continue;el.__a=1;el.classList.add('acc');var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting)en.target.classList.add('in');else en.target.classList.remove('in');});},{rootMargin:'-22% 0px -22% 0px'});io.observe(el);}}
 setInterval(function(){qx();acc();},800);qx();acc();
 if(!fine||calm)return;
