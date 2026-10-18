@@ -982,6 +982,7 @@ section[data-world="dawn"],#score,#letter,#lanterns{cursor:url("data:image/svg+x
       </h2>
       <div aria-live="polite" style="min-height:3.4em; max-width:22em; font:400 clamp(13px,3.4vw,17px)/1.7 'Homemade Apple', cursive; color:#f3a9bd; text-wrap:balance;">{{ lanternLine }}</div>
       <div aria-hidden="true" style="display:flex; gap:10px;"><sc-for list="{{ lanternDots }}" as="ld" hint-placeholder-count="7"><span style="width:8px; height:11px; border-radius:40% 40% 30% 30%; background:{{ ld.bg }}; box-shadow:{{ ld.glow }}; transition:background .6s, box-shadow .6s;"></span></sc-for></div>
+      <sc-if value="{{ lanternsOpen }}"><div style="font:italic 400 clamp(18px,4vw,22px)/1.4 'Cormorant Garamond', serif; color:#f7c1cf;">send seven wishes, then the sky lets you go</div></sc-if>
     </div>
     <sc-if value="{{ lanternsOpen }}">
       <div style="display:flex; flex-direction:column; align-items:center; gap:12px;">
@@ -1919,7 +1920,7 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
     if (this.stopSmooth) this.stopSmooth();
     if (matchMedia('(pointer:coarse)').matches) {
       const h = document.documentElement; h.style.overflow = 'hidden'; clearTimeout(this.holdT);
-      this.holdT = setTimeout(() => { h.style.overflow = ''; }, ms);
+      this.holdT = setTimeout(() => { this.holdT = 0; if (!this.wishLock) h.style.overflow = ''; }, ms);
     }
   }
   // Eased wheel scrolling on desktop (touch keeps native momentum).
@@ -1990,7 +1991,7 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
     if (need && !this.wishLock && t < vh * .4 && t > -lan.offsetHeight * .35) {
       this.wishLock = true; this.scrollToY(this.docTop(lan));
       if (matchMedia('(pointer:coarse)').matches) document.documentElement.style.overflow = 'hidden';
-      clearTimeout(this.wlt); this.wlt = setTimeout(() => this.releaseWish(), 120000);
+      clearTimeout(this.wlt); this.wlt = setTimeout(() => this.releaseWish(), 40000);
     } else if (this.wishLock && !need) this.releaseWish();
   }
   releaseWish() { this.wishLock = false; clearTimeout(this.wlt); if (!this.holdT) document.documentElement.style.overflow = ''; }
