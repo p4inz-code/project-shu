@@ -481,7 +481,7 @@
     var cols = night ? [[150, 112, 190], [196, 142, 204], [132, 122, 214], [220, 172, 226]] : [[252, 204, 220], [255, 234, 240], [247, 174, 200], [255, 246, 248]];
     var gauss = function () { return (Math.random() + Math.random() + Math.random() - 1.5) / .75; };
     function draw() {
-      var W = Math.max(2, cv.clientWidth), H = Math.max(2, cv.clientHeight), dpr = Math.min(devicePixelRatio || 1, 1.5);
+      var W = Math.max(2, cv.clientWidth), H = Math.max(2, cv.clientHeight), dpr = Math.min(1, Math.sqrt(1.6e6 / (W * H)));
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
       var t = P.trunk, A = P.a * (W < 600 ? .62 : 1), HK = W < 600 ? .7 : 1;
       function cloud(x, y, r) {

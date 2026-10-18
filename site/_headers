@@ -9,3 +9,9 @@
 
 /og.png
   Cache-Control: public, max-age=86400
+
+/media/*
+  Cache-Control: public, max-age=3600
+
+/*
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
