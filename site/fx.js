@@ -410,40 +410,102 @@
     return { kick: kick, rebuild: function () { petals = []; pile = []; build(); kick(); }, nodeCount: function () { return nodes.length; }, stats: function () { return { flowers: flowers.length, segs: segs.length, quality: quality, petals: petals.length, pile: pile.length, nodes: nodes.length, whisp: whisp.length }; } };
   }
 
-  /* ---------- moon: lit lunar surface (maria, craters, limb darkening) rendered once and shared ---------- */
-  var moonTex = null;
-  function buildMoon(S) {
+  /* ---------- moon: one lit lunar surface (maria, craters, limb darkening), re-lit for any phase ---------- */
+  var moonD = null, moonCache = {}, STEP = .14;
+  function moonBase(S) {
     var seedv = Math.random() * 1000, G = 96, grid = new Float32Array(G * G); for (var i = 0; i < grid.length; i++) grid[i] = Math.random();
     function vn(x, y) { x = ((x % G) + G) % G; y = ((y % G) + G) % G; var xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi, u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf), x1 = (xi + 1) % G, y1 = (yi + 1) % G; return lerp(lerp(grid[yi * G + xi], grid[yi * G + x1], u), lerp(grid[y1 * G + xi], grid[y1 * G + x1], u), v); }
     function fbm(x, y) { var a = .5, f = 1, s = 0; for (var o = 0; o < 5; o++) { s += a * vn(x * f + seedv, y * f + seedv * .7); f *= 2.03; a *= .5; } return s; }
     var H = new Float32Array(S * S), craters = [];
-    for (var c = 0; c < 52; c++) { var rr = Math.pow(Math.random(), 2.8) * .085 + .01, a = Math.random() * TAU, d = Math.sqrt(Math.random()) * .92; craters.push({ x: .5 + Math.cos(a) * d * .5, y: .5 + Math.sin(a) * d * .5, r: rr, depth: R(.5, 1) }); }
+    for (var c = 0; c < 56; c++) { var rr = Math.pow(Math.random(), 2.8) * .085 + .01, a2 = Math.random() * TAU, d = Math.sqrt(Math.random()) * .92; craters.push({ x: .5 + Math.cos(a2) * d * .5, y: .5 + Math.sin(a2) * d * .5, r: rr, depth: R(.5, 1) }); }
     for (var y = 0; y < S; y++) for (var x = 0; x < S; x++) H[y * S + x] = fbm(x / S * 5, y / S * 5) * .35;
     craters.forEach(function (k) {
       var cx = k.x * S, cy = k.y * S, r = k.r * S, x0 = Math.max(0, Math.floor(cx - r * 1.6)), x1 = Math.min(S - 1, Math.ceil(cx + r * 1.6)), y0 = Math.max(0, Math.floor(cy - r * 1.6)), y1 = Math.min(S - 1, Math.ceil(cy + r * 1.6));
-      for (var y = y0; y <= y1; y++) for (var x = x0; x <= x1; x++) { var d = Math.hypot(x - cx, y - cy) / r; if (d < 1) H[y * S + x] -= (1 - d * d) * .3 * k.depth; var rim = Math.exp(-Math.pow((d - 1.02) / .16, 2)); H[y * S + x] += rim * .11 * k.depth; }
+      for (var y = y0; y <= y1; y++) for (var x = x0; x <= x1; x++) { var dd = Math.hypot(x - cx, y - cy) / r; if (dd < 1) H[y * S + x] -= (1 - dd * dd) * .3 * k.depth; var rim = Math.exp(-Math.pow((dd - 1.02) / .16, 2)); H[y * S + x] += rim * .11 * k.depth; }
     });
-    var cv = document.createElement('canvas'); cv.width = cv.height = S; var cx2 = cv.getContext('2d'), img = cx2.createImageData(S, S), L = [-.5, -.52, .69], ll = Math.hypot(L[0], L[1], L[2]); L = [L[0] / ll, L[1] / ll, L[2] / ll];
+    var n = S * S, d = { S: S, Nx: new Float32Array(n), Ny: new Float32Array(n), Nz: new Float32Array(n), Al: new Float32Array(n), Lb: new Float32Array(n), Ed: new Float32Array(n) };
     for (var y2 = 0; y2 < S; y2++) for (var x2 = 0; x2 < S; x2++) {
-      var px = (x2 + .5) / S * 2 - 1, py = (y2 + .5) / S * 2 - 1, r2 = px * px + py * py, o = (y2 * S + x2) * 4;
-      if (r2 >= 1.02) { img.data[o + 3] = 0; continue; }
+      var o = y2 * S + x2, px = (x2 + .5) / S * 2 - 1, py = (y2 + .5) / S * 2 - 1, r2 = px * px + py * py;
+      if (r2 >= 1.02) continue;
       var nz = Math.sqrt(Math.max(0, 1 - r2)), xm = Math.max(1, Math.min(S - 2, x2)), ym = Math.max(1, Math.min(S - 2, y2));
       var gx = (H[ym * S + xm + 1] - H[ym * S + xm - 1]) * 2.0, gy = (H[(ym + 1) * S + xm] - H[(ym - 1) * S + xm]) * 2.0;
-      var nx = px - gx, ny = py - gy, nzz = nz + .0001, nl = Math.hypot(nx, ny, nzz); nx /= nl; ny /= nl; nzz /= nl;
-      var lam = Math.max(0, nx * L[0] + ny * L[1] + nzz * L[2]);
-      var mar = fbm(x2 / S * 2.2 + 9, y2 / S * 2.2 + 3), maria = clamp((mar - .46) * 4.2), alb = lerp(.98, .62, maria) * (.92 + H[y2 * S + x2] * .16);
-      var limb = .62 + .38 * Math.pow(nz, .45), v = alb * (.2 + .92 * lam) * limb;
-      var edge = clamp((1.02 - Math.sqrt(r2)) * S * .5);
-      img.data[o] = clamp(v * 1.02) * 255; img.data[o + 1] = clamp(v * .97) * 255; img.data[o + 2] = clamp(v * 1.04) * 255; img.data[o + 3] = edge * 255;
+      var nx = px - gx, ny = py - gy, nzz = nz + .0001, nl = Math.hypot(nx, ny, nzz);
+      d.Nx[o] = nx / nl; d.Ny[o] = ny / nl; d.Nz[o] = nzz / nl;
+      var mar = fbm(x2 / S * 2.2 + 9, y2 / S * 2.2 + 3), maria = clamp((mar - .46) * 4.2);
+      d.Al[o] = lerp(.98, .62, maria) * (.92 + H[o] * .16); d.Lb[o] = .62 + .38 * Math.pow(nz, .45); d.Ed[o] = clamp((1.02 - Math.sqrt(r2)) * S * .5);
     }
-    cx2.putImageData(img, 0, 0); return cv;
+    return d;
   }
-  function moon(canvas) {
-    if (!moonTex) moonTex = buildMoon(480);
-    canvas.width = canvas.height = 480; var c = canvas.getContext('2d'); c.clearRect(0, 0, 480, 480); c.drawImage(moonTex, 0, 0);
-    // faint warm rim light on the lit edge
-    var g = c.createRadialGradient(170, 160, 90, 240, 240, 250); g.addColorStop(0, 'rgba(255,248,236,0)'); g.addColorStop(1, 'rgba(255,236,214,.16)'); c.globalCompositeOperation = 'source-atop'; c.fillStyle = g; c.fillRect(0, 0, 480, 480); c.globalCompositeOperation = 'source-over';
+  function moonFrame(key) {
+    if (moonCache[key]) return moonCache[key];
+    if (!moonD) moonD = moonBase(320);
+    var d = moonD, S = d.S, phi = key * STEP, L0 = -Math.sin(phi) * .98, L1 = -Math.sin(phi) * .1, L2 = Math.cos(phi), ll = Math.hypot(L0, L1, L2); L0 /= ll; L1 /= ll; L2 /= ll;
+    var cv = document.createElement('canvas'); cv.width = cv.height = S; var cx = cv.getContext('2d'), img = cx.createImageData(S, S), earth = .028;
+    for (var o = 0; o < S * S; o++) {
+      var e = d.Ed[o]; if (e <= 0) continue;
+      var lam = d.Nx[o] * L0 + d.Ny[o] * L1 + d.Nz[o] * L2, lit = clamp((lam + .05) / .4); lit = lit * lit * (3 - 2 * lit);
+      var shade = .22 + .88 * Math.max(lam, 0), v = d.Al[o] * d.Lb[o] * (earth + (1 - earth) * lit * shade), i = o * 4;
+      img.data[i] = clamp(v * 1.02) * 255; img.data[i + 1] = clamp(v * .97) * 255; img.data[i + 2] = clamp(v * 1.04 + (1 - lit) * .02) * 255; img.data[i + 3] = e * 255;
+    }
+    cx.putImageData(img, 0, 0);
+    var keys = Object.keys(moonCache); if (keys.length > 46) moonCache = {};
+    moonCache[key] = cv; return cv;
+  }
+  function moonDraw(canvas, phi) {
+    var c = canvas.__c || (canvas.__c = canvas.getContext('2d')); phi = ((phi % TAU) + TAU) % TAU;
+    var u = phi / STEP, i0 = Math.floor(u), f = u - i0;
+    c.clearRect(0, 0, 320, 320); c.globalAlpha = 1; c.drawImage(moonFrame(i0), 0, 0);
+    if (f > .03) { c.globalAlpha = f; c.drawImage(moonFrame(i0 + 1), 0, 0); c.globalAlpha = 1; }
+    canvas.__phi = phi;
+    var lit = (1 + Math.cos(phi)) / 2, par = canvas.parentElement;
+    if (par) par.querySelectorAll('[data-keep]').forEach(function (el) { el.style.visibility = lit > .72 ? 'visible' : 'hidden'; });
+  }
+  function moon(canvas) { canvas.width = canvas.height = 320; moonDraw(canvas, canvas.__phi || 0); }
+  function moonTo(canvas, to, ms) {
+    cancelAnimationFrame(canvas.__raf);
+    var from = canvas.__phi || 0; if (to < from - 3.2) from -= TAU; // wrap forward through the dark
+    if (!ms || reduced()) { moonDraw(canvas, to); return; }
+    var t0 = performance.now();
+    (function step(t) { var k = Math.min(1, (t - t0) / ms), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; moonDraw(canvas, from + (to - from) * e); if (k < 1) canvas.__raf = requestAnimationFrame(step); })(t0);
   }
 
-  window.ShuFX = { moon: moon, R: R, clamp: clamp, makeNoise: makeNoise, wind: wind, loopRand: loopRand, depth: depth, tree: tree, coarse: coarse, reduced: reduced };
+  /* ---------- painted blossom-tree backdrop, drawn once per size (far / mid / near layers) ---------- */
+  function forest(cv, opt) {
+    var ctx = cv.getContext('2d'), seedN = opt.layer === 'far' ? 8 : opt.layer === 'mid' ? 5 : 3;
+    var night = opt.mode === 'night';
+    var P = {
+      far: { trunk: night ? [46, 36, 84] : [212, 176, 196], a: night ? .36 : .42, hmin: .2, hmax: .32, d: 4, dot: .8 },
+      mid: { trunk: night ? [34, 26, 68] : [190, 148, 172], a: night ? .5 : .55, hmin: .3, hmax: .44, d: 5, dot: 1.1 },
+      near: { trunk: night ? [22, 16, 46] : [166, 118, 146], a: night ? .8 : .72, hmin: .44, hmax: .62, d: 5, dot: 1.5 }
+    }[opt.layer];
+    var cols = night ? [[150, 112, 190], [196, 142, 204], [132, 122, 214], [220, 172, 226]] : [[252, 204, 220], [255, 234, 240], [247, 174, 200], [255, 246, 248]];
+    var gauss = function () { return (Math.random() + Math.random() + Math.random() - 1.5) / .75; };
+    function draw() {
+      var W = Math.max(2, cv.clientWidth), H = Math.max(2, cv.clientHeight), dpr = Math.min(devicePixelRatio || 1, 1.5);
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+      var t = P.trunk;
+      function cloud(x, y, r) {
+        var n = Math.floor(r * r * .055 * P.dot) + 10;
+        for (var i = 0; i < n; i++) { var c = cols[Math.floor(Math.random() * cols.length)], a = R(.14, .55) * P.a, sz = R(1, 3.3) * P.dot; ctx.fillStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a.toFixed(2) + ')'; ctx.beginPath(); ctx.ellipse(x + gauss() * r * .5, y + gauss() * r * .42, sz, sz * R(.7, 1), R(0, TAU), 0, TAU); ctx.fill(); }
+        var g = ctx.createRadialGradient(x, y, 0, x, y, r); var c0 = cols[0]; g.addColorStop(0, 'rgba(' + c0[0] + ',' + c0[1] + ',' + c0[2] + ',' + (.16 * P.a).toFixed(2) + ')'); g.addColorStop(1, 'rgba(' + c0[0] + ',' + c0[1] + ',' + c0[2] + ',0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
+      }
+      function branch(x, y, ang, len, w, dep) {
+        var x2 = x + Math.sin(ang) * len, y2 = y - Math.cos(ang) * len, cx = x + Math.sin(ang + R(-.25, .25)) * len * .5, cy = y - Math.cos(ang + R(-.25, .25)) * len * .5;
+        ctx.strokeStyle = 'rgba(' + t[0] + ',' + t[1] + ',' + t[2] + ',' + P.a + ')'; ctx.lineWidth = Math.max(.8, w); ctx.lineCap = 'round';
+        ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(cx, cy, x2, y2); ctx.stroke();
+        if (dep >= P.d - 1 || len < 10) { cloud(x2, y2, Math.max(11, len * 1.25)); return; }
+        var kids = dep < 2 ? 3 : 2;
+        for (var k = 0; k < kids; k++) branch(x2, y2, ang + R(-.85, .85) * (k === 0 ? .5 : 1), len * R(.62, .8), w * .66, dep + 1);
+        if (dep >= 2 && Math.random() < .45) cloud(x2, y2, len * .9);
+      }
+      for (var i = 0; i < seedN; i++) {
+        var x = (i + R(.1, .9)) / seedN * W, th = H * R(P.hmin, P.hmax), tw = Math.max(2.5, th * .035);
+        branch(x, H + 4, R(-.12, .12), th * .32, tw, 0);
+      }
+    }
+    draw();
+    if (typeof ResizeObserver === 'function') { var last = [cv.clientWidth, cv.clientHeight], ro = new ResizeObserver(function () { var w = cv.clientWidth, h = cv.clientHeight; if (Math.abs(w - last[0]) > 6 || Math.abs(h - last[1]) > 6) { last = [w, h]; draw(); } }); ro.observe(cv); }
+  }
+
+  window.ShuFX = { moon: moon, moonTo: moonTo, forest: forest, R: R, clamp: clamp, makeNoise: makeNoise, wind: wind, loopRand: loopRand, depth: depth, tree: tree, coarse: coarse, reduced: reduced };
 })();
