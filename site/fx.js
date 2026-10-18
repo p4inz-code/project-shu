@@ -471,7 +471,7 @@
 
   /* ---------- painted blossom-tree backdrop, drawn once per size (far / mid / near layers) ---------- */
   function forest(cv, opt) {
-    var ctx = cv.getContext('2d'), seedN = opt.layer === 'far' ? 8 : opt.layer === 'mid' ? 5 : 3;
+    var ctx = cv.getContext('2d'), seedN = opt.layer === 'far' ? 8 : opt.layer === 'mid' ? 5 : 3; if (document.documentElement.getAttribute('data-perf') === 'lite') seedN = Math.max(2, seedN - 2);
     var night = opt.mode === 'night';
     var P = {
       far: { trunk: night ? [46, 36, 84] : [212, 176, 196], a: night ? .36 : .42, hmin: .2, hmax: .32, d: 4, dot: .8 },
@@ -481,7 +481,7 @@
     var cols = night ? [[150, 112, 190], [196, 142, 204], [132, 122, 214], [220, 172, 226]] : [[252, 204, 220], [255, 234, 240], [247, 174, 200], [255, 246, 248]];
     var gauss = function () { return (Math.random() + Math.random() + Math.random() - 1.5) / .75; };
     function draw() {
-      var W = Math.max(2, cv.clientWidth), H = Math.max(2, cv.clientHeight), dpr = Math.min(1, Math.sqrt(1.6e6 / (W * H)));
+      var W = Math.max(2, cv.clientWidth), H = Math.max(2, cv.clientHeight), dpr = Math.min(1, Math.sqrt((document.documentElement.getAttribute('data-perf') === 'lite' ? .7e6 : 1.6e6) / (W * H)));
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
       var t = P.trunk, A = P.a * (W < 600 ? .62 : 1), HK = W < 600 ? .7 : 1;
       function cloud(x, y, r) {

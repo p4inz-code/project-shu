@@ -46,3 +46,17 @@ Environment: Chromium in the Claude desktop preview pane, desktop and emulated p
 - 10 epigraphs render in Latin, Devanagari, Hangul and accented scripts; 0 errors across a 22-step sweep; no overflow; no dashes in visible text.
 - Not verified: touch dragging on a real phone, Safari and Firefox, and PBKDF2 timing on low-end phones (150,000 rounds is a deliberate short pause).
 - Security limit: the answer is no longer readable in the source, but a determined person could still brute-force the short phrase offline or bypass the page in the console. Casual F12 reading will not reveal it.
+
+## Performance audit (low-end devices)
+Measured in the preview pane after a full-page sweep (frame rate cannot be measured there):
+
+| | Full | Lite |
+|---|---|---|
+| Live canvas pixels | about 38 million | about 15 million |
+| backdrop-filter elements | 4 | 0 |
+| Running animations | 136 | 116 |
+| Cursor trail canvas | on | off |
+
+Lite mode switches on by itself when the device reports 4 GB of memory or less, 4 cores or less, data saver, or a small high-density phone screen. It also switches on during the visit if the frame time stays above about 27 ms across two 90-frame windows. Lite mode: particle effects at 40 percent and 30 fps, smaller canvas backing stores, no backdrop blur, no screen-blend sweeps, no hand-drawn boil, sway or sparkle animations, painted trees with fewer trunks. Force a mode with `?perf=lite` or `?perf=full` in the address.
+
+Not verified: real frame rates on an actual low-end phone.
