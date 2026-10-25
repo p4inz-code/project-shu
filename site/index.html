@@ -1195,7 +1195,7 @@ const SLOT_NUM = {"album-art":"18","model-3d":"19","portrait-01":"01","film-01":
 const _r = (a, b) => a + Math.random() * (b - a);
 const rj = (v, a) => v + _r(-a, a);
 // [left %, top %, width %, tilt deg, hang style]; every visit nudges them a little so the wall is never quite the same
-const WALL = [[3, 11, 19, -7, 'clip'], [78, 12, 19, 6, 'clip'], [1, 38, 16, 4, 'tape'], [83, 40, 16, -5, 'tape'], [5, 66, 19, -4, 'tape'], [75, 67, 19, 7, 'tape'], [66, 33, 10, 3, 'clip'], [25, 63, 13, -6, 'tape']];
+const WALL = [[3, 11, 19, -7, 'clip'], [78, 12, 19, 6, 'clip'], [1, 38, 16, 4, 'tape'], [83, 40, 16, -5, 'tape'], [5, 66, 19, -4, 'tape'], [75, 67, 19, 7, 'tape'], [63.5, 65, 10, 3, 'clip'], [25, 63, 13, -6, 'tape']];
 const COLLAGE = WALL.map(([l, t, w, r, k], i) => { const tt = rj(t, 2.5); return { l:rj(l, 2.4).toFixed(1) + '%', t:tt.toFixed(1) + '%', w:(w * _r(.92, 1.14)).toFixed(1) + '%', r:rj(r, 3.5).toFixed(1) + 'deg', d:+(.02 + i * .03 + _r(0, .02)).toFixed(3), opt:i > 5 ? 1 : 0, clip:k === 'clip', tape:k === 'tape', dp:_r(.4, 1.5).toFixed(2), sl:Math.max(0, tt - 5).toFixed(1), tr:rj(0, 6).toFixed(1) + 'deg', cap:'', slot:'collage-0' + (i + 1), src:'' }; });
 const PH = { 'collage-01':['media/video/10.mp4', .5625], 'collage-02':['media/photos/11.jpg', .5625], 'collage-03':['media/photos/12.jpg', .75], 'collage-04':['media/photos/13.jpg', 1.3333], 'collage-05':['media/photos/14.jpg', .6833], 'collage-06':['media/photos/15.jpg', 1.3846], 'collage-07':['media/photos/16.jpg', .5753], 'collage-08':['media/photos/17.jpg', .75] };
 COLLAGE.forEach(c => { const p = PH[c.slot]; if (p) { c.src = p[0]; c.ar = p[1]; c.cap = ''; } else c.ar = .8; });
