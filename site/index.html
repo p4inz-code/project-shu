@@ -25,10 +25,16 @@ window.__resources = {
   "https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js": "./vendor/react-dom.production.min.js"
 };
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="script" href="./vendor/react.production.min.js"><link rel="preload" as="script" href="./vendor/react-dom.production.min.js">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Geist:wght@300;400;500;600&family=Noto+Serif+Devanagari:wght@400&family=Noto+Serif+Gujarati:wght@400&family=Noto+Serif+KR:wght@400&family=Homemade+Apple&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Pinyon+Script&display=swap" media="print" onload="this.media='all'">
+<style>html,body{background:#0c0918;margin:0}#boot{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:#0c0918;color:#f6f2fb;font:italic 400 clamp(26px,5vw,52px)/1.2 Georgia,'Times New Roman',serif;text-align:center;padding:24px;pointer-events:none}</style>
 <script src="./fx.js"></script>
 <script src="./support.js"></script>
 </head>
 <body>
+<div id="boot" aria-hidden="true">some stories start in whispers</div>
+<script>(function(){var b=document.getElementById("boot"),n=0;var t=setInterval(function(){n++;if(document.querySelector("[data-screen-label=\"00 Invitation\"]")||document.querySelector("[role=main]")||n>200){clearInterval(t);if(!b)return;b.style.transition="opacity .7s";b.style.opacity="0";setTimeout(function(){if(b.parentNode)b.parentNode.removeChild(b);},800);}},60);})();</script>
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
