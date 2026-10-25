@@ -621,7 +621,7 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
     </div>
   </div>
 
-  <sc-if value="{{ anyKeep }}" hint-placeholder-val="{{ false }}"><div style="position:relative; max-width:1040px; margin:clamp(80px,14vh,160px) auto 0; padding-bottom:clamp(140px,34vw,300px);">
+  <sc-if value="{{ anyKeep }}" hint-placeholder-val="{{ false }}"><div style="position:relative; max-width:1040px; min-height:clamp(560px,70vw,820px); margin:clamp(60px,10vh,120px) auto 0; padding-bottom:clamp(60px,10vw,140px);">
     <sc-if value="{{ m2.isImg }}" hint-placeholder-val="{{ false }}"><div data-exit="drift" style="width:64%; max-width:540px;">
       <div style="position:relative;">
         <span data-r="tape" data-d="1000" aria-hidden="true" style="position:absolute; z-index:2; top:-12px; left:50%; width:92px; height:26px; margin-left:-46px; rotate:3deg; background:rgba(253,227,207,.8); box-shadow:0 1px 2px rgba(0,0,0,.06);"></span>
@@ -645,7 +645,7 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
     <sc-if value="{{ m3.isImg }}" hint-placeholder-val="{{ false }}"><div data-exit="driftR" style="position:absolute; right:0; top:30%; width:44%; max-width:340px;">
       <span aria-hidden="true" style="position:absolute; z-index:4; top:-12px; left:50%; width:26px; height:26px; margin-left:-13px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #ff9db3, #d6355f 60%, #8d1d3d); box-shadow:0 6px 9px rgba(60,10,30,.45);"></span>
       <button onClick="{{ m3.open }}" data-tilt3d="" data-slot-id="{{ m3.slot }}" aria-label="Open {{ m3.title }}" data-r="drop" data-d="300" style="position:relative; display:block; width:100%; padding:7px; background:#fffdf9; border:0; cursor:zoom-in; rotate:1.8deg; box-shadow:0 1px 0 rgba(0,0,0,.04), 0 26px 50px -22px rgba(70,30,50,.45); transition:transform .6s cubic-bezier(.16,1,.3,1);">
-        <div style="position:relative; aspect-ratio:9/16; overflow:hidden;">
+        <div style="position:relative; aspect-ratio:3/4; overflow:hidden;">
           <div style="position:absolute; inset:0; background:repeating-linear-gradient(45deg, #fde3cf 0 12px, #fbe5ea 12px 24px);"></div>
           <sc-if value="{{ showLabels }}"><span style="position:absolute; left:8px; bottom:8px; right:8px; padding:4px 7px; background:#fffaf5; font:500 9px/1.4 'Geist', sans-serif; letter-spacing:.14em; text-transform:uppercase; color:#7d5e6a;">{{ m3.label }}</span></sc-if>
           <sc-if value="{{ m3.isImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ m3.src }}" alt="{{ m3.caption }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:{{ m3.focus }};"></sc-if>
@@ -704,6 +704,13 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
       <div data-r="blur" data-dur="1800" style="text-align:center; margin-bottom:22px; font:400 clamp(30px,6.4vw,50px)/1.1 'Pinyon Script', cursive; color:var(--dm,#7d5e6a);">every photo, one tree</div>
       <div data-tree3d="" style="position:relative; width:100%; aspect-ratio:4/3; min-height:340px; border-radius:30px; overflow:hidden; background:radial-gradient(120% 90% at 50% 0%, #3a2d6e 0%, #1b1433 55%, #0c0918 100%); box-shadow:0 40px 80px -40px rgba(40,20,70,.7); touch-action:pan-y;"></div>
     </div>
+    <div style="position:relative; max-width:min(92vw,900px); margin:clamp(70px,12vh,150px) auto 0;">
+      <button onClick="{{ m7.open }}" data-tilt3d="" data-slot-id="{{ m7.slot }}" aria-label="Open {{ m7.title }}" data-r="develop" style="position:relative; display:block; width:100%; padding:10px 10px 14px; background:#fffdf9; border:0; cursor:zoom-in; box-shadow:0 30px 60px -30px rgba(70,30,50,.45); transition:transform .6s cubic-bezier(.16,1,.3,1);">
+        <div style="position:relative; aspect-ratio:16/9; overflow:hidden; background:#fbe5ea;">
+          <sc-if value="{{ m7.isImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ m7.src }}" alt="{{ m7.title }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:{{ m7.focus }};"></sc-if>
+        </div>
+      </button>
+    </div>
   </div>
 
 </section>
@@ -729,8 +736,9 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
 
     <div style="margin-top:clamp(48px,8vh,96px); display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap:clamp(48px,7vw,96px); align-items:center;">
       <div data-r="rise" style="position:relative; width:100%; max-width:520px; justify-self:center;">
-        <div aria-hidden="true" style="position:absolute; left:-6%; top:-9%; width:62%; aspect-ratio:1; rotate:-8deg; background:linear-gradient(150deg, #f6cdd8, #d98aa2); box-shadow:0 30px 60px -28px rgba(0,0,0,.7); padding:clamp(12px,3vw,18px); display:flex; flex-direction:column; justify-content:space-between; color:#5a2236;">
-          <div style="position:absolute; left:9%; top:36%; font:400 clamp(34px,8vw,46px)/1 'Pinyon Script', cursive; color:#b4325f; letter-spacing:0; text-shadow:0 1px 0 rgba(255,255,255,.35);">on repeat<span style="display:block; margin-top:4px; width:70%; height:2px; background:repeating-linear-gradient(90deg,#b4325f 0 5px,transparent 5px 9px); opacity:.6;"></span></div>
+        <div aria-hidden="true" style="position:absolute; left:-6%; top:-9%; width:62%; aspect-ratio:1; overflow:hidden; rotate:-8deg; background:linear-gradient(150deg, #f6cdd8, #d98aa2); box-shadow:0 30px 60px -28px rgba(0,0,0,.7); padding:clamp(12px,3vw,18px); display:flex; flex-direction:column; justify-content:space-between; color:#5a2236;">
+          <img src="media/photos/18.jpg" alt="" aria-hidden="true" style="position:absolute; left:-70%; top:-52%; width:165%; height:auto; max-width:none;"><div aria-hidden="true" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(90,20,60,0) 55%, rgba(90,20,60,.55) 100%);"></div>
+          <div style="position:absolute; left:9%; bottom:7%; z-index:2; font:400 clamp(34px,8vw,46px)/1 'Pinyon Script', cursive; color:#fff; letter-spacing:0; text-shadow:0 2px 14px rgba(60,10,40,.8);">on repeat<span style="display:block; margin-top:4px; width:70%; height:2px; background:repeating-linear-gradient(90deg,#fff 0 5px,transparent 5px 9px); opacity:.8;"></span></div>
         </div>
                 <div style="position:relative; margin-left:32%; margin-top:0; aspect-ratio:1.08; border-radius:18px; background:linear-gradient(160deg, #6b4535 0%, #4a2e25 55%, #3a231d 100%); box-shadow:0 50px 90px -40px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,220,190,.18), inset 0 -6px 14px rgba(0,0,0,.35);">
           <div aria-hidden="true" style="position:absolute; inset:0; border-radius:18px; background:repeating-linear-gradient(92deg, rgba(255,220,190,.035) 0 2px, transparent 2px 9px); pointer-events:none;"></div>
@@ -1184,13 +1192,13 @@ const SWAP = { n0:'d0', n1:'d1', n2:'d2', ni:'di', ns:'dr', nm:'dm', d0:'n0', d1
 
 // CONTENT. Slot ids match private-content/ in the repo. Point src at the API route, e.g. '/api/media/photos/memory-01'. kind: 'photo' or 'video'.
 const MEDIA = [
-  { slot:'film-01', kind:'photo', src:'media/photos/02.jpg', ratio:'16/9', focus:'60% 38%', label:'No. 02 · film-01 · motion reel · full-bleed', title:'A moment in motion', caption:'', note:'' },
+  { slot:'film-01', kind:'photo', src:'media/photos/02.jpg', ratio:'16/9', focus:'28% 50%', label:'No. 02 · film-01 · motion reel · full-bleed', title:'A moment in motion', caption:'', note:'' },
   { slot:'memory-01', kind:'photo', src:'', ratio:'4/5', focus:'50% 35%', label:'No. 03 · memory-01 · polaroid · 4:5', title:'The first one', caption:'', note:'' },
-  { slot:'memory-02', kind:'photo', src:'', ratio:'9/16', focus:'50% 50%', label:'No. 04 · memory-02 · 9:16', title:'That candid laugh', caption:'', note:'' },
+  { slot:'memory-02', kind:'photo', src:'media/photos/04.jpg', ratio:'3/4', focus:'51% 30%', label:'No. 04 · memory-02 · 9:16', title:'That candid laugh', caption:'', note:'' },
   { slot:'memory-03', kind:'photo', src:'media/photos/05.jpg', ratio:'9/16', focus:'50% 45%', label:'No. 05 · memory-03 · square', title:'A quiet evening', caption:'', note:'' },
   { slot:'memory-04', kind:'photo', src:'media/photos/06.jpg', ratio:'9/16', focus:'50% 40%', label:'No. 06 · memory-04 · portrait', title:'Just Shu', caption:'', note:'' },
   { slot:'memory-05', kind:'photo', src:'media/photos/07.jpg', ratio:'9/16', focus:'50% 50%', label:'No. 07 · memory-05 · landscape', title:'A little adventure', caption:'', note:'' },
-  { slot:'memory-06', kind:'photo', src:'', ratio:'3/2', focus:'50% 50%', label:'No. 08 · memory-06 · 3:2 · the anchor', title:'Our favourite us', caption:'', note:'' }
+  { slot:'memory-06', kind:'photo', src:'media/photos/08.jpg', ratio:'16/9', focus:'40% 50%', label:'No. 08 · memory-06 · 3:2 · the anchor', title:'Our favourite us', caption:'', note:'' }
 ];
 // Placeholder numbers: tell me "photo 05" and I know which slot it is. 01 portrait, 02 film, 03-08 memories, 09 final photo, 10-17 birthday collage.
 const SLOT_NUM = {"album-art":"18","model-3d":"19","portrait-01":"01","film-01":"02","memory-01":"03","memory-02":"04","memory-03":"05","memory-04":"06","memory-05":"07","memory-06":"08","final-photo":"09","collage-01":"10","collage-02":"11","collage-03":"12","collage-04":"13","collage-05":"14","collage-06":"15","collage-07":"16","collage-08":"17"};
@@ -1202,8 +1210,8 @@ const COLLAGE = WALL.map(([l, t, w, r, k], i) => { const tt = rj(t, 2.5); return
 const PH = { 'collage-01':['media/video/10.mp4', .5625], 'collage-02':['media/photos/11.jpg', .5625], 'collage-03':['media/photos/12.jpg', .75], 'collage-04':['media/photos/13.jpg', 1.3333], 'collage-05':['media/photos/14.jpg', .6833], 'collage-06':['media/photos/15.jpg', 1.3846], 'collage-07':['media/photos/16.jpg', .5753], 'collage-08':['media/photos/17.jpg', .75] };
 COLLAGE.forEach(c => { const p = PH[c.slot]; if (p) { c.src = p[0]; c.ar = p[1]; c.cap = ''; } else c.ar = .8; });
 const DOODLES = Array.from({ length:12 }, (_, i) => { const side = Math.random() < .5 ? _r(1, 22) : _r(78, 98); return { x:side.toFixed(1) + '%', y:_r(6, 92).toFixed(1) + '%', s:Math.round(_r(14, 30)) + 'px', r:Math.round(_r(-30, 30)) + 'deg', heart:i % 3 === 0, star:i % 3 === 1, bloom:i % 3 === 2, dp:_r(.3, 1.6).toFixed(2) }; });
-const PORTRAIT = { slot:'portrait-01', src:'media/photos/01.jpg', focus:'50% 2%', label:'No. 01 · portrait-01 · 4:5' };
-const FINAL = { slot:'final-photo', src:'media/photos/09.jpg', bg:'media/photos/bg-last.jpg', focus:'52% 40%', label:'No. 09 · final-photo · the two of you · portrait works best' };
+const PORTRAIT = { slot:'portrait-01', src:'media/photos/01.jpg', focus:'50% 0%', label:'No. 01 · portrait-01 · 4:5' };
+const FINAL = { slot:'final-photo', src:'media/photos/09.jpg', bg:'media/photos/bg-last.jpg', focus:'39% 50%', label:'No. 09 · final-photo · the two of you · portrait works best' };
 const HINT = 'A name that holds both of us, and a number only we two keep.';
 const _s = [224,141,92,51,103,236,180,247,12,175,119,18,98,71,52,254];
 const _k = ["98166a52535a27c1","6f9ed6db7d54e668","f69814e33dcce6ff","c303a8ae164cc984"];

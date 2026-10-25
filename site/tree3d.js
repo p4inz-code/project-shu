@@ -3,8 +3,10 @@
    Plain canvas, no libraries. Pauses off screen and drops detail on weak devices. Themed to the pale blush page around it. */
 (function () {
   'use strict';
-  var PHOTOS = ['01', '02', '05', '06', '07', '09', '11', '12', '13', '14', '15', '16', '17', '19'];
+  var PHOTOS = ['01', '02', '04', '05', '06', '07', '08', '09', '11', '12', '13', '14', '15', '16', '17', '18', '19'];
   var de = document.documentElement;
+  // main face (or the person) in each photo, as a fraction of the picture, so every crop keeps faces near the upper third
+  var FOCUS = {"11":[0.446,0.426],"12":[0.5,0.58],"13":[0.507,0.518],"14":[0.478,0.182],"15":[0.5,0.33],"16":[0.356,0.477],"17":[0.497,0.51],"19":[0.455,0.35],"04":[0.51,0.364],"08":[0.404,0.474],"18":[0.615,0.447],"01":[0.576,0.165],"02":[0.478,0.447],"05":[0.5,0.5],"06":[0.342,0.183],"07":[0.5,0.5],"09":[0.421,0.45]};
   var calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   function rnd(seed) { var a = seed; return function () { a = (a * 16807) % 2147483647; return a / 2147483647; }; }
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
@@ -110,7 +112,7 @@
       ctx.shadowColor = isHover ? 'rgba(240,100,160,.75)' : 'rgba(92,48,78,.34)'; ctx.shadowBlur = isHover ? 24 : Math.max(6, k * .05); ctx.shadowOffsetY = isHover ? 4 : 3;
       ctx.fillStyle = '#fffdf9'; ctx.fillRect(-Wb / 2, 0, Wb, Hc); ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
       ctx.save(); ctx.beginPath(); ctx.rect(-iw / 2, pad, iw, ih); ctx.clip();
-      if (c.ok) { var sar = c.ar, dw, dh; if (sar > arc) { dh = ih; dw = ih * sar; } else { dw = iw; dh = iw / sar; } var oy = sar < arc ? (dh - ih) * .3 : 0; ctx.drawImage(c.img, -dw / 2, pad - oy, dw, dh); }
+      if (c.ok) { var sar = c.ar, dw, dh, fc = FOCUS[c.id] || [.5, .5]; if (sar > arc) { dh = ih; dw = ih * sar; } else { dw = iw; dh = iw / sar; } var ox = clamp(fc[0] * dw - .5 * iw, 0, Math.max(0, dw - iw)), oy = clamp(fc[1] * dh - .38 * ih, 0, Math.max(0, dh - ih)); ctx.drawImage(c.img, -iw / 2 - ox, pad - oy, dw, dh); }
       else { ctx.fillStyle = '#f9dce7'; ctx.fillRect(-iw / 2, pad, iw, ih); }
       ctx.restore();
       ctx.fillStyle = '#e8b4c8'; ctx.beginPath(); ctx.arc(0, pad + ih + bot * .5, Wb * .018, 0, 6.2832); ctx.fill();

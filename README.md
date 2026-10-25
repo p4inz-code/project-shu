@@ -75,3 +75,6 @@ The page switches to a lighter mode by itself on weak devices or when frames run
 
 ## Photos updated (25 Oct, second pass)
 01 (new collage edit), 02 (full-bleed frame, rotated upright), 05, 06, 07, 09 (rotated upright) and 11 to 17 are placed. bg-last.jpg is the blurred backdrop behind the finale photo. 15 is the earlier processed copy (the file is no longer in the source folder). Slot 19 is now an interactive 3D blossom tree (site/tree3d.js) with the photos hanging from it. Still open: 03, 04, 08, 18.
+
+## Photos, third pass (25 Oct)
+04 (card at the right of the keepsakes), 08 (big frame under the tree, couple selfie) and 18 (album art on the song sleeve) are placed from `media from me`. 03 is waiting for a photo. Every photo is cropped around the face (focus points in site/tree3d.js and the focus fields in index.html). Heart photo: site/media/photos/heart.jpg appears inside the star heart when all five stars are lit.
