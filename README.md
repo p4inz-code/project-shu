@@ -87,3 +87,6 @@ Every quote is now addressed to one beloved person: Keats (letter to Fanny Brawn
 
 ## Quote 12 and the last photo
 Marathi line supplied by Atharva (no author claimed): तुझ्या आठवणींचा पाऊस नेहमी पडतो, माझा एकटेपणा हळूच विरघळतो। Placed after the Gujarati quote. hmm.jpeg is placed as a fourth keepsake card (slot memory-08) and on the tree. Photos 02 and 09 were upscaled 1.5x with Lanczos and a light unsharp mask (no detail is invented; it only reduces browser softening).
+
+## Music player (final)
+Six songs in `site/media/audio/` (01 to 06, loudness matched to -15 LUFS, intros trimmed). The list, credits and photos live in the `SONGS` array in `site/index.html`. Credits are shown on the last page. The host does not serve byte ranges, so the player downloads each track in the background and swaps to it when you skip or seek.
