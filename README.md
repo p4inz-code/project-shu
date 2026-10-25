@@ -72,3 +72,6 @@ The page switches to a lighter mode by itself on weak devices or when frames run
 
 ## Photos placed (25 Oct)
 01 portrait, 05 memory-03, 09 final photo, 10 collage-01 (short video), 11 to 17 collage-02 to collage-08. Files are in site/media/photos and site/media/video, named by number. Still to place: 02, 03, 04, 06, 07, 08 (and 18, 19). Each placed photo has its own entry effect (the number picks the effect) and a slow drift while on screen.
+
+## Photos updated (25 Oct, second pass)
+01 (new collage edit), 02 (full-bleed frame, rotated upright), 05, 06, 07, 09 (rotated upright) and 11 to 17 are placed. bg-last.jpg is the blurred backdrop behind the finale photo. 15 is the earlier processed copy (the file is no longer in the source folder). Slot 19 is now an interactive 3D blossom tree (site/tree3d.js) with the photos hanging from it. Still open: 03, 04, 08, 18.
