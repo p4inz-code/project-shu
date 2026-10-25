@@ -193,6 +193,7 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
 [data-px="15"].in{animation-name:px15,kb}@keyframes px15{from{opacity:0;transform:perspective(700px) rotateX(60deg) translateY(30px)}to{opacity:1;transform:none}}
 [data-px="16"].in{animation-name:px16,kb}@keyframes px16{from{opacity:0;transform:translateX(40px);filter:blur(16px)}to{opacity:1;transform:none;filter:none}}
 [data-px="21"].in{animation-name:px16,kb}
+[data-px="22"].in{animation-name:px17,kb;animation-timing-function:cubic-bezier(.34,1.56,.64,1),ease-in-out}
 [data-px="17"].in{animation-name:px17,kb;animation-timing-function:cubic-bezier(.34,1.56,.64,1),ease-in-out}@keyframes px17{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}
 [data-px="9"],[data-px="18"],[data-px="19"]{opacity:1;}
 [data-perf="lite"] [data-px].in{animation-iteration-count:1,1 !important;animation-duration:1.2s,.01s !important;}
@@ -628,7 +629,7 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
     </div>
   </div>
 
-  <sc-if value="{{ anyKeep }}" hint-placeholder-val="{{ false }}"><div style="position:relative; max-width:1040px; min-height:clamp(560px,70vw,820px); margin:clamp(60px,10vh,120px) auto 0; padding-bottom:clamp(60px,10vw,140px);">
+  <sc-if value="{{ anyKeep }}" hint-placeholder-val="{{ false }}"><div style="position:relative; max-width:1040px; min-height:clamp(640px,90vw,940px); margin:clamp(60px,10vh,120px) auto 0; padding-bottom:clamp(60px,10vw,140px);">
     <sc-if value="{{ m2.isImg }}" hint-placeholder-val="{{ false }}"><div data-exit="drift" style="width:34%; max-width:420px;">
       <div style="position:relative;">
         <span data-r="tape" data-d="1000" aria-hidden="true" style="position:absolute; z-index:2; top:-12px; left:50%; width:92px; height:26px; margin-left:-46px; rotate:3deg; background:rgba(253,227,207,.8); box-shadow:0 1px 2px rgba(0,0,0,.06);"></span>
@@ -654,6 +655,14 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
       <button onClick="{{ m8.open }}" data-tilt3d="" data-slot-id="{{ m8.slot }}" aria-label="Open {{ m8.title }}" data-r="drop" data-d="200" style="position:relative; display:block; width:100%; padding:7px; background:#fffdf9; border:0; cursor:zoom-in; rotate:2.6deg; box-shadow:0 1px 0 rgba(0,0,0,.04), 0 26px 50px -22px rgba(60,20,40,.5);">
         <div style="position:relative; aspect-ratio:9/16; overflow:hidden;">
           <img data-src="{{ m8.src }}" alt="{{ m8.title }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:{{ m8.focus }};">
+        </div>
+      </button>
+    </div></sc-if>
+    <sc-if value="{{ m9.isImg }}" hint-placeholder-val="{{ false }}"><div data-exit="drift" style="position:absolute; left:39%; top:58%; width:22%; max-width:280px;">
+      <span data-r="tape" data-d="900" aria-hidden="true" style="position:absolute; z-index:2; top:-11px; left:50%; width:84px; height:24px; margin-left:-42px; rotate:-4deg; background:rgba(253,227,207,.82); box-shadow:0 1px 2px rgba(0,0,0,.08);"></span>
+      <button onClick="{{ m9.open }}" data-tilt3d="" data-slot-id="{{ m9.slot }}" aria-label="Open {{ m9.title }}" data-r="drop" data-d="400" style="position:relative; display:block; width:100%; padding:7px; background:#fffdf9; border:0; cursor:zoom-in; rotate:-2.4deg; box-shadow:0 1px 0 rgba(0,0,0,.04), 0 26px 50px -22px rgba(60,20,40,.5);">
+        <div style="position:relative; aspect-ratio:9/16; overflow:hidden;">
+          <img data-src="{{ m9.src }}" alt="{{ m9.title }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:{{ m9.focus }};">
         </div>
       </button>
     </div></sc-if>
@@ -840,6 +849,13 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
   <div style="max-width:30em; margin:0 auto;">
     <div data-qx="7" lang="gu" style="font:italic 400 clamp(22px,4vw,46px)/1.4 'Bodoni Moda', 'Noto Serif Devanagari', 'Noto Serif Gujarati', 'Noto Serif KR', serif; letter-spacing:-0.005em; text-wrap:balance;">જ્યાં જ્યાં નજર મારી ઠરે, યાદી ભરી ત્યાં આપની.</div>
     <div data-r="fade" data-d="500" style="margin-top:20px; font:500 11.5px/1.6 'Geist', sans-serif; letter-spacing:.24em; text-transform:uppercase; color:#b8afd6;">Kalapi · Aapni Yaadi · 19th century</div>
+  </div>
+</section>
+
+<section aria-label="Epigraph" data-voice="v12" data-world="0" style="position:relative;  color:#f6f2fb; padding:clamp(150px,34svh,360px) 24px; text-align:center;">
+  <div style="max-width:30em; margin:0 auto;">
+    <div data-qx="6" lang="mr" style="font:italic 400 clamp(22px,4vw,46px)/1.4 'Bodoni Moda', 'Noto Serif Devanagari', 'Noto Serif Gujarati', 'Noto Serif KR', serif; letter-spacing:-0.005em; text-wrap:balance;">तुझ्या आठवणींचा पाऊस नेहमी पडतो,<br>माझा एकटेपणा हळूच विरघळतो।</div>
+    <div data-r="fade" data-d="500" style="margin-top:20px; font:500 11.5px/1.6 'Geist', sans-serif; letter-spacing:.24em; text-transform:uppercase; color:#b8afd6;">Marathi · for you</div>
   </div>
 </section>
 
@@ -1222,10 +1238,11 @@ const MEDIA = [
   { slot:'memory-04', kind:'photo', src:'media/photos/06.jpg', ratio:'9/16', focus:'50% 40%', label:'No. 06 · memory-04 · portrait', title:'Just Shu', caption:'', note:'' },
   { slot:'memory-05', kind:'photo', src:'media/photos/07.jpg', ratio:'9/16', focus:'50% 50%', label:'No. 07 · memory-05 · landscape', title:'A little adventure', caption:'', note:'' },
   { slot:'memory-06', kind:'photo', src:'media/photos/08.jpg', ratio:'16/9', focus:'40% 50%', label:'No. 08 · memory-06 · 3:2 · the anchor', title:'Our favourite us', caption:'', note:'' },
-  { slot:'memory-07', kind:'photo', src:'media/photos/03b.jpg', ratio:'9/16', focus:'48% 35%', label:'', title:'Another one of us', caption:'', note:'' }
+  { slot:'memory-07', kind:'photo', src:'media/photos/03b.jpg', ratio:'9/16', focus:'48% 35%', label:'', title:'Another one of us', caption:'', note:'' },
+  { slot:'memory-08', kind:'photo', src:'media/photos/hmm.jpg', ratio:'9/16', focus:'50% 40%', label:'', title:'Just you', caption:'', note:'' }
 ];
 // Placeholder numbers: tell me "photo 05" and I know which slot it is. 01 portrait, 02 film, 03-08 memories, 09 final photo, 10-17 birthday collage.
-const SLOT_NUM = {"album-art":"18","model-3d":"19","portrait-01":"01","film-01":"02","memory-01":"03","memory-02":"04","memory-03":"05","memory-04":"06","memory-05":"07","memory-06":"08","memory-07":"21","final-photo":"09","collage-01":"10","collage-02":"11","collage-03":"12","collage-04":"13","collage-05":"14","collage-06":"15","collage-07":"16","collage-08":"17"};
+const SLOT_NUM = {"album-art":"18","model-3d":"19","portrait-01":"01","film-01":"02","memory-01":"03","memory-02":"04","memory-03":"05","memory-04":"06","memory-05":"07","memory-06":"08","memory-07":"21","memory-08":"22","final-photo":"09","collage-01":"10","collage-02":"11","collage-03":"12","collage-04":"13","collage-05":"14","collage-06":"15","collage-07":"16","collage-08":"17"};
 const _r = (a, b) => a + Math.random() * (b - a);
 const rj = (v, a) => v + _r(-a, a);
 // [left %, top %, width %, tilt deg, hang style]; every visit nudges them a little so the wall is never quite the same
@@ -2307,7 +2324,7 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
       const b = STARS[i + 1], dx = b.x - a.x, dy = b.y - a.y, on = s.lit[i] && s.lit[i + 1];
       return { x:a.x, y:a.y, len:Math.hypot(dx, dy).toFixed(2), ang:(Math.atan2(dy, dx) * 180 / Math.PI).toFixed(2), op: on ? (allLit ? .85 : .6) : .08, sx: on ? 1 : .2 };
     });
-    const ms = {}; for (let i = 0; i < 8; i++) ms['m' + (i + 1)] = this.media(i); ms.anyKeep = !!(ms.m2.isImg || ms.m3.isImg || ms.m8.isImg);
+    const ms = {}; for (let i = 0; i < 9; i++) ms['m' + (i + 1)] = this.media(i); ms.anyKeep = !!(ms.m2.isImg || ms.m3.isImg || ms.m8.isImg || ms.m9.isImg);
     const hasTrack = !!P.trackSrc && !s.audioErr;
     const mq = list => list.map(m => ({ text:m.text, fill: m.outline ? 'transparent' : 'currentColor', stroke: m.outline ? '1px currentColor' : '0' }));
     const soundOn = s.sound && s.unlocked;

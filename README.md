@@ -84,3 +84,6 @@ Every quote is now addressed to one beloved person: Keats (letter to Fanny Brawn
 
 ## Gujarati quote
 11th quote, placed after Ghalib: Kalapi (1874 to 1900), opening of "Aapni Yaadi": jya jya najar mari thare, yaadi bhari tya aapni ("wherever my eyes rest, it is full of memories of you"). Source for the opening line: the Live History India article on Kalapi. No Marathi line was added because no pre-1900 Marathi love line could be verified.
+
+## Quote 12 and the last photo
+Marathi line supplied by Atharva (no author claimed): तुझ्या आठवणींचा पाऊस नेहमी पडतो, माझा एकटेपणा हळूच विरघळतो। Placed after the Gujarati quote. hmm.jpeg is placed as a fourth keepsake card (slot memory-08) and on the tree. Photos 02 and 09 were upscaled 1.5x with Lanczos and a light unsharp mask (no detail is invented; it only reduces browser softening).
