@@ -69,3 +69,6 @@ site/media/audio/finale.mp3 starts when she reaches the Happy Birthday page, fad
 
 ## Performance
 The page switches to a lighter mode by itself on weak devices or when frames run slow. Force it with ?perf=lite or ?perf=full. Details are in docs/AUDIT_REPORT.md.
+
+## Photos placed (25 Oct)
+01 portrait, 05 memory-03, 09 final photo, 10 collage-01 (short video), 11 to 17 collage-02 to collage-08. Files are in site/media/photos and site/media/video, named by number. Still to place: 02, 03, 04, 06, 07, 08 (and 18, 19). Each placed photo has its own entry effect (the number picks the effect) and a slow drift while on screen.

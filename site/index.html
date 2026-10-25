@@ -51,7 +51,7 @@ input::placeholder{color:currentColor;opacity:.35;}
 @keyframes tzTitle{from{opacity:0; transform:translateY(26px) scale(.985)}to{opacity:1; transform:none}}
 @media (prefers-reduced-motion: reduce){.tz{animation:none; opacity:0}.tzt{animation:none; opacity:1}}
 @keyframes drawerIn{from{transform:translateX(34px);opacity:0}to{transform:none;opacity:1}}@keyframes titleCard{0%{opacity:0}14%{opacity:1}78%{opacity:1}100%{opacity:0;visibility:hidden}}@keyframes titleDolly{0%{transform:scale(.9);opacity:0;filter:blur(8px)}20%{opacity:1;filter:blur(0)}100%{transform:scale(1.12)}}@keyframes branchSway{0%,100%{transform:rotate(0deg)}50%{transform:rotate(1.6deg) translateY(3px)}}[data-slot-id]{position:relative;}
-[data-slot-id]:not(:has(img,video))::after{content:attr(data-num); position:absolute; inset:0; display:grid; place-items:center; pointer-events:none; font:italic 400 clamp(56px,16vw,120px)/1 'Bodoni Moda', serif; letter-spacing:-.04em; color:#fff; mix-blend-mode:difference; opacity:.6;}
+[data-slot-id]:not(:has(img,video))::after{content:attr(data-num); position:absolute; inset:0; display:grid; place-items:center; pointer-events:none; font:600 clamp(56px,16vw,120px)/1 'Cormorant Garamond', serif; letter-spacing:0; color:#fff; mix-blend-mode:difference; opacity:.6;}
 svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
 #memory-sakura [data-slot-id]::after{font-size:46px;}
 @keyframes treeSway{0%,100%{transform:rotate(-.7deg)}50%{transform:rotate(.8deg)}}
@@ -156,6 +156,28 @@ section.qin[data-qs="7"]::before{background:radial-gradient(40% 70% at 50% 0%,rg
 section.qin[data-qs="8"]::before{background:linear-gradient(90deg,rgba(150,120,230,.25),rgba(243,169,189,.25),rgba(255,200,150,.2));filter:blur(40px);animation:qs8 4s ease-in-out both}@keyframes qs8{from{opacity:0;transform:scaleX(.3)}to{opacity:.8;transform:none}}
 section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rgba(255,200,150,.35),transparent 60%);animation:qs9 3.4s ease-out both}@keyframes qs9{from{opacity:0;scale:.5}50%{opacity:1}to{opacity:.4;scale:1.2}}
 @media (prefers-reduced-motion: reduce){section[data-voice]::before{display:none}section[data-voice].qin > div{animation:none}}
+@keyframes kb{from{scale:1}to{scale:1.07}}
+[data-px]{opacity:0;}
+[data-px].in{animation-duration:2s,18s;animation-delay:0s,2s;animation-iteration-count:1,infinite;animation-direction:normal,alternate;animation-fill-mode:both,none;animation-timing-function:cubic-bezier(.16,1,.3,1),ease-in-out;}
+[data-px="1"].in{animation-name:px1,kb}@keyframes px1{from{opacity:0;filter:blur(14px) brightness(2.5) sepia(1)}to{opacity:1;filter:none}}
+[data-px="2"].in{animation-name:px2,kb}@keyframes px2{from{opacity:1;clip-path:circle(0% at 50% 50%)}to{opacity:1;clip-path:circle(75% at 50% 50%)}}
+[data-px="3"].in{animation-name:px3,kb}@keyframes px3{from{opacity:1;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+[data-px="4"].in{animation-name:px4,kb}@keyframes px4{from{opacity:1;clip-path:inset(100% 0 0 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+[data-px="5"].in{animation-name:px5,kb}@keyframes px5{from{opacity:0;transform:scale(1.5);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+[data-px="6"].in{animation-name:px6,kb}@keyframes px6{from{opacity:0;transform:perspective(800px) rotateY(80deg)}to{opacity:1;transform:none}}
+[data-px="7"].in{animation-name:px7,kb}@keyframes px7{from{opacity:1;clip-path:inset(0 50% 0 50%)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+[data-px="8"].in{animation-name:px8,kb;animation-timing-function:cubic-bezier(.34,1.56,.64,1),ease-in-out}@keyframes px8{from{opacity:0;transform:translateY(-60%)}to{opacity:1;transform:none}}
+[data-px="10"].in{animation-name:px10,kb}@keyframes px10{from{opacity:1;clip-path:inset(0 0 0 100%)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+[data-px="11"].in{animation-name:px11,kb}@keyframes px11{from{opacity:1;clip-path:inset(0 0 100% 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+[data-px="12"].in{animation-name:px12,kb}@keyframes px12{from{opacity:1;clip-path:polygon(0 0,0 0,0 0,0 0)}to{opacity:1;clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}}
+[data-px="13"].in{animation-name:px13,kb}@keyframes px13{from{opacity:1;clip-path:inset(45% 45% 45% 45%)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+[data-px="14"].in{animation-name:px14,kb}@keyframes px14{from{opacity:1;filter:sepia(1) contrast(1.25) brightness(.75)}to{opacity:1;filter:none}}
+[data-px="15"].in{animation-name:px15,kb}@keyframes px15{from{opacity:0;transform:perspective(700px) rotateX(60deg) translateY(30px)}to{opacity:1;transform:none}}
+[data-px="16"].in{animation-name:px16,kb}@keyframes px16{from{opacity:0;transform:translateX(40px);filter:blur(16px)}to{opacity:1;transform:none;filter:none}}
+[data-px="17"].in{animation-name:px17,kb;animation-timing-function:cubic-bezier(.34,1.56,.64,1),ease-in-out}@keyframes px17{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}
+[data-px="9"],[data-px="18"],[data-px="19"]{opacity:1;}
+[data-perf="lite"] [data-px].in{animation-iteration-count:1,1 !important;animation-duration:1.2s,.01s !important;}
+@media (prefers-reduced-motion: reduce){[data-px]{opacity:1 !important;animation:none !important}}
 </style>
 </helmet>
 <div ref="{{ rootRef }}" role="main" style="position:relative; font-family:'Geist', system-ui, sans-serif; color:var(--ni,#f6f2fb); background:var(--n0,#0c0918); overflow-x:clip;">
@@ -974,8 +996,9 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
         <sc-if value="{{ c.clip }}"><span aria-hidden="true" style="position:absolute; left:50%; bottom:100%; width:1px; height:{{ c.sl }}svh; background:rgba(246,242,251,.4);"></span><span aria-hidden="true" style="position:absolute; left:50%; top:-8px; width:9px; height:17px; margin-left:-4.5px; border-radius:2px; background:linear-gradient(90deg, #d9b98c, #b8955f); box-shadow:0 2px 4px rgba(0,0,0,.35); z-index:3;"></span></sc-if>
         <sc-if value="{{ c.tape }}"><span aria-hidden="true" style="position:absolute; left:50%; top:-10px; width:46%; height:20px; margin-left:-23%; rotate:{{ c.tr }}; background:rgba(253,227,207,.78); box-shadow:0 1px 3px rgba(0,0,0,.18); z-index:3;"></span></sc-if>
         <div class="bd-tile" style="position:relative;">
-          <div data-slot-id="{{ c.slot }}" style="position:relative; aspect-ratio:4/5; overflow:hidden; background:repeating-linear-gradient(135deg, #efe6fa 0 12px, #fbe5ea 12px 24px);">
+          <div data-slot-id="{{ c.slot }}" style="position:relative; aspect-ratio:{{ c.ar }}; overflow:hidden; background:repeating-linear-gradient(135deg, #efe6fa 0 12px, #fbe5ea 12px 24px);">
             <sc-if value="{{ c.isImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ c.src }}" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></sc-if>
+            <sc-if value="{{ c.isVid }}" hint-placeholder-val="{{ false }}"><video data-src="{{ c.src }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" autoPlay="{{ true }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;"></video></sc-if>
           </div>
           <div style="margin-top:5px; text-align:center; font:400 clamp(8px,1.5vw,11px)/1.2 'Homemade Apple', cursive; color:#7d5e6a;">{{ c.cap }}</div>
         </div>
@@ -1144,7 +1167,7 @@ const MEDIA = [
   { slot:'film-01', kind:'video', src:'', ratio:'4/5', focus:'50% 40%', label:'No. 02 · film-01 · motion reel · full-bleed', title:'A moment in motion', caption:'[ a few seconds of us ]', note:'[ a line for the back of the reel ]' },
   { slot:'memory-01', kind:'photo', src:'', ratio:'4/5', focus:'50% 35%', label:'No. 03 · memory-01 · polaroid · 4:5', title:'The first one', caption:'[ where this was, and when ]', note:'[ what you remember feeling here ]' },
   { slot:'memory-02', kind:'photo', src:'', ratio:'9/16', focus:'50% 50%', label:'No. 04 · memory-02 · 9:16', title:'That candid laugh', caption:'[ the laugh you couldn’t hold back ]', note:'[ the story behind this frame ]' },
-  { slot:'memory-03', kind:'photo', src:'', ratio:'1/1', focus:'50% 50%', label:'No. 05 · memory-03 · square', title:'A quiet evening', caption:'[ a slow walk, or an unhurried night ]', note:'[ what made this evening stay ]' },
+  { slot:'memory-03', kind:'photo', src:'media/photos/05.jpg', ratio:'9/16', focus:'50% 45%', label:'No. 05 · memory-03 · square', title:'A quiet evening', caption:'', note:'' },
   { slot:'memory-04', kind:'photo', src:'', ratio:'4/5', focus:'50% 40%', label:'No. 06 · memory-04 · portrait', title:'Just Shu', caption:'[ the one I keep looking back at ]', note:'[ why this one is special ]' },
   { slot:'memory-05', kind:'photo', src:'', ratio:'3/2', focus:'50% 50%', label:'No. 07 · memory-05 · landscape', title:'A little adventure', caption:'[ a day out, a plan made on a whim ]', note:'[ the real details from this day ]' },
   { slot:'memory-06', kind:'photo', src:'', ratio:'3/2', focus:'50% 50%', label:'No. 08 · memory-06 · 3:2 · the anchor', title:'Our favourite us', caption:'[ the two of us, at our best ]', note:'[ a line for the back of this one ]' }
@@ -1156,9 +1179,11 @@ const rj = (v, a) => v + _r(-a, a);
 // [left %, top %, width %, tilt deg, hang style]; every visit nudges them a little so the wall is never quite the same
 const WALL = [[3, 11, 19, -7, 'clip'], [78, 12, 19, 6, 'clip'], [1, 38, 16, 4, 'tape'], [83, 40, 16, -5, 'tape'], [5, 66, 19, -4, 'tape'], [75, 67, 19, 7, 'tape'], [27, 7, 13, 3, 'clip'], [27, 83, 13, -6, 'tape']];
 const COLLAGE = WALL.map(([l, t, w, r, k], i) => { const tt = rj(t, 2.5); return { l:rj(l, 2.4).toFixed(1) + '%', t:tt.toFixed(1) + '%', w:(w * _r(.92, 1.14)).toFixed(1) + '%', r:rj(r, 3.5).toFixed(1) + 'deg', d:+(.02 + i * .03 + _r(0, .02)).toFixed(3), opt:i > 5 ? 1 : 0, clip:k === 'clip', tape:k === 'tape', dp:_r(.4, 1.5).toFixed(2), sl:Math.max(0, tt - 5).toFixed(1), tr:rj(0, 6).toFixed(1) + 'deg', cap:'[ a few words ]', slot:'collage-0' + (i + 1), src:'' }; });
+const PH = { 'collage-01':['media/video/10.mp4', .5625], 'collage-02':['media/photos/11.jpg', .5625], 'collage-03':['media/photos/12.jpg', .75], 'collage-04':['media/photos/13.jpg', 1.3333], 'collage-05':['media/photos/14.jpg', .6833], 'collage-06':['media/photos/15.jpg', 1.3846], 'collage-07':['media/photos/16.jpg', .5753], 'collage-08':['media/photos/17.jpg', .75] };
+COLLAGE.forEach(c => { const p = PH[c.slot]; if (p) { c.src = p[0]; c.ar = p[1]; c.cap = ''; } else c.ar = .8; });
 const DOODLES = Array.from({ length:12 }, (_, i) => { const side = Math.random() < .5 ? _r(1, 22) : _r(78, 98); return { x:side.toFixed(1) + '%', y:_r(6, 92).toFixed(1) + '%', s:Math.round(_r(14, 30)) + 'px', r:Math.round(_r(-30, 30)) + 'deg', heart:i % 3 === 0, star:i % 3 === 1, bloom:i % 3 === 2, dp:_r(.3, 1.6).toFixed(2) }; });
-const PORTRAIT = { slot:'portrait-01', src:'', focus:'50% 30%', label:'No. 01 · portrait-01 · 4:5' };
-const FINAL = { slot:'final-photo', src:'', focus:'50% 40%', label:'No. 09 · final-photo · the two of you · portrait works best' };
+const PORTRAIT = { slot:'portrait-01', src:'media/photos/01.jpg', focus:'50% 38%', label:'No. 01 · portrait-01 · 4:5' };
+const FINAL = { slot:'final-photo', src:'media/photos/09.jpg', focus:'50% 42%', label:'No. 09 · final-photo · the two of you · portrait works best' };
 const HINT = 'A name that holds both of us, and a number only we two keep.';
 const _s = [224,141,92,51,103,236,180,247,12,175,119,18,98,71,52,254];
 const _k = ["98166a52535a27c1","6f9ed6db7d54e668","f69814e33dcce6ff","c303a8ae164cc984"];
@@ -2257,7 +2282,7 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
       stage2:s.stage2, title:s.title, gsRef:this.gsRef, skipTitle: () => this.setState({ title:false }), toTop: () => this.scrollToY(0),
       gateMsg2: s.twTries >= 7 ? HUSBAND : s.twTries >= 4 ? HINT3 : s.twTries >= 2 ? HINT2 : s.msg2, twRef:this.twRef,
       twKey: e => { if ((e.key === 'Enter' || e.key === ' ') && this.twWin && !this.sealing) { e.preventDefault(); this.twWin(); } },
-      collage: COLLAGE.map(c => ({ ...c, isImg: !!c.src })), doodles: DOODLES,
+      collage: COLLAGE.map(c => ({ ...c, isVid: !!c.src && c.src.slice(-4) === '.mp4', isImg: !!c.src && c.src.slice(-4) !== '.mp4' })), doodles: DOODLES,
       gated:!s.unlocked, unlocked:s.unlocked, phrase:s.phrase, gateErr:s.gateErr, gateMsg:s.gateMsg,
       typed: Array.from({ length:Math.min(s.phrase.length, 18) }, (_, i) => i),
       onPhrase: e => {
@@ -2330,9 +2355,10 @@ document.addEventListener('dragstart',function(e){if(e.target.closest&&e.target.
 (function(){var de=document.documentElement,m=location.search.match(/[?&]perf=(lite|full)/),mode=m?m[1]:'',mem=navigator.deviceMemory,cores=navigator.hardwareConcurrency,cn=navigator.connection||{};function set(){if(de.getAttribute('data-perf')==='lite')return;de.setAttribute('data-perf','lite');try{window.dispatchEvent(new Event('shu-perf'));}catch(e){}}
 if(mode==='lite'||(mode!=='full'&&((mem&&mem<=4)||(cores&&cores<=4)||cn.saveData||(innerWidth<=480&&(devicePixelRatio||1)>=2&&(cores||8)<=6))))set();
 if(mode!=='full'){var last=0,acc=0,n=0,bad=0;(function f(t){if(last){var d=t-last;if(d<200){acc+=d;n++;}}last=t;if(n>=90){if(acc/n>27)bad++;else bad=Math.max(0,bad-1);acc=0;n=0;if(bad>=2)set();}requestAnimationFrame(f);})(0);}})();
+function px(){var els=document.querySelectorAll('[data-slot-id]');for(var k=0;k<els.length;k++){var el=els[k];if(el.__px||(el.closest&&el.closest('[role=dialog]')))continue;var n=+el.getAttribute('data-num');var im=el.querySelector('img,video');if(!n||!im)continue;el.__px=1;im.setAttribute('data-px',n);(function(el,im){var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting)im.classList.add('in');else im.classList.remove('in');});},{rootMargin:'-8% 0px -8% 0px'});io.observe(el);})(el,im);}}
 function qx(){var els=document.querySelectorAll('[data-qx]');for(var k=0;k<els.length;k++){var el=els[k];if(el.__q)continue;el.__q=1;var i=+el.getAttribute('data-qx'),a=18+(i*7)%26,b=16+(i*11)%28;var io=new IntersectionObserver(function(es){es.forEach(function(en){var sec=en.target.closest('section');if(en.isIntersecting){en.target.classList.add('in');if(sec){sec.setAttribute('data-qs',en.target.getAttribute('data-qx'));sec.classList.add('qin');}}else{en.target.classList.remove('in');if(sec){sec.classList.remove('qin');}}});},{rootMargin:'-'+a+'% 0px -'+b+'% 0px'});io.observe(el);}}
 function acc(){var els=document.querySelectorAll('h2 i, h2 em, h2 span[style*="italic"][style*="color"]');for(var k=0;k<els.length;k++){var el=els[k];if(el.__a)continue;el.__a=1;el.classList.add('acc');var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting)en.target.classList.add('in');else en.target.classList.remove('in');});},{rootMargin:'-22% 0px -22% 0px'});io.observe(el);}}
-setInterval(function(){qx();acc();},800);qx();acc();
+setInterval(function(){qx();acc();px();},800);qx();acc();px();
 if(!fine||calm||document.documentElement.getAttribute('data-perf')==='lite')return;
 var cv=document.createElement('canvas');cv.setAttribute('aria-hidden','true');cv.style.cssText='position:fixed;inset:0;width:100%;height:100%;z-index:97;pointer-events:none;';document.body.appendChild(cv);
 var cx=cv.getContext('2d'),W=0,H=0,dpr=1;function rs(){W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);}rs();addEventListener('resize',rs);
