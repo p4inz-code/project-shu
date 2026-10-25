@@ -30,9 +30,10 @@ Every photo slot shows its number so you can send "photo 05" and I know where it
 
 | No. | Slot | Where |
 |---|---|---|
-| 01 | portrait-01 | Chapter I portrait |
+| 01 | portrait-01 | The portrait near the start |
 | 02 | film-01 | Full-bleed reel (keepsakes) |
-| 03 to 08 | memory-01 to memory-06 | Polaroids in the keepsakes and the memory gallery |
+| 03 to 07 | memory-01 to memory-05 | Polaroids in the keepsakes (03, 04) and hanging from the branch (05, 06, 07) |
+| 08 | memory-06 | Not shown now. The big 3:2 frame was removed. Send a photo and it can go somewhere else |
 | 09 | final-photo | Finale |
 | 10 to 17 | collage-01 to collage-08 | Birthday memory wall |
 | 19 | model-3d | Frame reserved for the small 3D object (send the model file) |
@@ -50,7 +51,7 @@ Set in `site/index.html` between scenes. Please verify wording against your own 
 | after the hero | I cannot exist without you. | John Keats, letter to Fanny Brawne, 1819 |
 | before first light | Le coeur a ses raisons que la raison ne connait point. | Blaise Pascal, Pensees, 1670 |
 | before keepsakes | Poesia... eres tu. | Gustavo Adolfo Becquer, Rimas, 1871 |
-| before the song | Dhai aakhar prem ka, padhe so pandit hoy. | Kabir, doha, 15th century |
+| before the song | Ishq par zor nahin hai, ye woh aatish Ghalib (Hindi and Urdu script) | Mirza Ghalib, ghazal, 19th century |
 | before the stars | Amor, ch'a nullo amato amar perdona. | Dante, Inferno V, c. 1320 |
 | before the letter | Whatever our souls are made of, his and mine are the same. | Emily Bronte, Wuthering Heights, 1847 |
 | before the finale | You pierce my soul. I am half agony, half hope. | Jane Austen, Persuasion, 1817 |
@@ -59,3 +60,12 @@ Set in `site/index.html` between scenes. Please verify wording against your own 
 | before the credits | Vivamus, mea Lesbia, atque amemus. | Catullus, Carmen 5, c. 60 BC |
 
 No Gujarati or Marathi line is in yet: I could not confirm a classical quote with certainty. Candidates to check: Narsinh Mehta or Dayaram (Gujarati), Tukaram or Dnyaneshwar (Marathi).
+
+## Quote voice-overs
+Removed for now. When the recordings exist, name them v01.mp3 to v10.mp3 (same order as the quotes above, top to bottom) and put them in site/media/audio/voice/. Each quote section already carries data-voice="v01" to "v10".
+
+## Finale track
+site/media/audio/finale.mp3 starts when she reaches the Happy Birthday page, fades in, and loops until sound is turned off or she scrolls back above that page.
+
+## Performance
+The page switches to a lighter mode by itself on weak devices or when frames run slow. Force it with ?perf=lite or ?perf=full. Details are in docs/AUDIT_REPORT.md.
