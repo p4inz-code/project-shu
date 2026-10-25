@@ -60,6 +60,10 @@ svg [data-r="pop"]{transform-box:fill-box; transform-origin:center;}
 .hd{animation:hdj .6s steps(1) infinite;}
 @keyframes hdj{0%{transform:translate(0,0)}33%{transform:translate(.5px,-.4px) rotate(.08deg)}66%{transform:translate(-.4px,.5px) rotate(-.08deg)}}
 .alive{transform-origin:6% 92%; animation:aliveSway 7s ease-in-out infinite alternate;}
+[data-credbg]{animation:credKb 26s ease-in-out infinite alternate;}
+@keyframes credKb{from{scale:1;translate:0 0}to{scale:1.08;translate:-1.2% -1%}}
+@media (prefers-reduced-motion: reduce){[data-credbg]{animation:none}}
+[data-perf="lite"] [data-credbg]{animation:none; filter:none !important;}
 .alive2 g[data-r="grow"]{transform-box:fill-box; transform-origin:center; animation:flSway 5s ease-in-out infinite alternate;}
 .alive2 g[data-r="grow"]:nth-of-type(2n){animation-duration:6.2s; animation-delay:-1.8s;}
 .alive2 g[data-r="grow"]:nth-of-type(3n){animation-duration:4.2s; animation-delay:-3s;}
@@ -1088,7 +1092,8 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
   </div>
 </section>
 
-<section data-screen-label="11 Credits" style="position:relative; background:#050308; color:#f6f2fb; text-align:center; padding:clamp(120px,24svh,220px) 24px clamp(100px,18svh,180px); display:flex; flex-direction:column; align-items:center; gap:clamp(40px,8svh,72px); overflow:hidden;">
+<section data-screen-label="11 Credits" style="position:relative; isolation:isolate; background:#050308; color:#f6f2fb; text-align:center; padding:clamp(120px,24svh,220px) 24px clamp(100px,18svh,180px); display:flex; flex-direction:column; align-items:center; gap:clamp(40px,8svh,72px); overflow:hidden;">
+  <img src="media/photos/bg-last.jpg" alt="" aria-hidden="true" data-credbg="" style="position:absolute; inset:-3%; width:106%; height:106%; z-index:-1; object-fit:cover; object-position:50% 38%; opacity:.2; filter:blur(7px) saturate(1.1) brightness(.78); -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%); mask-image:linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%); pointer-events:none;">
   <canvas data-fx="sakura" data-n=".35" aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;"></canvas>
   <div data-r="fade" data-dur="2400" style="position:relative; font:400 clamp(70px,18vw,170px)/1 'Pinyon Script', cursive; color:#fff0f4; text-shadow:0 0 40px rgba(243,169,189,.45);">You <span style="color:#f3a9bd;">&amp;</span> Me</div>
   <div data-r="rise" style="display:flex; flex-direction:column; gap:6px;"><span style="font:italic 500 20px/1 'Cormorant Garamond', serif; letter-spacing:.05em; color:#c9b3d8;">starring</span><span style="font:400 clamp(36px,9vw,60px)/1.15 'Pinyon Script', cursive; color:#fff0f4;">you</span></div>
