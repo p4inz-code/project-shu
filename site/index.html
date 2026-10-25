@@ -754,9 +754,9 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
   <div aria-hidden="true" style="position:absolute; left:50%; top:46%; width:min(140vw,1400px); aspect-ratio:1; transform:translate(-50%,-50%); background:radial-gradient(circle, rgba(240,180,94,.16), transparent 60%); pointer-events:none;"></div>
   <div style="position:relative; max-width:1120px; margin:0 auto;">
     <div style="display:flex; flex-direction:column; gap:16px;">
-      <div style="display:flex; align-items:baseline; gap:10px; font:italic 500 16px/1 'Cormorant Garamond', serif; letter-spacing:.03em; text-transform:none; white-space:nowrap; color:#d9bfd0;"><span data-r="fade" data-d="200">seven songs, for us</span></div>
+      <div style="display:flex; align-items:baseline; gap:10px; font:italic 500 16px/1 'Cormorant Garamond', serif; letter-spacing:.03em; text-transform:none; white-space:nowrap; color:#d9bfd0;"><span data-r="fade" data-d="200">six songs, for us</span></div>
       <h2 style="margin:0; font:400 clamp(46px,11vw,128px)/0.92 'Bodoni Moda', serif; letter-spacing:-0.035em;">
-        <span style="display:block; overflow:hidden; padding-bottom:.08em;"><span data-r="line" style="display:block;">Seven songs that</span></span>
+        <span style="display:block; overflow:hidden; padding-bottom:.08em;"><span data-r="line" style="display:block;">Six songs that</span></span>
         <span style="display:block; overflow:hidden; padding-bottom:.12em;"><span data-r="line" data-d="140" style="display:block; font:400 1em/1 'Pinyon Script', cursive; letter-spacing:0; color:#f3a9bd; padding-left:.6em;">sound like us.</span></span>
       </h2>
     </div>
@@ -1323,31 +1323,27 @@ const WHISPERS = [
 ];
 const SONG_PREVIEW = 30;
 const SONGS = [
-  { title:'Zulfein', who:'Mehul Mahesh', img:'16', fx:.356, fy:.477, have:false, src:'media/audio/01-zulfein.mp3',
+  { title:'Zulfein', who:'Mehul Mahesh', img:'16', fx:.356, fy:.477, have:true, src:'media/audio/01-zulfein.mp3',
     line:'For the strand of hair you keep fixing, and the way I watch you do it.',
     liner:'Mehul Mahesh sings it, DJ Aynik produced it. I think of your hair every time the chorus starts.',
     credit:'Mehul Mahesh, produced by DJ Aynik. Hindi single, 2025.' },
-  { title:'Aarzu', who:'Asim Azhar', img:'18', fx:.615, fy:.447, have:false, src:'media/audio/02-aarzu.mp3',
+  { title:'Aarzu', who:'Noor · Khan · Madhurxo', img:'18', fx:.615, fy:.447, have:true, src:'media/audio/02-aarzu.mp3',
     line:'One wish, and it has your name on it.',
     liner:'Aarzu means wish. Mine has had your name on it since the day we met.',
-    credit:'Asim Azhar, with Noor Khan and Madhurxo. Single, 2026.' },
-  { title:'Bairan', who:'Banjaare', img:'04', fx:.51, fy:.364, have:false, src:'media/audio/03-bairan.mp3',
+    credit:'Noor, Khan and Madhurxo. Official music video, 2026.' },
+  { title:'Bairan', who:'Banjaare', img:'04', fx:.51, fy:.364, have:true, src:'media/audio/03-bairan.mp3',
     line:'For the nights that felt long, until your name lit up my phone.',
     liner:'Banjaare wrote the ache of missing someone. I only feel it when you are far.',
     credit:'Banjaare, the Haryanvi duo Sumit and Anuj. Single, 2026.' },
-  { title:'Madira', who:'Hardik Bhardwaj × Scxtch', img:'17', fx:.497, fy:.51, have:false, src:'media/audio/04-madira.mp3',
-    line:'Red wine, a table for two, and you across from me.',
-    liner:'Madira means wine. I would rather get dizzy on your laugh, and I would rather write it here than say it out loud.',
-    credit:'Hardik Bhardwaj and Scxtch. Single, 2026.' },
-  { title:'Saanson Ki Mala', who:'Madhur Sharma', img:'11', fx:.446, fy:.426, have:false, src:'media/audio/05-saanson-ki-mala.mp3',
+  { title:'Saanson Ki Mala', who:'Madhur Sharma', img:'11', fx:.446, fy:.426, have:true, src:'media/audio/04-saanson-ki-mala.mp3',
     line:'Every breath is a bead, and every bead says your name.',
     liner:'Nusrat Fateh Ali Khan made the qawwali. Madhur Sharma sings this version. Every breath is a bead and every bead is you.',
     credit:'Sung by Madhur Sharma, from Mirzapur: The Movie. Recreated from the qawwali by Nusrat Fateh Ali Khan.' },
-  { title:'Ishq Chaliya', who:'Sachet Tandon · Parampara Thakur', img:'heart', fx:.5, fy:.42, have:false, src:'media/audio/06-ishq-chaliya.mp3',
+  { title:'Ishq Chaliya', who:'Sachet Tandon · Parampara Thakur', img:'heart', fx:.5, fy:.42, have:true, src:'media/audio/05-ishq-chaliya.mp3',
     line:'Love set out one day, and it found its way to you.',
     liner:'Love set out once and found its way to you. So did I.',
     credit:'Sachet Tandon and Parampara Thakur. From Pal Pal Dil Ke Paas, 2019.' },
-  { title:'Tera Hone Laga Hoon', who:'Atif Aslam · Alisha Chinai', img:'12', fx:.5, fy:.58, have:false, src:'media/audio/07-tera-hone-laga-hoon.mp3',
+  { title:'Tera Hone Laga Hoon', who:'Atif Aslam · Alisha Chinai', img:'12', fx:.5, fy:.58, have:true, src:'media/audio/06-tera-hone-laga-hoon.mp3',
     line:'Slowly, happily, completely, I have become yours.',
     liner:'Atif Aslam and Alisha Chinai sing it. Somewhere along the way I became yours, and I am in no hurry to change that.',
     credit:'Atif Aslam and Alisha Chinai. Music by Pritam, lyrics by Ashish Pandit. From Ajab Prem Ki Ghazab Kahani, 2009.' }
@@ -2078,7 +2074,7 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
       if (!this.finaleEl) { this.finaleEl = new Audio(FINALE_TRACK); this.finaleEl.loop = true; this.finaleEl.volume = 0; }
       this.finaleEl.muted = !this.state.sound && this.soundOn !== true;
       if (this.state.sound || this.soundOn) {
-        this.finaleEl.play().then(() => { this.fadeAudio(this.finaleEl, .9, 6000); this.amb.vol && this.amb.vol(.02); if (this.audio && !this.audio.paused) this.fadeAudio(this.audio, .15, 2500); }).catch(() => {});
+        this.finaleEl.play().then(() => { this.fadeAudio(this.finaleEl, .9, 6000); this.amb.vol && this.amb.vol(.02); if (this.audio && !this.audio.paused) { const au = this.audio; this.fadeAudio(au, 0, 2200, () => { this.pause(); au.volume = 1; }); } }).catch(() => {});
       }
     } else if (this.finaleEl && !this.finaleEl.paused) {
       this.fadeAudio(this.finaleEl, 0, 1800, () => this.finaleEl.pause());
