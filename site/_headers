@@ -11,7 +11,7 @@
   Cache-Control: public, max-age=86400
 
 /media/*
-  Cache-Control: public, max-age=3600
+  Cache-Control: public, max-age=86400
 
 /*
   Permissions-Policy: camera=(), microphone=(), geolocation=()

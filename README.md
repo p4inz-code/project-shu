@@ -81,3 +81,6 @@ The page switches to a lighter mode by itself on weak devices or when frames run
 
 ## Quote audit (25 Oct)
 Every quote is now addressed to one beloved person: Keats (letter to Fanny Brawne), Verlaine (to his bride), Bécquer, Ghalib (the beloved's glance), Dante (Vita Nuova, to Beatrice), Donne, Austen (Wentworth's letter), Browning, Hwang Jini, Catullus (Carmen 5). Replaced as too general or mismatched: Pascal, Ghalib's fire couplet, Dante Inferno V, Emily Brontë ("his and mine"), Catullus naming Lesbia.
+
+## Gujarati quote
+11th quote, placed after Ghalib: Kalapi (1874 to 1900), opening of "Aapni Yaadi": jya jya najar mari thare, yaadi bhari tya aapni ("wherever my eyes rest, it is full of memories of you"). Source for the opening line: the Live History India article on Kalapi. No Marathi line was added because no pre-1900 Marathi love line could be verified.
