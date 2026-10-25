@@ -1475,7 +1475,7 @@ class Ambient {
 
 class Component extends DCLogic {
   state = { unlocked:false, phrase:'', gateErr:false, gateMsg:'write something first', stage2:false, seq:[], fails:0, gateOk:false, msg2:'', twTries:0, title:false, menuOpen:false, copied:false, reloadArm:false, full:false, hint:false, calm:false, sound:true, moon:0, awake:false, taps:0, lit:STARS.map(() => false), last:-1,
-    lb:-1, flipped:false, playing:false, t:0, dur:SONG_PREVIEW, song:0, follow:true, audioErr:false, toast:'', secretEnd:false, holding:false, sec:[false,false,false], sel:0, opened:MEDIA.map(() => false), letterOpen:false, lanterns:0, lanternsDone:false };
+    lb:-1, flipped:false, playing:false, t:0, dur:SONG_PREVIEW, song:0, follow:false, audioErr:false, toast:'', secretEnd:false, holding:false, sec:[false,false,false], sel:0, opened:MEDIA.map(() => false), letterOpen:false, lanterns:0, lanternsDone:false };
   rootRef = React.createRef(); gsRef = React.createRef(); twRef = React.createRef(); gateRef = React.createRef(); progRef = React.createRef(); discRef = React.createRef(); grainRef = React.createRef(); typedRef = React.createRef(); eqRef = React.createRef(); lanternRef = React.createRef(); inspRef = React.createRef(); lyricRef = React.createRef(); barsRef = React.createRef(); envRef = React.createRef(); starRef = React.createRef();
   world = 0; override = null; natW = 0; smooth = {}; anims = []; fx = []; amb = new Ambient();
 
