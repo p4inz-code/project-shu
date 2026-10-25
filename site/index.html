@@ -186,6 +186,7 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
 [data-px="14"].in{animation-name:px14,kb}@keyframes px14{from{opacity:1;filter:sepia(1) contrast(1.25) brightness(.75)}to{opacity:1;filter:none}}
 [data-px="15"].in{animation-name:px15,kb}@keyframes px15{from{opacity:0;transform:perspective(700px) rotateX(60deg) translateY(30px)}to{opacity:1;transform:none}}
 [data-px="16"].in{animation-name:px16,kb}@keyframes px16{from{opacity:0;transform:translateX(40px);filter:blur(16px)}to{opacity:1;transform:none;filter:none}}
+[data-px="21"].in{animation-name:px16,kb}
 [data-px="17"].in{animation-name:px17,kb;animation-timing-function:cubic-bezier(.34,1.56,.64,1),ease-in-out}@keyframes px17{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}
 [data-px="9"],[data-px="18"],[data-px="19"]{opacity:1;}
 [data-perf="lite"] [data-px].in{animation-iteration-count:1,1 !important;animation-duration:1.2s,.01s !important;}
@@ -442,8 +443,8 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
 
 <section aria-label="Epigraph" data-voice="v02" data-world="0" style="position:relative;  color:#f6f2fb; padding:clamp(150px,34svh,360px) 24px; text-align:center;">
   <div style="max-width:30em; margin:0 auto;">
-    <div data-qx="1" lang="fr" style="font:italic 400 clamp(22px,4vw,46px)/1.4 'Bodoni Moda', 'Noto Serif Devanagari', 'Noto Serif KR', serif; letter-spacing:-0.005em; text-wrap:balance;">« Le cœur a ses raisons que la raison ne connaît point. »</div>
-    <div data-r="fade" data-d="500" style="margin-top:20px; font:500 11.5px/1.6 'Geist', sans-serif; letter-spacing:.24em; text-transform:uppercase; color:#b8afd6;">Blaise Pascal · Pensées · 1670</div>
+    <div data-qx="1" lang="fr" style="font:italic 400 clamp(22px,4vw,46px)/1.4 'Bodoni Moda', 'Noto Serif Devanagari', 'Noto Serif KR', serif; letter-spacing:-0.005em; text-wrap:balance;">« La lune blanche luit dans les bois… Ô bien-aimée. »</div>
+    <div data-r="fade" data-d="500" style="margin-top:20px; font:500 11.5px/1.6 'Geist', sans-serif; letter-spacing:.24em; text-transform:uppercase; color:#b8afd6;">Paul Verlaine · La Bonne Chanson · 1870</div>
   </div>
 </section>
 
@@ -622,7 +623,7 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
   </div>
 
   <sc-if value="{{ anyKeep }}" hint-placeholder-val="{{ false }}"><div style="position:relative; max-width:1040px; min-height:clamp(560px,70vw,820px); margin:clamp(60px,10vh,120px) auto 0; padding-bottom:clamp(60px,10vw,140px);">
-    <sc-if value="{{ m2.isImg }}" hint-placeholder-val="{{ false }}"><div data-exit="drift" style="width:64%; max-width:540px;">
+    <sc-if value="{{ m2.isImg }}" hint-placeholder-val="{{ false }}"><div data-exit="drift" style="width:34%; max-width:420px;">
       <div style="position:relative;">
         <span data-r="tape" data-d="1000" aria-hidden="true" style="position:absolute; z-index:2; top:-12px; left:50%; width:92px; height:26px; margin-left:-46px; rotate:3deg; background:rgba(253,227,207,.8); box-shadow:0 1px 2px rgba(0,0,0,.06);"></span>
         <span aria-hidden="true" style="position:absolute; z-index:2; left:-12px; top:6px; width:58px; height:20px; rotate:-38deg; background:rgba(253,227,207,.78); box-shadow:0 1px 2px rgba(0,0,0,.08);"></span>
@@ -630,7 +631,7 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
         <span aria-hidden="true" style="position:absolute; z-index:2; left:-12px; bottom:22px; width:58px; height:20px; rotate:38deg; background:rgba(253,227,207,.78); box-shadow:0 1px 2px rgba(0,0,0,.08);"></span>
         <span aria-hidden="true" style="position:absolute; z-index:2; right:-12px; bottom:22px; width:58px; height:20px; rotate:-38deg; background:rgba(253,227,207,.78); box-shadow:0 1px 2px rgba(0,0,0,.08);"></span>
         <button onClick="{{ m2.open }}" data-tilt3d="" data-slot-id="{{ m2.slot }}" aria-label="Open {{ m2.title }}" data-r="drop" style="position:relative; display:block; width:100%; padding:8px 8px 10px; background:#fffdf9; border:0; cursor:zoom-in; rotate:-2.2deg; box-shadow:0 1px 0 rgba(0,0,0,.04), 0 22px 44px -20px rgba(70,30,50,.4); transition:transform .6s cubic-bezier(.16,1,.3,1), box-shadow .5s;" style-hover="box-shadow:0 1px 0 rgba(0,0,0,.04), 0 34px 60px -20px rgba(70,30,50,.5);">
-          <div style="position:relative; aspect-ratio:4/5; overflow:hidden;">
+          <div style="position:relative; aspect-ratio:2/3; overflow:hidden;">
             <div style="position:absolute; inset:0; background:repeating-linear-gradient(135deg, #efe6fa 0 12px, #fbe5ea 12px 24px);"></div>
             <sc-if value="{{ showLabels }}"><span style="position:absolute; left:8px; bottom:8px; padding:4px 7px; background:#fffaf5; font:500 9px/1.4 'Geist', sans-serif; letter-spacing:.14em; text-transform:uppercase; color:#7d5e6a;">{{ m2.label }}</span></sc-if>
             <sc-if value="{{ m2.isImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ m2.src }}" alt="{{ m2.caption }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:{{ m2.focus }};"></sc-if>
@@ -642,6 +643,14 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
       <div data-r="ink" data-d="1200" style="margin:16px 0 0 6px; font:400 clamp(13px,3.4vw,16px)/1.7 'Homemade Apple', cursive; color:#7d5e6a; transform:rotate(-1.5deg);">{{ m2.caption }}</div>
     </div>
     </sc-if>
+    <sc-if value="{{ m8.isImg }}" hint-placeholder-val="{{ false }}"><div data-exit="drift" style="position:absolute; left:36%; top:16%; width:28%; max-width:380px;">
+      <span aria-hidden="true" style="position:absolute; z-index:4; top:-12px; left:50%; width:26px; height:26px; margin-left:-13px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #ffc27a, #e9822a 60%, #a8501a); box-shadow:0 6px 9px rgba(60,10,30,.4);"></span>
+      <button onClick="{{ m8.open }}" data-tilt3d="" data-slot-id="{{ m8.slot }}" aria-label="Open {{ m8.title }}" data-r="drop" data-d="200" style="position:relative; display:block; width:100%; padding:7px; background:#fffdf9; border:0; cursor:zoom-in; rotate:2.6deg; box-shadow:0 1px 0 rgba(0,0,0,.04), 0 26px 50px -22px rgba(60,20,40,.5);">
+        <div style="position:relative; aspect-ratio:9/16; overflow:hidden;">
+          <img data-src="{{ m8.src }}" alt="{{ m8.title }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:{{ m8.focus }};">
+        </div>
+      </button>
+    </div></sc-if>
     <sc-if value="{{ m3.isImg }}" hint-placeholder-val="{{ false }}"><div data-exit="driftR" style="position:absolute; right:0; top:30%; width:44%; max-width:340px;">
       <span aria-hidden="true" style="position:absolute; z-index:4; top:-12px; left:50%; width:26px; height:26px; margin-left:-13px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #ff9db3, #d6355f 60%, #8d1d3d); box-shadow:0 6px 9px rgba(60,10,30,.45);"></span>
       <button onClick="{{ m3.open }}" data-tilt3d="" data-slot-id="{{ m3.slot }}" aria-label="Open {{ m3.title }}" data-r="drop" data-d="300" style="position:relative; display:block; width:100%; padding:7px; background:#fffdf9; border:0; cursor:zoom-in; rotate:1.8deg; box-shadow:0 1px 0 rgba(0,0,0,.04), 0 26px 50px -22px rgba(70,30,50,.45); transition:transform .6s cubic-bezier(.16,1,.3,1);">
@@ -705,10 +714,11 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
       <div data-tree3d="" style="position:relative; width:100%; aspect-ratio:4/3; min-height:340px; border-radius:30px; overflow:hidden; background:radial-gradient(120% 90% at 50% 0%, #3a2d6e 0%, #1b1433 55%, #0c0918 100%); box-shadow:0 40px 80px -40px rgba(40,20,70,.7); touch-action:pan-y;"></div>
     </div>
     <div style="position:relative; max-width:min(92vw,900px); margin:clamp(70px,12vh,150px) auto 0;">
-      <button onClick="{{ m7.open }}" data-tilt3d="" data-slot-id="{{ m7.slot }}" aria-label="Open {{ m7.title }}" data-r="develop" style="position:relative; display:block; width:100%; padding:10px 10px 14px; background:#fffdf9; border:0; cursor:zoom-in; box-shadow:0 30px 60px -30px rgba(70,30,50,.45); transition:transform .6s cubic-bezier(.16,1,.3,1);">
-        <div style="position:relative; aspect-ratio:16/9; overflow:hidden; background:#fbe5ea;">
+      <button onClick="{{ m7.open }}" data-tilt3d="" data-slot-id="{{ m7.slot }}" aria-label="Open {{ m7.title }}" data-r="develop" style="position:relative; display:block; width:100%; padding:0; background:transparent; border:0; cursor:zoom-in; filter:drop-shadow(0 22px 46px rgba(170,70,120,.26)); transition:transform .6s cubic-bezier(.16,1,.3,1);">
+        <div style="position:relative; aspect-ratio:16/9; overflow:hidden; border-radius:30px; background:#f3e3f1; -webkit-mask-image:radial-gradient(ellipse 74% 78% at 50% 50%, #000 58%, transparent 100%); mask-image:radial-gradient(ellipse 74% 78% at 50% 50%, #000 58%, transparent 100%);">
           <sc-if value="{{ m7.isImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ m7.src }}" alt="{{ m7.title }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:{{ m7.focus }};"></sc-if>
         </div>
+        <svg aria-hidden="true" viewBox="0 0 100 56" preserveAspectRatio="none" style="position:absolute; inset:-3% -2%; width:104%; height:106%; overflow:visible; pointer-events:none;"><g class="alive2"><g data-r="grow" data-d="900" style="transform-box:fill-box; transform-origin:center;"><use href="#blsm" transform="translate(5 5) scale(.2) rotate(14)"/></g><g data-r="grow" data-d="1100" style="transform-box:fill-box; transform-origin:center;"><use href="#blsm" transform="translate(10 2.5) scale(.14) rotate(-20)"/></g><g data-r="grow" data-d="1300" style="transform-box:fill-box; transform-origin:center;"><use href="#blsm" transform="translate(95 52) scale(.22) rotate(30)"/></g><g data-r="grow" data-d="1500" style="transform-box:fill-box; transform-origin:center;"><use href="#blsm" transform="translate(90 54.5) scale(.15) rotate(8)"/></g><g data-r="grow" data-d="1700" style="transform-box:fill-box; transform-origin:center;"><use href="#blsm" transform="translate(98 45) scale(.13) rotate(-30)"/></g></g></svg>
       </button>
     </div>
   </div>
@@ -717,7 +727,7 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
 
 <section aria-label="Epigraph" data-voice="v04" data-world="1" style="position:relative; background:linear-gradient(180deg, var(--d2,#efe6fa), #0c0918); color:#f6f2fb; padding:clamp(150px,34svh,360px) 24px; text-align:center;">
   <div style="max-width:30em; margin:0 auto;">
-    <div data-qx="3" lang="hi" style="font:italic 400 clamp(22px,4vw,46px)/1.4 'Bodoni Moda', 'Noto Serif Devanagari', 'Noto Serif KR', serif; letter-spacing:-0.005em; text-wrap:balance;">इश्क़ पर ज़ोर नहीं है, ये वो आतिश ग़ालिब<br>कि लगाए न लगे और बुझाए न बने</div>
+    <div data-qx="3" lang="hi" style="font:italic 400 clamp(22px,4vw,46px)/1.4 'Bodoni Moda', 'Noto Serif Devanagari', 'Noto Serif KR', serif; letter-spacing:-0.005em; text-wrap:balance;">उनके देखे से जो आ जाती है मुँह पर रौनक़<br>वो समझते हैं कि बीमार का हाल अच्छा है</div>
     <div data-r="fade" data-d="500" style="margin-top:20px; font:500 11.5px/1.6 'Geist', sans-serif; letter-spacing:.24em; text-transform:uppercase; color:#b8afd6;">Mirza Ghalib · ghazal · 19th century</div>
   </div>
 </section>
@@ -822,8 +832,8 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
 
 <section aria-label="Epigraph" data-voice="v05" data-world="0" style="position:relative;  color:#f6f2fb; padding:clamp(150px,34svh,360px) 24px; text-align:center;">
   <div style="max-width:30em; margin:0 auto;">
-    <div data-qx="4" lang="it" style="font:italic 400 clamp(22px,4vw,46px)/1.4 'Bodoni Moda', 'Noto Serif Devanagari', 'Noto Serif KR', serif; letter-spacing:-0.005em; text-wrap:balance;">«Amor, ch’a nullo amato amar perdona.»</div>
-    <div data-r="fade" data-d="500" style="margin-top:20px; font:500 11.5px/1.6 'Geist', sans-serif; letter-spacing:.24em; text-transform:uppercase; color:#b8afd6;">Dante Alighieri · Inferno, canto V · c. 1320</div>
+    <div data-qx="4" lang="it" style="font:italic 400 clamp(22px,4vw,46px)/1.4 'Bodoni Moda', 'Noto Serif Devanagari', 'Noto Serif KR', serif; letter-spacing:-0.005em; text-wrap:balance;">«Tanto gentile e tanto onesta pare la donna mia.»</div>
+    <div data-r="fade" data-d="500" style="margin-top:20px; font:500 11.5px/1.6 'Geist', sans-serif; letter-spacing:.24em; text-transform:uppercase; color:#b8afd6;">Dante Alighieri · Vita Nuova · c. 1293</div>
   </div>
 </section>
 
@@ -874,8 +884,8 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
 
 <section aria-label="Epigraph" data-voice="v06" data-world="0" style="position:relative;  color:#f6f2fb; padding:clamp(150px,34svh,360px) 24px; text-align:center;">
   <div style="max-width:30em; margin:0 auto;">
-    <div data-qx="5" lang="en" style="font:italic 400 clamp(22px,4vw,46px)/1.4 'Bodoni Moda', 'Noto Serif Devanagari', 'Noto Serif KR', serif; letter-spacing:-0.005em; text-wrap:balance;">“Whatever our souls are made of, his and mine are the same.”</div>
-    <div data-r="fade" data-d="500" style="margin-top:20px; font:500 11.5px/1.6 'Geist', sans-serif; letter-spacing:.24em; text-transform:uppercase; color:#b8afd6;">Emily Brontë · Wuthering Heights · 1847</div>
+    <div data-qx="5" lang="en" style="font:italic 400 clamp(22px,4vw,46px)/1.4 'Bodoni Moda', 'Noto Serif Devanagari', 'Noto Serif KR', serif; letter-spacing:-0.005em; text-wrap:balance;">“And makes one little room an everywhere.”</div>
+    <div data-r="fade" data-d="500" style="margin-top:20px; font:500 11.5px/1.6 'Geist', sans-serif; letter-spacing:.24em; text-transform:uppercase; color:#b8afd6;">John Donne · The Good-Morrow · 1633</div>
   </div>
 </section>
 
@@ -1101,7 +1111,7 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
 
 <section aria-label="Epigraph" data-voice="v10" data-world="0" style="position:relative;  color:#f6f2fb; padding:clamp(150px,34svh,360px) 24px; text-align:center;">
   <div style="max-width:30em; margin:0 auto;">
-    <div data-qx="9" lang="la" style="font:italic 400 clamp(22px,4vw,46px)/1.4 'Bodoni Moda', 'Noto Serif Devanagari', 'Noto Serif KR', serif; letter-spacing:-0.005em; text-wrap:balance;">Vivamus, mea Lesbia, atque amemus.</div>
+    <div data-qx="9" lang="la" style="font:italic 400 clamp(22px,4vw,46px)/1.4 'Bodoni Moda', 'Noto Serif Devanagari', 'Noto Serif KR', serif; letter-spacing:-0.005em; text-wrap:balance;">Da mi basia mille, deinde centum.</div>
     <div data-r="fade" data-d="500" style="margin-top:20px; font:500 11.5px/1.6 'Geist', sans-serif; letter-spacing:.24em; text-transform:uppercase; color:#b8afd6;">Catullus · Carmen 5 · c. 60 BC</div>
   </div>
 </section>
@@ -1193,15 +1203,16 @@ const SWAP = { n0:'d0', n1:'d1', n2:'d2', ni:'di', ns:'dr', nm:'dm', d0:'n0', d1
 // CONTENT. Slot ids match private-content/ in the repo. Point src at the API route, e.g. '/api/media/photos/memory-01'. kind: 'photo' or 'video'.
 const MEDIA = [
   { slot:'film-01', kind:'photo', src:'media/photos/02.jpg', ratio:'16/9', focus:'28% 50%', label:'No. 02 · film-01 · motion reel · full-bleed', title:'A moment in motion', caption:'', note:'' },
-  { slot:'memory-01', kind:'photo', src:'', ratio:'4/5', focus:'50% 35%', label:'No. 03 · memory-01 · polaroid · 4:5', title:'The first one', caption:'', note:'' },
+  { slot:'memory-01', kind:'photo', src:'media/photos/03.jpg', ratio:'2/3', focus:'34% 40%', label:'No. 03 · memory-01 · polaroid · 4:5', title:'The first one', caption:'', note:'' },
   { slot:'memory-02', kind:'photo', src:'media/photos/04.jpg', ratio:'3/4', focus:'51% 30%', label:'No. 04 · memory-02 · 9:16', title:'That candid laugh', caption:'', note:'' },
   { slot:'memory-03', kind:'photo', src:'media/photos/05.jpg', ratio:'9/16', focus:'50% 45%', label:'No. 05 · memory-03 · square', title:'A quiet evening', caption:'', note:'' },
   { slot:'memory-04', kind:'photo', src:'media/photos/06.jpg', ratio:'9/16', focus:'50% 40%', label:'No. 06 · memory-04 · portrait', title:'Just Shu', caption:'', note:'' },
   { slot:'memory-05', kind:'photo', src:'media/photos/07.jpg', ratio:'9/16', focus:'50% 50%', label:'No. 07 · memory-05 · landscape', title:'A little adventure', caption:'', note:'' },
-  { slot:'memory-06', kind:'photo', src:'media/photos/08.jpg', ratio:'16/9', focus:'40% 50%', label:'No. 08 · memory-06 · 3:2 · the anchor', title:'Our favourite us', caption:'', note:'' }
+  { slot:'memory-06', kind:'photo', src:'media/photos/08.jpg', ratio:'16/9', focus:'40% 50%', label:'No. 08 · memory-06 · 3:2 · the anchor', title:'Our favourite us', caption:'', note:'' },
+  { slot:'memory-07', kind:'photo', src:'media/photos/03b.jpg', ratio:'9/16', focus:'48% 35%', label:'', title:'Another one of us', caption:'', note:'' }
 ];
 // Placeholder numbers: tell me "photo 05" and I know which slot it is. 01 portrait, 02 film, 03-08 memories, 09 final photo, 10-17 birthday collage.
-const SLOT_NUM = {"album-art":"18","model-3d":"19","portrait-01":"01","film-01":"02","memory-01":"03","memory-02":"04","memory-03":"05","memory-04":"06","memory-05":"07","memory-06":"08","final-photo":"09","collage-01":"10","collage-02":"11","collage-03":"12","collage-04":"13","collage-05":"14","collage-06":"15","collage-07":"16","collage-08":"17"};
+const SLOT_NUM = {"album-art":"18","model-3d":"19","portrait-01":"01","film-01":"02","memory-01":"03","memory-02":"04","memory-03":"05","memory-04":"06","memory-05":"07","memory-06":"08","memory-07":"21","final-photo":"09","collage-01":"10","collage-02":"11","collage-03":"12","collage-04":"13","collage-05":"14","collage-06":"15","collage-07":"16","collage-08":"17"};
 const _r = (a, b) => a + Math.random() * (b - a);
 const rj = (v, a) => v + _r(-a, a);
 // [left %, top %, width %, tilt deg, hang style]; every visit nudges them a little so the wall is never quite the same
@@ -2275,7 +2286,7 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
       const b = STARS[i + 1], dx = b.x - a.x, dy = b.y - a.y, on = s.lit[i] && s.lit[i + 1];
       return { x:a.x, y:a.y, len:Math.hypot(dx, dy).toFixed(2), ang:(Math.atan2(dy, dx) * 180 / Math.PI).toFixed(2), op: on ? (allLit ? .85 : .6) : .08, sx: on ? 1 : .2 };
     });
-    const ms = {}; for (let i = 0; i < 7; i++) ms['m' + (i + 1)] = this.media(i); ms.anyKeep = !!(ms.m2.isImg || ms.m3.isImg);
+    const ms = {}; for (let i = 0; i < 8; i++) ms['m' + (i + 1)] = this.media(i); ms.anyKeep = !!(ms.m2.isImg || ms.m3.isImg || ms.m8.isImg);
     const hasTrack = !!P.trackSrc && !s.audioErr;
     const mq = list => list.map(m => ({ text:m.text, fill: m.outline ? 'transparent' : 'currentColor', stroke: m.outline ? '1px currentColor' : '0' }));
     const soundOn = s.sound && s.unlocked;

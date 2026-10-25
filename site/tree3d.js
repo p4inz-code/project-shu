@@ -3,10 +3,10 @@
    Plain canvas, no libraries. Pauses off screen and drops detail on weak devices. Themed to the pale blush page around it. */
 (function () {
   'use strict';
-  var PHOTOS = ['01', '02', '04', '05', '06', '07', '08', '09', '11', '12', '13', '14', '15', '16', '17', '18', '19'];
+  var PHOTOS = ['01', '02', '03', '03b', '04', '05', '06', '07', '08', '09', '11', '12', '13', '14', '15', '16', '17', '18', '19'];
   var de = document.documentElement;
   // main face (or the person) in each photo, as a fraction of the picture, so every crop keeps faces near the upper third
-  var FOCUS = {"11":[0.446,0.426],"12":[0.5,0.58],"13":[0.507,0.518],"14":[0.478,0.182],"15":[0.5,0.33],"16":[0.356,0.477],"17":[0.497,0.51],"19":[0.455,0.35],"04":[0.51,0.364],"08":[0.404,0.474],"18":[0.615,0.447],"01":[0.576,0.165],"02":[0.478,0.447],"05":[0.5,0.5],"06":[0.342,0.183],"07":[0.5,0.5],"09":[0.421,0.45]};
+  var FOCUS = {"11":[0.446,0.426],"12":[0.5,0.58],"13":[0.507,0.518],"14":[0.478,0.182],"15":[0.5,0.33],"16":[0.356,0.477],"17":[0.497,0.51],"19":[0.455,0.35],"04":[0.51,0.364],"03":[0.34,0.42],"03b":[0.477,0.347],"08":[0.404,0.474],"18":[0.615,0.447],"01":[0.576,0.165],"02":[0.478,0.447],"05":[0.5,0.5],"06":[0.342,0.183],"07":[0.5,0.5],"09":[0.421,0.45]};
   var calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   function rnd(seed) { var a = seed; return function () { a = (a * 16807) % 2147483647; return a / 2147483647; }; }
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
@@ -64,10 +64,10 @@
     var bg = document.createElement('div'); bg.setAttribute('aria-hidden', 'true');
     bg.style.cssText = 'position:absolute;inset:-6% -8%;pointer-events:none;background:radial-gradient(60% 56% at 50% 46%, rgba(255,246,250,.95) 0%, rgba(247,232,247,.78) 46%, rgba(239,230,250,0) 100%);';
     host.appendChild(bg);
-    var cv = document.createElement('canvas'); cv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y;';
+    var cv = document.createElement('canvas'); cv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y;-webkit-mask-image:linear-gradient(180deg,#000 88%,transparent 100%);mask-image:linear-gradient(180deg,#000 88%,transparent 100%);';
     cv.setAttribute('role', 'img'); cv.setAttribute('aria-label', 'A blossom tree with photos hanging from it. Drag to turn it, tap a photo to see it large.');
     host.appendChild(cv);
-    var hint = document.createElement('div'); hint.style.cssText = 'position:absolute;left:0;right:0;bottom:6px;text-align:center;font:italic 500 19px/1 "Cormorant Garamond",serif;color:#b04f78;pointer-events:none;transition:opacity .8s;'; hint.textContent = 'drag to turn the tree, tap a photo to see it close'; host.appendChild(hint);
+    var hint = document.createElement('div'); hint.style.cssText = 'position:absolute;left:0;right:0;top:100%;margin-top:8px;text-align:center;font:italic 500 19px/1 "Cormorant Garamond",serif;color:#b04f78;pointer-events:none;transition:opacity .8s;text-shadow:0 0 12px rgba(255,246,250,.95),0 0 4px rgba(255,246,250,.9);'; hint.textContent = 'drag to turn the tree, tap a photo to see it close'; host.appendChild(hint);
     function btn(txt, label, right, fn) { var b = document.createElement('button'); b.type = 'button'; b.textContent = txt; b.setAttribute('aria-label', label); b.style.cssText = 'position:absolute;top:10px;right:' + right + 'px;width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(214,87,126,.55);background:rgba(255,250,252,.8);color:#b4325f;font:500 24px/1 "Cormorant Garamond",serif;cursor:pointer;box-shadow:0 6px 16px -8px rgba(120,40,80,.5);'; b.addEventListener('click', fn); host.appendChild(b); return b; }
     var over = document.createElement('div'); over.style.cssText = 'position:absolute;inset:-4% -6%;display:none;align-items:center;justify-content:center;background:rgba(40,22,52,.78);border-radius:28px;cursor:zoom-out;opacity:0;transition:opacity .5s;z-index:5;'; over.setAttribute('role', 'dialog'); over.setAttribute('aria-label', 'Photo, large'); var big = document.createElement('img'); big.alt = ''; big.style.cssText = 'max-width:88%;max-height:88%;border:10px solid #fffdf9;border-bottom-width:28px;box-shadow:0 30px 80px rgba(0,0,0,.6);transform:scale(.8) rotate(-2deg);transition:transform .7s cubic-bezier(.16,1,.3,1);'; over.appendChild(big); host.appendChild(over);
     function openBig(c) { big.src = 'media/photos/' + c.id + '.jpg'; over.style.display = 'flex'; requestAnimationFrame(function () { over.style.opacity = '1'; big.style.transform = 'scale(1) rotate(0)'; }); }
@@ -102,7 +102,7 @@
       var X = x * cy - z * sy, Z = x * sy + z * cy, Y = y - .75;
       var Y2 = Y * cp - Z * sp2, Z2 = Y * sp2 + Z * cp;
       var k = (H * 1.38) / (Z2 + dist);
-      return [W / 2 + X * k, H * .76 - Y2 * k, Z2, k];
+      return [W / 2 + X * k, H * .6 - Y2 * k, Z2, k];
     }
     function drawCard(c, it, t, isHover) {
       var k = it.p[3], sq = .62 + .38 * Math.abs(it.face), Wb = .34 * k;
@@ -130,7 +130,7 @@
       // soft shadow and fallen petals under the tree
       var sg = ctx.createRadialGradient(base[0], base[1], 4, base[0], base[1], gk * 1.3); sg.addColorStop(0, 'rgba(92,48,78,.26)'); sg.addColorStop(1, 'rgba(92,48,78,0)');
       ctx.save(); ctx.translate(base[0], base[1]); ctx.scale(1, .32); ctx.translate(-base[0], -base[1]); ctx.fillStyle = sg; ctx.fillRect(base[0] - gk * 1.4, base[1] - gk * 1.4, gk * 2.8, gk * 2.8); ctx.restore();
-      scene.ground.forEach(function (g) { var q = proj(g[0], 0, g[1]); ctx.save(); ctx.translate(q[0], q[1]); ctx.rotate(g[2]); ctx.scale(1, .45); ctx.globalAlpha = .75; ctx.fillStyle = '#f6b7cc'; ctx.beginPath(); ctx.ellipse(0, 0, q[3] * .028 * g[3], q[3] * .016 * g[3], 0, 0, 6.2832); ctx.fill(); ctx.restore(); });
+      scene.ground.forEach(function (g) { var q = proj(g[0], 0, g[1]); ctx.save(); ctx.translate(q[0], q[1]); ctx.rotate(g[2]); ctx.scale(1, .6); ctx.globalAlpha = .8; ctx.fillStyle = '#f6b7cc'; ctx.beginPath(); ctx.ellipse(0, 0, q[3] * .03 * g[3], q[3] * .022 * g[3], 0, 0, 6.2832); ctx.fill(); ctx.restore(); });
       ctx.globalAlpha = 1;
       var items = [];
       scene.br.forEach(function (b) { for (var i = 1; i < b.p.length; i++) { var a = proj.apply(null, b.p[i - 1]), c = proj.apply(null, b.p[i]); items.push({ z: (a[2] + c[2]) / 2, a: a, c: c, w: b.w * (1 - i / b.p.length * .5), tr: b.trunk }); } });

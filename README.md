@@ -49,7 +49,7 @@ Set in `site/index.html` between scenes. Please verify wording against your own 
 | Scene break | Quote | Credit |
 |---|---|---|
 | after the hero | I cannot exist without you. | John Keats, letter to Fanny Brawne, 1819 |
-| before first light | Le coeur a ses raisons que la raison ne connait point. | Blaise Pascal, Pensees, 1670 |
+| before first light | La lune blanche luit dans les bois… Ô bien-aimée. | Paul Verlaine, La Bonne Chanson, 1870 |
 | before keepsakes | Poesia... eres tu. | Gustavo Adolfo Becquer, Rimas, 1871 |
 | before the song | Ishq par zor nahin hai, ye woh aatish Ghalib (Hindi and Urdu script) | Mirza Ghalib, ghazal, 19th century |
 | before the stars | Amor, ch'a nullo amato amar perdona. | Dante, Inferno V, c. 1320 |
@@ -78,3 +78,6 @@ The page switches to a lighter mode by itself on weak devices or when frames run
 
 ## Photos, third pass (25 Oct)
 04 (card at the right of the keepsakes), 08 (big frame under the tree, couple selfie) and 18 (album art on the song sleeve) are placed from `media from me`. 03 is waiting for a photo. Every photo is cropped around the face (focus points in site/tree3d.js and the focus fields in index.html). Heart photo: site/media/photos/heart.jpg appears inside the star heart when all five stars are lit.
+
+## Quote audit (25 Oct)
+Every quote is now addressed to one beloved person: Keats (letter to Fanny Brawne), Verlaine (to his bride), Bécquer, Ghalib (the beloved's glance), Dante (Vita Nuova, to Beatrice), Donne, Austen (Wentworth's letter), Browning, Hwang Jini, Catullus (Carmen 5). Replaced as too general or mismatched: Pascal, Ghalib's fire couplet, Dante Inferno V, Emily Brontë ("his and mine"), Catullus naming Lesbia.
