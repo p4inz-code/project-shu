@@ -2281,9 +2281,10 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
     clearInterval(this.iv);
     const sg = SONGS[this.songI || 0], src = sg.have ? sg.src : '';
     if (src) {
-      const a = new Audio(); a.preload = 'metadata'; a.src = src;
-      a.addEventListener('loadedmetadata', () => { this.setState({ dur: a.duration || SONG_PREVIEW }); if (this.pend != null && a.duration) { a.currentTime = this.pend * a.duration; this.pend = null; } });
+      const a = new Audio(); a.preload = 'auto'; a.src = src;
+      a.addEventListener('loadedmetadata', () => { this.setState({ dur: a.duration || SONG_PREVIEW }); if (this.pend != null && a.duration) { if (a.seekable.length && a.seekable.end(a.seekable.length - 1) >= this.pend * a.duration) { a.currentTime = this.pend * a.duration; this.pend = null; } } });
       a.addEventListener('timeupdate', () => this.onTime(a.currentTime));
+      a.addEventListener('progress', () => { if (this.pend != null && a.duration && a.seekable.length && a.seekable.end(a.seekable.length - 1) >= this.pend * a.duration) { a.currentTime = this.pend * a.duration; this.pend = null; } });
       a.addEventListener('ended', () => this.songEnd());
       a.addEventListener('error', () => { this.audio = null; this.setState({ playing:false, audioErr:true }); this.spin(false); });
       a.muted = !this.state.sound; this.audio = a;
@@ -2324,7 +2325,7 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
     const f = ct / PREVIEW_DUR * SONGS.length, si = Math.min(SONGS.length - 1, Math.floor(f)), fr = f - si;
     if (si === (this.songI || 0)) this.seek(fr * this.state.dur); else this.loadSong(si, this.state.playing, fr);
   }
-  seek(t) { t = clamp(t, 0, this.state.dur); if (this.audio) this.audio.currentTime = t; this.setState({ t }); }
+  seek(t) { t = clamp(t, 0, this.state.dur); const a = this.audio; if (a) { const sk = a.seekable, mx = sk.length ? sk.end(sk.length - 1) : 0; if (t > mx + .5) t = Math.max(mx - .3, 0); a.currentTime = t; } this.setState({ t }); }
   spin(on) {
     this.bars(on);
     const d = this.discRef.current; if (!d || !d.animate) return;
