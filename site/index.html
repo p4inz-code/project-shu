@@ -74,6 +74,7 @@ img {-webkit-user-drag:none; user-drag:none;}
 @keyframes credKb{from{scale:1;translate:0 0}to{scale:1.08;translate:-1.2% -1%}}
 @media (prefers-reduced-motion: reduce){[data-credbg]{animation:none}}
 [data-perf="lite"] [data-credbg]{animation:none; filter:none !important;}
+[data-perf="lite"] [data-songbg]{display:none;}
 .alive2 g[data-r="grow"]{transform-box:fill-box; transform-origin:center; animation:flSway 5s ease-in-out infinite alternate;}
 .alive2 g[data-r="grow"]:nth-of-type(2n){animation-duration:6.2s; animation-delay:-1.8s;}
 .alive2 g[data-r="grow"]:nth-of-type(3n){animation-duration:4.2s; animation-delay:-3s;}
@@ -748,22 +749,23 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
 </section>
 
 <section id="score" data-cine="" data-tapfx="" data-burst="hearts" data-world="0" data-screen-label="06 Soundtrack" style="position:relative; overflow:hidden; background:linear-gradient(180deg, color-mix(in oklch, var(--d2,#efe6fa) 70%, var(--d1,#fbe5ea)) 0%, #c98a8f 9%, #5e3550 22%, #2e1a33 44%, #1f1428 100%); color:#f6f2fb; padding:clamp(180px,28vh,300px) clamp(20px,6vw,96px) clamp(120px,20vh,220px);">
+  <div aria-hidden="true" data-songbg style="position:absolute; inset:0; overflow:hidden; pointer-events:none; opacity:.3; -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 82%,transparent 100%); mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 82%,transparent 100%);"><sc-for list="{{ arts }}" as="a" hint-placeholder-count="7"><img src="{{ a.src }}" alt="" aria-hidden="true" loading="lazy" decoding="async" style="position:absolute; inset:-6%; width:112%; height:112%; object-fit:cover; object-position:{{ a.pos }}; filter:blur(36px) saturate(1.2); opacity:{{ a.bgop }}; transition:opacity 1.6s ease;"></sc-for></div>
   <canvas data-fx="notes" aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none; opacity:.7;"></canvas>
   <div aria-hidden="true" style="position:absolute; left:50%; top:46%; width:min(140vw,1400px); aspect-ratio:1; transform:translate(-50%,-50%); background:radial-gradient(circle, rgba(240,180,94,.16), transparent 60%); pointer-events:none;"></div>
   <div style="position:relative; max-width:1120px; margin:0 auto;">
     <div style="display:flex; flex-direction:column; gap:16px;">
-      <div style="display:flex; align-items:baseline; gap:10px; font:italic 500 16px/1 'Cormorant Garamond', serif; letter-spacing:.03em; text-transform:none; white-space:nowrap; color:#d9bfd0;"><span data-r="fade" data-d="200">a song, for us</span></div>
+      <div style="display:flex; align-items:baseline; gap:10px; font:italic 500 16px/1 'Cormorant Garamond', serif; letter-spacing:.03em; text-transform:none; white-space:nowrap; color:#d9bfd0;"><span data-r="fade" data-d="200">seven songs, for us</span></div>
       <h2 style="margin:0; font:400 clamp(46px,11vw,128px)/0.92 'Bodoni Moda', serif; letter-spacing:-0.035em;">
-        <span style="display:block; overflow:hidden; padding-bottom:.08em;"><span data-r="line" style="display:block;">A song that</span></span>
-        <span style="display:block; overflow:hidden; padding-bottom:.12em;"><span data-r="line" data-d="140" style="display:block; font:400 1em/1 'Pinyon Script', cursive; letter-spacing:0; color:#f3a9bd; padding-left:.6em;">sounds like us.</span></span>
+        <span style="display:block; overflow:hidden; padding-bottom:.08em;"><span data-r="line" style="display:block;">Seven songs that</span></span>
+        <span style="display:block; overflow:hidden; padding-bottom:.12em;"><span data-r="line" data-d="140" style="display:block; font:400 1em/1 'Pinyon Script', cursive; letter-spacing:0; color:#f3a9bd; padding-left:.6em;">sound like us.</span></span>
       </h2>
     </div>
 
     <div style="margin-top:clamp(48px,8vh,96px); display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap:clamp(48px,7vw,96px); align-items:center;">
       <div data-r="rise" style="position:relative; width:100%; max-width:520px; justify-self:center;">
         <div aria-hidden="true" style="position:absolute; left:-6%; top:-9%; width:62%; aspect-ratio:1; overflow:hidden; rotate:-8deg; background:linear-gradient(150deg, #f6cdd8, #d98aa2); box-shadow:0 30px 60px -28px rgba(0,0,0,.7); padding:clamp(12px,3vw,18px); display:flex; flex-direction:column; justify-content:space-between; color:#5a2236;">
-          <img src="media/photos/18.jpg" loading="lazy" decoding="async" alt="" aria-hidden="true" style="position:absolute; left:-70%; top:-52%; width:165%; height:auto; max-width:none;"><div aria-hidden="true" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(90,20,60,0) 55%, rgba(90,20,60,.55) 100%);"></div>
-          <div style="position:absolute; left:9%; bottom:7%; z-index:2; font:400 clamp(34px,8vw,46px)/1 'Pinyon Script', cursive; color:#fff; letter-spacing:0; text-shadow:0 2px 14px rgba(60,10,40,.8);">on repeat<span style="display:block; margin-top:4px; width:70%; height:2px; background:repeating-linear-gradient(90deg,#fff 0 5px,transparent 5px 9px); opacity:.8;"></span></div>
+          <sc-for list="{{ arts }}" as="a" hint-placeholder-count="7"><img src="{{ a.src }}" loading="lazy" decoding="async" alt="" aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:{{ a.pos }}; transform-origin:{{ a.pos }}; transform:scale({{ a.sc }}); opacity:{{ a.op }}; transition:opacity 1.2s ease, transform 7s ease;"></sc-for><div aria-hidden="true" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(90,20,60,0) 55%, rgba(90,20,60,.55) 100%);"></div>
+          <div style="position:absolute; left:9%; right:8%; bottom:7%; z-index:2; font:400 clamp(24px,5.4vw,32px)/1.05 'Pinyon Script', cursive; color:#fff; letter-spacing:0; text-shadow:0 2px 14px rgba(60,10,40,.8);">{{ trackTitle }}<span style="display:block; margin-top:4px; width:70%; height:2px; background:repeating-linear-gradient(90deg,#fff 0 5px,transparent 5px 9px); opacity:.8;"></span></div>
         </div>
                 <div style="position:relative; margin-left:32%; margin-top:0; aspect-ratio:1.08; border-radius:18px; background:linear-gradient(160deg, #6b4535 0%, #4a2e25 55%, #3a231d 100%); box-shadow:0 50px 90px -40px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,220,190,.18), inset 0 -6px 14px rgba(0,0,0,.35);">
           <div aria-hidden="true" style="position:absolute; inset:0; border-radius:18px; background:repeating-linear-gradient(92deg, rgba(255,220,190,.035) 0 2px, transparent 2px 9px); pointer-events:none;"></div>
@@ -780,7 +782,7 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
             </div>
             <div aria-hidden="true" style="position:absolute; left:-6%; top:-6%; width:112%; height:112%; pointer-events:none;"><sc-for list="{{ ringFlowers }}" as="rf" hint-placeholder-count="16"><span style="position:absolute; left:{{ rf.x }}%; top:{{ rf.y }}%; font:400 17px/1 'Cormorant Garamond', serif; transform:translate(-50%,-50%) scale({{ rf.sc }}); color:{{ rf.col }}; text-shadow:{{ rf.glow }}; transition:transform .7s cubic-bezier(.34,1.56,.64,1), color .6s, text-shadow .6s;">✿</span></sc-for></div>
             <div aria-hidden="true" style="position:absolute; left:-6%; top:-6%; width:112%; height:112%; pointer-events:none;">
-              <sc-for list="{{ cues }}" as="c" hint-placeholder-count="9"><span style="position:absolute; left:{{ c.rx }}%; top:{{ c.ry }}%; width:6px; height:6px; margin:-3px; border-radius:50%; background:{{ c.dot }}; box-shadow:0 0 0 2px #4a2e25; transition:background .4s;"></span></sc-for>
+              <sc-for list="{{ cues }}" as="c" hint-placeholder-count="9"><span style="position:absolute; left:{{ c.rx }}%; top:{{ c.ry }}%; opacity:{{ c.dop }}; width:6px; height:6px; margin:-3px; border-radius:50%; background:{{ c.dot }}; box-shadow:0 0 0 2px #4a2e25; transition:background .4s;"></span></sc-for>
             </div>
             <div aria-hidden="true" style="position:absolute; right:-24%; top:-4%; width:52%; height:6px; z-index:2; border-radius:3px; background:linear-gradient(90deg, #b9aa94, #efe3cf); transform-origin:92% 50%; transform:{{ armRot }}; transition:transform 1.2s cubic-bezier(.16,1,.3,1); box-shadow:0 8px 12px -4px rgba(0,0,0,.6);"><span style="position:absolute; left:-6px; top:-5px; width:16px; height:16px; border-radius:3px; background:#1a1120;"></span><span style="position:absolute; right:-8px; top:-9px; width:24px; height:24px; border-radius:50%; background:#efe3cf; box-shadow:inset 0 0 0 6px #b9aa94, 0 4px 8px rgba(0,0,0,.5);"></span></div>
             <button onClick="{{ togglePlay }}" aria-label="{{ playLabel }}" style="position:absolute; left:50%; top:50%; width:36%; height:36%; margin:-18% 0 0 -18%; z-index:3; border-radius:50%; border:0; background:transparent; color:#5a2236; display:grid; place-items:center; cursor:pointer; transition:transform .4s cubic-bezier(.16,1,.3,1);" style-active="transform:scale(.9);">
@@ -814,12 +816,14 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
           <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; font:italic 500 19px/1 'Cormorant Garamond', serif; font-variant-numeric:tabular-nums; color:#d9bfd0;">
             <span>{{ timeStr }}</span>
             <div style="display:flex; align-items:center; gap:10px;">
+              <button onClick="{{ prevSong }}" aria-label="Previous song" style="width:46px; height:46px; border-radius:50%; border:1.5px solid rgba(247,193,207,.65); background:transparent; color:#f6f2fb; font:400 26px/1 'Cormorant Garamond', serif; cursor:pointer; transition:background .3s;" style-hover="background:rgba(255,230,210,.1);">‹</button>
               <button onClick="{{ back10 }}" aria-label="Back 10 seconds" style="width:50px; height:46px; border-radius:58% 42% 55% 45% / 46% 56% 44% 54%; border:1.5px solid rgba(247,193,207,.65); background:transparent; color:#f6f2fb; font:italic 500 17px/1 'Cormorant Garamond', serif; cursor:pointer; transition:background .3s;" style-hover="background:rgba(255,230,210,.1);">↺ 10</button>
               <button onClick="{{ togglePlay }}" aria-label="{{ playLabel }}" style="position:relative; isolation:isolate; width:74px; height:74px; border:0; background:transparent; color:#b4325f; display:grid; place-items:center; cursor:pointer; transition:transform .4s cubic-bezier(.16,1,.3,1);" style-active="transform:scale(.92);"><svg viewBox="-30 -30 60 60" aria-hidden="true" style="position:absolute; inset:0; z-index:-1; width:100%; height:100%; overflow:visible; filter:drop-shadow(0 8px 12px rgba(120,30,70,.45));"><g fill="#fcd3df" stroke="#e98aa6" stroke-width="1"><ellipse cy="-17" rx="9.5" ry="13"/><ellipse cy="-17" rx="9.5" ry="13" transform="rotate(72)"/><ellipse cy="-17" rx="9.5" ry="13" transform="rotate(144)"/><ellipse cy="-17" rx="9.5" ry="13" transform="rotate(216)"/><ellipse cy="-17" rx="9.5" ry="13" transform="rotate(288)"/></g><circle r="10.5" fill="#fff4f7" stroke="#f0b3c6" stroke-width="1"/></svg>
                 <sc-if value="{{ playing }}"><span style="display:flex; gap:4px;"><span style="width:4px; height:16px; background:currentColor; border-radius:1px;"></span><span style="width:4px; height:16px; background:currentColor; border-radius:1px;"></span></span></sc-if>
                 <sc-if value="{{ notPlaying }}"><span style="width:0; height:0; margin-left:4px; border-left:14px solid currentColor; border-top:9px solid transparent; border-bottom:9px solid transparent;"></span></sc-if>
               </button>
               <button onClick="{{ fwd10 }}" aria-label="Forward 10 seconds" style="width:50px; height:46px; border-radius:58% 42% 55% 45% / 46% 56% 44% 54%; border:1.5px solid rgba(247,193,207,.65); background:transparent; color:#f6f2fb; font:italic 500 17px/1 'Cormorant Garamond', serif; cursor:pointer; transition:background .3s;" style-hover="background:rgba(255,230,210,.1);">10 ↻</button>
+              <button onClick="{{ nextSong }}" aria-label="Next song" style="width:46px; height:46px; border-radius:50%; border:1.5px solid rgba(247,193,207,.65); background:transparent; color:#f6f2fb; font:400 26px/1 'Cormorant Garamond', serif; cursor:pointer; transition:background .3s;" style-hover="background:rgba(255,230,210,.1);">›</button>
             </div>
             <span>{{ durStr }}</span>
           </div>
@@ -830,7 +834,19 @@ section.qin[data-qs="9"]::before{background:radial-gradient(circle at 50% 50%,rg
 
     <div style="margin-top:clamp(64px,10vh,110px); display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap:clamp(40px,6vw,80px); align-items:start;">
       <div data-r="rise" style="display:flex; flex-direction:column;">
-        <div style="padding-bottom:14px; border-bottom:1px solid rgba(255,230,210,.16); font:italic 500 16px/1 'Cormorant Garamond', serif; letter-spacing:.03em; text-transform:none; color:#d9bfd0;">Where the song takes you</div>
+        <div style="padding-bottom:14px; border-bottom:1px solid rgba(255,230,210,.16); font:italic 500 16px/1 'Cormorant Garamond', serif; letter-spacing:.03em; text-transform:none; color:#d9bfd0;">The playlist, in the order I would play it</div>
+        <sc-for list="{{ songs }}" as="sg" hint-placeholder-count="7"><button onClick="{{ sg.go }}" aria-label="{{ sg.aria }}" aria-current="{{ sg.cur }}" style="display:grid; grid-template-columns:52px minmax(0,1fr) auto; align-items:center; gap:14px; width:100%; min-height:70px; padding:9px 12px; border:0; border-bottom:1px solid rgba(255,230,210,.08); background:{{ sg.bg }}; color:#f6f2fb; text-align:left; cursor:pointer; transition:background .4s;" style-hover="background:rgba(255,230,210,.06);"><span aria-hidden="true" style="position:relative; display:block; width:52px; height:52px; border-radius:50%; overflow:hidden; background:#3a2540; box-shadow:0 0 0 2px {{ sg.ring }}; transition:box-shadow .4s;"><img src="{{ sg.src }}" loading="lazy" decoding="async" alt="" style="display:block; width:100%; height:100%; object-fit:cover; object-position:{{ sg.pos }}; transform:scale(1.5); transform-origin:{{ sg.pos }};"></span><span style="min-width:0;"><span style="display:block; font:400 clamp(20px,4.6vw,24px)/1.15 'Bodoni Moda', serif; color:#f6f2fb;">{{ sg.title }}</span><span style="display:block; margin-top:4px; font:500 10.5px/1.4 'Geist', sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#b8afd6;">{{ sg.who }}</span></span><span aria-hidden="true" style="font:italic 500 17px/1 'Cormorant Garamond', serif; color:#f0b45e;">{{ sg.mark }}</span></button></sc-for>
+      </div>
+      <div data-r="tilt" data-d="200" style="justify-self:center; max-width:26em; padding:24px 26px; background:#fffaf5; box-shadow:0 30px 60px -28px rgba(0,0,0,.8); rotate:-1.4deg; font:400 clamp(12.5px,3.2vw,14px)/1.75 'Homemade Apple', cursive; color:#5a3a48;">
+        <div style="margin-bottom:10px; font:italic 500 15px/1 'Cormorant Garamond', serif; letter-spacing:.03em; text-transform:none; color:#d6577e;">Credits, with thanks</div>
+        <div style="margin-bottom:12px;">Every song here belongs to the people who made it. They play for one day, for one person, and nothing on this page is for sale. If one of them finds you too, please go and listen to the original.</div>
+        <sc-for list="{{ credits }}" as="cr" hint-placeholder-count="7"><div style="margin-top:8px;"><span style="color:#d6577e;">{{ cr.title }}.</span> {{ cr.line }}</div></sc-for>
+      </div>
+    </div>
+
+    <div style="margin-top:clamp(64px,10vh,110px); display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap:clamp(40px,6vw,80px); align-items:start;">
+      <div data-r="rise" style="display:flex; flex-direction:column;">
+        <div style="padding-bottom:14px; border-bottom:1px solid rgba(255,230,210,.16); font:italic 500 16px/1 'Cormorant Garamond', serif; letter-spacing:.03em; text-transform:none; color:#d9bfd0;">Where the songs take you</div>
         <sc-for list="{{ cues }}" as="c" hint-placeholder-count="9"><button onClick="{{ c.go }}" style="display:grid; grid-template-columns:40px minmax(0,1fr) auto; align-items:center; gap:12px; min-height:48px; padding:0 12px; border:0; border-bottom:1px solid rgba(255,230,210,.08); background:{{ c.rowBg }}; color:{{ c.rowCol }}; text-align:left; cursor:pointer; transition:background .4s, color .4s, padding .4s;" style-hover="padding-left:20px;"><span style="font:italic 400 15px/1 'Bodoni Moda', serif; color:#f0b45e;">{{ c.n }}</span><span style="font:italic 500 23px/1.2 'Cormorant Garamond', serif;">{{ c.label }}</span><span style="font:italic 500 19px/1 'Cormorant Garamond', serif; font-variant-numeric:tabular-nums; opacity:.7;">{{ c.time }}</span></button></sc-for>
         <button onClick="{{ toggleFollow }}" aria-pressed="{{ follow }}" style="margin-top:18px; display:flex; align-items:center; gap:12px; min-height:44px; padding:0; background:transparent; border:0; color:#f6f2fb; cursor:pointer; font:italic 500 22px/1.3 'Cormorant Garamond', serif; text-align:left;">
           <span aria-hidden="true" style="flex:none; font:400 28px/1 'Cormorant Garamond', serif; color:{{ followTrack }}; transition:color .5s, transform .5s; text-shadow:0 0 14px rgba(243,169,189,.5);">♥</span>
@@ -1305,13 +1321,36 @@ const WHISPERS = [
   { x:73, y:36.4, text:'I don’t drink. If that ever changes, it will be red wine, and you’ll be across the table.' },
   { x:67, y:10.4, text:'I still get butterflies. Please don’t tell anyone.' }
 ];
-const TRACK_TITLE = 'Saanson Ki Mala';
-const TRACK_NOTE = 'Nusrat Fateh Ali Khan. Of all the songs that remind me of you, this is the one I come back to most.';
-const LYRICS = [
-  { t:0, line:'A quiet opening, for how calm things get when you’re around.' },
-  { t:46, line:'For the long drives and the late calls.' },
-  { t:108, line:'This is the part that always reminds me of your smile.' },
-  { t:166, line:'Swap these lines for moments from our real song.' }
+const SONG_PREVIEW = 30;
+const SONGS = [
+  { title:'Zulfein', who:'Mehul Mahesh', img:'16', fx:.356, fy:.477, have:false, src:'media/audio/01-zulfein.mp3',
+    line:'For the strand of hair you keep fixing, and the way I watch you do it.',
+    liner:'Mehul Mahesh sings it, DJ Aynik produced it. I think of your hair every time the chorus starts.',
+    credit:'Mehul Mahesh, produced by DJ Aynik. Hindi single, 2025.' },
+  { title:'Aarzu', who:'Asim Azhar', img:'18', fx:.615, fy:.447, have:false, src:'media/audio/02-aarzu.mp3',
+    line:'One wish, and it has your name on it.',
+    liner:'Aarzu means wish. Mine has had your name on it since the day we met.',
+    credit:'Asim Azhar, with Noor Khan and Madhurxo. Single, 2026.' },
+  { title:'Bairan', who:'Banjaare', img:'04', fx:.51, fy:.364, have:false, src:'media/audio/03-bairan.mp3',
+    line:'For the nights that felt long, until your name lit up my phone.',
+    liner:'Banjaare wrote the ache of missing someone. I only feel it when you are far.',
+    credit:'Banjaare, the Haryanvi duo Sumit and Anuj. Single, 2026.' },
+  { title:'Madira', who:'Hardik Bhardwaj × Scxtch', img:'17', fx:.497, fy:.51, have:false, src:'media/audio/04-madira.mp3',
+    line:'Red wine, a table for two, and you across from me.',
+    liner:'Madira means wine. I would rather get dizzy on your laugh, and I would rather write it here than say it out loud.',
+    credit:'Hardik Bhardwaj and Scxtch. Single, 2026.' },
+  { title:'Saanson Ki Mala', who:'Madhur Sharma', img:'11', fx:.446, fy:.426, have:false, src:'media/audio/05-saanson-ki-mala.mp3',
+    line:'Every breath is a bead, and every bead says your name.',
+    liner:'Nusrat Fateh Ali Khan made the qawwali. Madhur Sharma sings this version. Every breath is a bead and every bead is you.',
+    credit:'Sung by Madhur Sharma, from Mirzapur: The Movie. Recreated from the qawwali by Nusrat Fateh Ali Khan.' },
+  { title:'Ishq Chaliya', who:'Sachet Tandon · Parampara Thakur', img:'heart', fx:.5, fy:.42, have:false, src:'media/audio/06-ishq-chaliya.mp3',
+    line:'Love set out one day, and it found its way to you.',
+    liner:'Love set out once and found its way to you. So did I.',
+    credit:'Sachet Tandon and Parampara Thakur. From Pal Pal Dil Ke Paas, 2019.' },
+  { title:'Tera Hone Laga Hoon', who:'Atif Aslam · Alisha Chinai', img:'12', fx:.5, fy:.58, have:false, src:'media/audio/07-tera-hone-laga-hoon.mp3',
+    line:'Slowly, happily, completely, I have become yours.',
+    liner:'Atif Aslam and Alisha Chinai sing it. Somewhere along the way I became yours, and I am in no hurry to change that.',
+    credit:'Atif Aslam and Alisha Chinai. Music by Pritam, lyrics by Ashish Pandit. From Ajab Prem Ki Ghazab Kahani, 2009.' }
 ];
 const WISHES = ['that this year goes easy on you','that you laugh until your cheeks hurt','for more late calls that turn into mornings','that you get to tick off everything on your list','that you always feel this loved','for a hundred more birthdays, together','that you remember how much you matter to me'];
 const PROMISES = ['A wedding day we’ll still be talking about years later','Two people who keep each other happy on the good days and the hard ones','A quiet place that is always yours'];
@@ -1453,7 +1492,7 @@ class Ambient {
 
 class Component extends DCLogic {
   state = { unlocked:false, phrase:'', gateErr:false, gateMsg:'write something first', stage2:false, seq:[], fails:0, gateOk:false, msg2:'', twTries:0, title:false, menuOpen:false, copied:false, reloadArm:false, full:false, hint:false, calm:false, sound:true, moon:0, awake:false, taps:0, lit:STARS.map(() => false), last:-1,
-    lb:-1, flipped:false, playing:false, t:0, dur:PREVIEW_DUR, follow:true, audioErr:false, toast:'', secretEnd:false, holding:false, sec:[false,false,false], sel:0, opened:MEDIA.map(() => false), letterOpen:false, lanterns:0, lanternsDone:false };
+    lb:-1, flipped:false, playing:false, t:0, dur:SONG_PREVIEW, song:0, follow:true, audioErr:false, toast:'', secretEnd:false, holding:false, sec:[false,false,false], sel:0, opened:MEDIA.map(() => false), letterOpen:false, lanterns:0, lanternsDone:false };
   rootRef = React.createRef(); gsRef = React.createRef(); twRef = React.createRef(); gateRef = React.createRef(); progRef = React.createRef(); discRef = React.createRef(); grainRef = React.createRef(); typedRef = React.createRef(); eqRef = React.createRef(); lanternRef = React.createRef(); inspRef = React.createRef(); lyricRef = React.createRef(); barsRef = React.createRef(); envRef = React.createRef(); starRef = React.createRef();
   world = 0; override = null; natW = 0; smooth = {}; anims = []; fx = []; amb = new Ambient();
 
@@ -2244,16 +2283,16 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
   setupAudio() {
     if (this.audio) { this.audio.pause(); this.audio = null; }
     clearInterval(this.iv);
-    const src = this.props.trackSrc;
+    const sg = SONGS[this.songI || 0], src = sg.have ? sg.src : '';
     if (src) {
       const a = new Audio(); a.preload = 'metadata'; a.src = src;
-      a.addEventListener('loadedmetadata', () => this.setState({ dur: a.duration || PREVIEW_DUR }));
+      a.addEventListener('loadedmetadata', () => { this.setState({ dur: a.duration || SONG_PREVIEW }); if (this.pend != null && a.duration) { a.currentTime = this.pend * a.duration; this.pend = null; } });
       a.addEventListener('timeupdate', () => this.onTime(a.currentTime));
-      a.addEventListener('ended', () => this.pause());
+      a.addEventListener('ended', () => this.songEnd());
       a.addEventListener('error', () => { this.audio = null; this.setState({ playing:false, audioErr:true }); this.spin(false); });
       a.muted = !this.state.sound; this.audio = a;
     }
-    this.setState({ t:0, playing:false, dur:PREVIEW_DUR, audioErr:false });
+    this.setState({ t:0, playing:false, dur:SONG_PREVIEW, audioErr:false });
   }
   play() {
     if (!this.state.sound) { this.soundOn = true; this.setState({ sound:true }); if (this.audio) this.audio.muted = false; this.amb.start(.05); }
@@ -2262,24 +2301,39 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
     this.setState({ playing:true });
     clearInterval(this.iv);
     this.iv = setInterval(() => {
-      const t = this.state.t + 0.25;
-      if (t >= this.state.dur) { this.setState({ t:this.state.dur }); this.pause(); }
+      const t = (this.state.t >= this.state.dur ? 0 : this.state.t) + 0.25;
+      if (t >= this.state.dur) { this.setState({ t:this.state.dur }); this.songEnd(); }
       else this.onTime(t);
     }, 250);
   }
   pause() { if (this.audio) this.audio.pause(); clearInterval(this.iv); this.setState({ playing:false }); this.spin(false); if (this.amb.on) this.amb.vol(.32); }
   onTime(t) {
-    const prev = this.state.t;
+    const si = this.songI || 0, dur = (this.audio && this.audio.duration) || SONG_PREVIEW;
+    const vt = (si + t / dur) / SONGS.length * PREVIEW_DUR, prev = this.lastVt == null ? vt : this.lastVt;
+    this.lastVt = vt;
     this.setState({ t });
-    const li = LYRICS.reduce((a, l, k) => (l.t <= t ? k : a), 0);
-    if (li !== this.lyricI) { this.lyricI = li; const el = this.lyricRef.current; if (el && el.animate && !this.state.calm) el.animate([{ opacity:0, filter:'blur(8px)', translate:'0 10px' }, { opacity:1, filter:'blur(0px)', translate:'0 0' }], { duration:900, easing:E }); }
-    if (this.state.follow && this.state.playing && t > prev && t - prev < 2) { const c = CUES.find(c => c.t > prev && c.t <= t); if (c) this.scrollToId(c.id); }
+    if (si !== this.lyricI) { this.lyricI = si; const el = this.lyricRef.current; if (el && el.animate && !this.state.calm) el.animate([{ opacity:0, filter:'blur(8px)', translate:'0 10px' }, { opacity:1, filter:'blur(0px)', translate:'0 0' }], { duration:900, easing:E }); }
+    if (this.state.follow && this.state.playing && vt > prev && vt - prev < 2) { const c = CUES.find(c => c.t > prev && c.t <= vt); if (c) this.scrollToId(c.id); }
+  }
+  songEnd() { if ((this.songI || 0) < SONGS.length - 1) this.loadSong((this.songI || 0) + 1, true); else this.pause(); }
+  loadSong(i, auto, fr) {
+    i = (i + SONGS.length) % SONGS.length;
+    const was = this.state.playing; clearInterval(this.iv);
+    this.songI = i; this.pend = fr == null ? null : fr; this.lastVt = null;
+    this.setState({ song:i }); this.setupAudio();
+    if (fr != null && !this.audio) this.setState({ t: fr * SONG_PREVIEW });
+    if (auto || (auto === undefined && was)) this.play(); else { this.spin(false); }
+  }
+  jumpCue(ct) {
+    const f = ct / PREVIEW_DUR * SONGS.length, si = Math.min(SONGS.length - 1, Math.floor(f)), fr = f - si;
+    if (si === (this.songI || 0)) this.seek(fr * this.state.dur); else this.loadSong(si, this.state.playing, fr);
   }
   seek(t) { t = clamp(t, 0, this.state.dur); if (this.audio) this.audio.currentTime = t; this.setState({ t }); }
   spin(on) {
     this.bars(on);
     const d = this.discRef.current; if (!d || !d.animate) return;
     if (on && !this.state.calm) {
+      if (this.spinA) return;
       if (this.settle) { this.settle.cancel(); this.settle = null; }
       this.spinA = d.animate([{ transform:'rotate(0deg)' }, { transform:'rotate(360deg)' }], { duration:4800, iterations:Infinity });
     } else if (this.spinA) {
@@ -2319,13 +2373,18 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
     const showLabels = false;
     const lb = s.lb >= 0 ? this.media(s.lb) : this.media(0);
     const litCount = s.lit.filter(Boolean).length, allLit = litCount === STARS.length;
-    const activeCue = CUES.reduce((a, c, i) => (c.t <= s.t ? i : a), 0);
+    const vtNow = (s.song + (s.dur ? s.t / s.dur : 0)) / SONGS.length * PREVIEW_DUR, activeCue = CUES.reduce((a, c, i) => (c.t <= vtNow ? i : a), 0);
     const segs = STARS.slice(0, -1).map((a, i) => {
       const b = STARS[i + 1], dx = b.x - a.x, dy = b.y - a.y, on = s.lit[i] && s.lit[i + 1];
       return { x:a.x, y:a.y, len:Math.hypot(dx, dy).toFixed(2), ang:(Math.atan2(dy, dx) * 180 / Math.PI).toFixed(2), op: on ? (allLit ? .85 : .6) : .08, sx: on ? 1 : .2 };
     });
     const ms = {}; for (let i = 0; i < 9; i++) ms['m' + (i + 1)] = this.media(i); ms.anyKeep = !!(ms.m2.isImg || ms.m3.isImg || ms.m8.isImg || ms.m9.isImg);
-    const hasTrack = !!P.trackSrc && !s.audioErr;
+    const pos = g => (g.fx * 100).toFixed(1) + '% ' + (g.fy * 100).toFixed(1) + '%';
+    const arts = SONGS.map((g, i) => ({ src:'media/photos/' + g.img + '.jpg', pos:pos(g), op: i === s.song ? 1 : 0, bgop: i === s.song ? 1 : 0, sc: i === s.song ? 1.14 : 1 }));
+    const songs = SONGS.map((g, i) => ({ title:g.title, who:g.who, src:'media/photos/' + g.img + '.jpg', pos:pos(g), bg: i === s.song ? 'rgba(240,180,94,.12)' : 'transparent', ring: i === s.song ? '#f0b45e' : 'rgba(255,230,210,.2)', mark: i === s.song ? (s.playing ? 'playing' : 'ready') : '0' + (i + 1), cur: i === s.song ? 'true' : 'false', aria:'Play ' + g.title + ' by ' + g.who, go: () => this.loadSong(i, true) }));
+    const credits = SONGS.map(g => ({ title:g.title, line:g.credit }));
+    const prevSong = () => this.loadSong(s.song - 1), nextSong = () => this.loadSong(s.song + 1);
+    const cur = SONGS[s.song];
     const mq = list => list.map(m => ({ text:m.text, fill: m.outline ? 'transparent' : 'currentColor', stroke: m.outline ? '1px currentColor' : '0' }));
     const soundOn = s.sound && s.unlocked;
     return {
@@ -2336,7 +2395,7 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
       whispers: WHISPERS.map((w, i) => ({ i, x:w.x, y:w.y, d:3000 + i * 300, tap: () => this.toast(w.text) })),
       insp: { ...this.media(s.sel + 1), n:'0' + (s.sel + 1) },
       ringOff: (1 - s.t / s.dur).toFixed(4), seekFlowers: Array.from({ length:26 }, (_, i) => { const p = s.dur ? s.t / s.dur : 0, on = (i + .5) / 26 <= p, cur = !on && (i - .5) / 26 <= p; return { sc: on ? 1.2 : cur ? 1.55 : .72, col: on || cur ? '#f7a3bf' : 'rgba(255,230,210,.3)', glow: on || cur ? '0 0 10px rgba(247,150,180,.85)' : 'none' }; }), ringFlowers: Array.from({ length:16 }, (_, i) => { const a = i / 16 * 6.2832 - 1.5708, on = s.dur ? (i + .5) / 16 <= s.t / s.dur : false; return { x:(50 + 49.5 * Math.cos(a)).toFixed(2), y:(50 + 49.5 * Math.sin(a)).toFixed(2), sc: on ? 1.3 : .7, col: on ? '#f7a3bf' : 'rgba(255,230,210,.28)', glow: on ? '0 0 10px rgba(247,150,180,.9)' : 'none' }; }), playHint: !s.playing && s.t === 0,
-      lyricNow: LYRICS.reduce((a, l) => (l.t <= s.t ? l : a), LYRICS[0]).line, dedication: TRACK_NOTE, fwd10: () => this.seek(s.t + 10),
+      lyricNow: cur.line, dedication: cur.liner, fwd10: () => this.seek(s.t + 10),
       threadsOld: STARS.map((p, i) => ({ x:p.x, y:p.y, h:(88 - p.y).toFixed(1), by:88, sy: s.lit[i] ? 1 : 0, op: s.lit[i] ? 1 : 0, bs: s.lit[i] ? 1 : 0, br: s.lit[i] ? '0deg' : '-90deg' })),
       starDots: STARS.map((_, i) => ({ bg: s.lit[i] ? '#f6f2fb' : 'rgba(205,191,240,.25)', glow: s.lit[i] ? '0 0 8px 2px rgba(205,191,240,.7)' : 'none' })),
       sealed: !s.letterOpen, letterOpen: s.letterOpen, openLetter:this.openLetter, foldLetter: () => { this.opening = false; this.setState({ letterOpen:false }); },
@@ -2391,15 +2450,15 @@ const photos = [...root.querySelectorAll('[data-slot-id]')].filter(el => !/^(fil
       lbOpen: s.lb >= 0, lb, lbFlip: s.flipped ? 'rotateY(180deg)' : 'rotateY(0deg)', flipLabel: s.flipped ? 'Turn it back' : 'Turn it over',
       closeLb:this.closeLb, stop: e => e.stopPropagation(), prevLb: () => this.stepLb(-1), nextLb: () => this.stepLb(1), flip: () => this.setState({ flipped:!s.flipped }),
       swipeStart: e => { this.sx = e.clientX; }, swipeEnd: e => { if (this.sx == null) return; const dx = e.clientX - this.sx; this.sx = null; if (Math.abs(dx) > 60) { this.swiped = true; this.stepLb(dx < 0 ? 1 : -1); setTimeout(() => { this.swiped = false; }, 50); } },
-      trackTitle: TRACK_TITLE, nowLabel: s.playing ? 'Now playing' : 'Ready when you are', liveOp: s.playing ? 1 : .3,
-      trackStatus: hasTrack ? 'Your edit. Press play when you’re ready.' : s.audioErr ? 'That file didn’t load. Check the path in trackSrc.' : 'No track yet. This is a silent preview of the scene timing.',
+      trackTitle: cur.title, arts, songs, credits, prevSong, nextSong, nowLabel: (s.playing ? 'Now playing' : 'Ready when you are') + ' · song ' + (s.song + 1) + ' of ' + SONGS.length, liveOp: s.playing ? 1 : .3,
+      trackStatus: s.audioErr ? 'This one didn’t load. Try the next song.' : cur.have ? 'Press play whenever you’re ready. The page turns with the music.' : 'This recording is on its way. Until then the page keeps the beat in silence.',
       playing:s.playing, notPlaying:!s.playing, playLabel: s.playing ? 'Pause' : 'Play',
       togglePlay: () => (s.playing ? this.pause() : this.play()), back10: () => this.seek(s.t - 10),
       timeStr: fmt(s.t), durStr: fmt(s.dur), dur:Math.round(s.dur), tRound:Math.round(s.t), pct:(s.t / s.dur * 100).toFixed(2),
       armRot: s.playing ? 'rotate(-26deg)' : 'rotate(-4deg)',
       seekBar: e => { const r = e.currentTarget.getBoundingClientRect(); this.seek(clamp((e.clientX - r.left) / r.width) * s.dur); },
       seekKey: e => { if (e.key === 'ArrowRight') { e.preventDefault(); this.seek(s.t + 5); } if (e.key === 'ArrowLeft') { e.preventDefault(); this.seek(s.t - 5); } },
-      cues: CUES.map((c, i) => { const on = i === activeCue && s.t > 0, past = c.t <= s.t && s.t > 0, ang = c.t / s.dur * 6.2832; return { ...c, n:'·', time: fmt(c.t), rx:(50 + 48 * Math.sin(ang)).toFixed(2), ry:(50 - 48 * Math.cos(ang)).toFixed(2), dot: past ? '#f0b45e' : 'rgba(255,230,210,.35)', bg: on ? '#2a1621' : 'transparent', col: on ? '#fffaf5' : '#2a1621', bd: on ? '#2a1621' : 'rgba(42,22,33,.18)', rowBg: on ? 'rgba(240,180,94,.14)' : 'transparent', rowCol: on ? '#fff3e0' : '#e6d6e2', go: () => this.seek(c.t) }; }),
+      cues: CUES.map((c, i) => { const on = i === activeCue && vtNow > 0 && (s.t > 0 || s.song > 0), past = c.t <= vtNow && (s.t > 0 || s.song > 0), cf = c.t / PREVIEW_DUR * SONGS.length, cs = Math.min(SONGS.length - 1, Math.floor(cf)), ang = (cf - cs) * 6.2832; return { ...c, n:'·', time: SONGS[cs].title, dop: cs === s.song ? 1 : 0, rx:(50 + 48 * Math.sin(ang)).toFixed(2), ry:(50 - 48 * Math.cos(ang)).toFixed(2), dot: past ? '#f0b45e' : 'rgba(255,230,210,.35)', bg: on ? '#2a1621' : 'transparent', col: on ? '#fffaf5' : '#2a1621', bd: on ? '#2a1621' : 'rgba(42,22,33,.18)', rowBg: on ? 'rgba(240,180,94,.14)' : 'transparent', rowCol: on ? '#fff3e0' : '#e6d6e2', go: () => this.jumpCue(c.t) }; }),
       follow:s.follow, toggleFollow: () => this.setState({ follow:!s.follow }),
       followTrack: s.follow ? '#f3a9bd' : 'rgba(255,230,210,.28)', followKnob: s.follow ? 'translateX(16px)' : 'translateX(0)',
       stars: STARS.map((p, i) => ({ x:p.x, y:p.y, num:'', tap: () => this.tapStar(i), aria: p.label + (s.lit[i] ? ', lit' : ''),
